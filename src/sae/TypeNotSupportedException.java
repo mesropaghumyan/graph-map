@@ -8,7 +8,7 @@ package sae;
  *
  * @author Loan
  */
-public class TypeNotSupportedException extends Exception{
+public class TypeNotSupportedException extends RuntimeException{
     private String message = "Type not supported";
     public TypeNotSupportedException(){
         super();

@@ -76,8 +76,13 @@ public class Map {
             Noeuds tmp;
             
             tmp = new Noeuds(voisinType,voisinNom);
-            System.out.println("ajout d'une ville"+this.addToListeVilles(tmp));
-            this.addToListeRoutes(new Liens(routeType,depart,tmp,routeLongueur));
+            System.out.println("ajout d'une ville "+this.addToListeVilles(tmp));
+            Liens tmp_lien = new Liens(routeType,depart,tmp,routeLongueur);
+            
+            depart.addConnection(tmp_lien);
+            System.out.println("Ville trouvé "+this.listeVilles+" vs "+voisinType+"   "+voisinNom);
+            System.out.println("Ville trouvé pour ajouter connnecttion "+this.getNoeudsByNameAndType(voisinType, voisinNom));
+            this.addToListeRoutes(tmp_lien);
             
             
         }
