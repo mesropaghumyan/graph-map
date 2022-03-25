@@ -36,12 +36,16 @@ public class Noeuds  {
     public String getType(){
         return typeNoeuds;
     }
+
+    public ArrayList<Liens> getConnection() {
+        return connection;
+    }
     
-    public boolean isConnection(Liens tmp){
+    public boolean containsConnection(Liens tmp){
         return connection.contains(tmp);
     }
     public boolean addConnection(Liens tmp){
-        if (!this.isConnection(tmp)){
+        if (!this.connection.contains(tmp)){
             this.connection.add(tmp);
             return true;
         }

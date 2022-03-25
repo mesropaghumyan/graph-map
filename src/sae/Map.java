@@ -54,48 +54,58 @@ public class Map {
    
     String[] voisins;
     
-    this.stringToListNoeuds(data);
+    //this.stringToListNoeuds(data); recupere to les noeuds de departs
     
     villeListe = data.split(";;");
     for(int i=0; i<villeListe.length;i++){
         voisins = villeListe[i].substring(villeListe[i].indexOf(":")+1,villeListe[i].length()).split(";");
-        System.out.println("ligne en cour de traitmenent"+villeListe[i]);
+       
 
         Noeuds depart = this.stringToNoeuds(villeListe[i]);
+        if (!this.addToListeVilles(depart)){
+                depart = this.getNoeudsByNameAndType(depart.getType(), depart.getNom());
+            }
         for(int z=0; z<voisins.length ;z++){
             String routeType;
             float routeLongueur;
             String voisinType;
             String voisinNom;
-            //System.out.println("Nom ville connecté : "+voisins[z].trim());
+           
             routeType = voisins[z].substring(0,voisins[z].indexOf(",")).trim();
             routeLongueur = Float.parseFloat( voisins[z].substring(voisins[z].indexOf(",")+1,voisins[z].indexOf(":")).trim());
             voisinType = voisins[z].substring(voisins[z].indexOf("::")+2,voisins[z].indexOf(",", voisins[z].indexOf(",") + 1)).trim();
             voisinNom = voisins[z].substring(voisins[z].indexOf(",", voisins[z].indexOf(",") + 1)+1,voisins[z].length()).trim();
-            //System.out.println("routeType "+routeType+" routeLongueur "+routeLongueur+" voisinType "+voisinType+" voisinNom "+voisinNom);
-            Noeuds tmp;
+          
             
-            tmp = new Noeuds(voisinType,voisinNom);
-            System.out.println("ajout d'une ville "+this.addToListeVilles(tmp));
+            Noeuds tmp = new Noeuds(voisinType,voisinNom);
+            if (!this.addToListeVilles(tmp)){
+                tmp = this.getNoeudsByNameAndType(voisinType, voisinNom);
+            }
+            
+            //Creation du lien
             Liens tmp_lien = new Liens(routeType,depart,tmp,routeLongueur);
             
-            depart.addConnection(tmp_lien);
-            System.out.println("Ville trouvé "+this.listeVilles+" vs "+voisinType+"   "+voisinNom);
-            System.out.println("Ville trouvé pour ajouter connnecttion "+this.getNoeudsByNameAndType(voisinType, voisinNom));
+            //Ajout de la connection au deux extréminté
+            if(depart.addConnection(tmp_lien) == true && tmp.addConnection(tmp_lien) == true){
+                System.out.println("[INFO] Lien ajouté : " + depart.getNom()+ " -> "+tmp.getNom());
+            }
+            
+
+          
             this.addToListeRoutes(tmp_lien);
             
             
+            
         }
+        this.listeVilles.add(depart);
+  
         
         
     }
     
    
-    System.out.println(data);
+    System.out.println("[INFO] Importation terminé");
 
-    System.out.println(listeVilles);
-    System.out.println(listeRoutes);
-    System.out.println(this.getVoisins(listeVilles.get(0)));
     
     
     
@@ -114,12 +124,17 @@ public class Map {
         }
         
     }
+    /**
+     * Extrait le nœud départ à partir d’un String.
+     * @param data
+     * @return 
+     */
     public Noeuds stringToNoeuds(String data){
       
             String villeInfo = data.substring(0,data.indexOf(":"));
             String villeType = villeInfo.substring(0,data.indexOf(",")).trim();
             String villeNom = villeInfo.substring(data.indexOf(",")+1,villeInfo.length()).trim();
-            System.out.println("Noeud trouvé Nom ville type: "+villeType+" Nom ville nom: "+villeNom);
+    
             try{
                 Noeuds newNoeuds = new Noeuds(villeType,villeNom);
                 return newNoeuds;
@@ -140,8 +155,9 @@ public class Map {
      * @param type Type du noeud
      * @return Retourne le noeud is trouver sinon null
      */
-    public Noeuds getNoeudsByNameAndType(String name, String type){
+    public Noeuds getNoeudsByNameAndType( String type,String name){
         for (Noeuds ville: listeVilles){
+            
             if(ville.getNom().equals(name) && ville.getType().equals(type)){
                 return ville;
             }
@@ -169,6 +185,7 @@ public class Map {
     public boolean addToListeVilles(Noeuds newVille){
         if(!this.isInListeVilles(newVille)){
             this.listeVilles.add(newVille);
+            System.out.println("[INFO] Noeud ajouté : "+newVille.getNom());
             return true;
         }
         return false;

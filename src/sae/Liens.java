@@ -39,7 +39,7 @@ public class Liens {
     }
     @Override
     public String toString(){
-        return typeLiens+"; "+noeuds1+"; "+noeuds2+"; "+poidsLiens+"; ";
+        return "[lien]->["+typeLiens+"; "+noeuds1+"; "+noeuds2+"; "+poidsLiens+";] ";
         
     }
     
@@ -58,8 +58,17 @@ public class Liens {
         final Liens other  = (Liens)obj;
         return (other.getPoidsLiens() == this.getPoidsLiens() && 
                 this.getTypeLiens().equals(other.getTypeLiens()) &&
-                this.getNoeuds1().equals(other.getNoeuds1()) && 
-                this.getNoeuds2().equals(other.getNoeuds2()));
+                (
+                (this.getNoeuds1().equals(other.getNoeuds1()) && 
+                this.getNoeuds2().equals(other.getNoeuds2()))
+                )
+                ||
+                (
+                (this.getNoeuds1().equals(other.getNoeuds2()) && 
+                this.getNoeuds2().equals(other.getNoeuds1()))
+                )
+                
+                );
     }
     public boolean estExtremite(Noeuds depart){
         return this.getNoeuds1().equals(depart) || this.getNoeuds2().equals(depart);
