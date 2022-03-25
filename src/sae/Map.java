@@ -89,18 +89,12 @@ public class Map {
             if(depart.addConnection(tmp_lien) == true && tmp.addConnection(tmp_lien) == true){
                 System.out.println("[INFO] Lien ajouté : " + depart.getNom()+ " -> "+tmp.getNom());
             }
-            
 
-          
             this.addToListeRoutes(tmp_lien);
-            
-            
-            
+  
         }
         this.listeVilles.add(depart);
-  
-        
-        
+   
     }
     
    
@@ -110,20 +104,7 @@ public class Map {
     
     
 }
-    /**
-     * La fonction extrait les nœuds et liens du string est les ajoute directement ceux trouvés dans leur liste respective.
-     * @param data Correspond a un string d'une ligne qui contient un graph GRAMA ex: V,Meyzieu:A,60::V,Macon;D,5::R,McDo-Decines;;
-     */
-    public void stringToListNoeuds(String data){
-        String[] villeListe = data.split(";;");
-        for(int i=0; i<villeListe.length;i++){
-            Noeuds newNoeuds = stringToNoeuds(villeListe[i]);           
-            if (newNoeuds != null){
-                listeVilles.add(newNoeuds);
-            }
-        }
-        
-    }
+ 
     /**
      * Extrait le nœud départ à partir d’un String.
      * @param data
@@ -201,7 +182,20 @@ public class Map {
         }
         return false;
     }
-    public ArrayList<Liens> getRoutes(Noeuds depart){
+    public boolean removeFromListeRoutes(Liens newRoute){
+        if(this.listeRoutes.contains(newRoute)){
+            this.listeRoutes.remove(newRoute);
+            return true;
+        }
+        return false;
+        
+    }
+
+    public ArrayList<Liens> getListeRoutes() {
+        return listeRoutes;
+    }
+    
+    public ArrayList<Liens> getCoonections(Noeuds depart){
         ArrayList<Liens> routesTrouver = new ArrayList<>();
         for(Liens tmpVoisin: this.listeRoutes){
             if(tmpVoisin.estExtremite(depart)){

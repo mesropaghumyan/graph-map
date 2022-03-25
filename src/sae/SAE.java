@@ -14,11 +14,10 @@ public class SAE {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Map m = new Map();
         m.loadMap("map.txt");
-        
-        // TODO code application logic here
+     
     }
     
 }
