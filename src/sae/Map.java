@@ -69,7 +69,7 @@ public class Map {
             try{
                 this.ajouterRoute(voisins[z], depart);
             }catch (StringIndexOutOfBoundsException e){
-                System.out.println("[WARNING] Une connection n'a pas pu etre ajouté, elle ne respect pas la structure");
+                System.out.println("\u001B[33m"+"[WARNING]"+"\u001B[0m"+" Une connection n'a pas pu etre ajouté, elle ne respect pas la structure");
             }
             catch(Exception e){
                 System.out.println(e);
@@ -85,7 +85,7 @@ public class Map {
     }
     
    
-    System.out.println("[INFO] Importation terminé");
+    System.out.println("\u001B[32m"+"[INFO]"+"\u001B[0m"+" Importation terminé");
 
     
     
@@ -153,7 +153,7 @@ public class Map {
     public boolean addToListeVilles(Noeuds newVille){
         if(!this.isInListeVilles(newVille)){
             this.listeVilles.add(newVille);
-            System.out.println("[INFO] Noeud ajouté : "+newVille.getNom());
+            System.out.println("\u001B[32m"+"[INFO]"+"\u001B[0m"+" Noeud ajouté : "+newVille.getNom());
             return true;
         }
         return false;
@@ -235,7 +235,7 @@ public class Map {
             
             //Ajout de la connection au deux extréminté
             if(depart.addConnection(tmp_lien) == true && tmp.addConnection(tmp_lien) == true){
-                System.out.println("[INFO] Lien ajouté : " + depart.getNom()+ " -> "+tmp.getNom());
+                System.out.println("\u001B[32m"+"[INFO]"+"\u001B[0m"+" Lien ajouté : " + depart.getNom()+ " -> "+tmp.getNom());
             }
 
             return this.addToListeRoutes(tmp_lien);
