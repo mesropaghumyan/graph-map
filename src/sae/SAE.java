@@ -16,7 +16,7 @@ public class SAE {
      */
     public static void main(String[] args) throws Exception {
         Map m = new Map();
-        m.loadMap("map.txt");
+        m.loadMap("test.txt");
      
     }
     

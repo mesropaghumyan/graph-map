@@ -66,31 +66,18 @@ public class Map {
                 depart = this.getNoeudsByNameAndType(depart.getType(), depart.getNom());
             }
         for(int z=0; z<voisins.length ;z++){
-            String routeType;
-            float routeLongueur;
-            String voisinType;
-            String voisinNom;
-           
-            routeType = voisins[z].substring(0,voisins[z].indexOf(",")).trim();
-            routeLongueur = Float.parseFloat( voisins[z].substring(voisins[z].indexOf(",")+1,voisins[z].indexOf(":")).trim());
-            voisinType = voisins[z].substring(voisins[z].indexOf("::")+2,voisins[z].indexOf(",", voisins[z].indexOf(",") + 1)).trim();
-            voisinNom = voisins[z].substring(voisins[z].indexOf(",", voisins[z].indexOf(",") + 1)+1,voisins[z].length()).trim();
-          
-            
-            Noeuds tmp = new Noeuds(voisinType,voisinNom);
-            if (!this.addToListeVilles(tmp)){
-                tmp = this.getNoeudsByNameAndType(voisinType, voisinNom);
+            try{
+                this.ajouterRoute(voisins[z], depart);
+            }catch (StringIndexOutOfBoundsException e){
+                System.out.println("[WARNING] Une connection n'a pas pu etre ajouté, elle ne respect pas la structure");
+            }
+            catch(Exception e){
+                System.out.println(e);
+                
             }
             
-            //Creation du lien
-            Liens tmp_lien = new Liens(routeType,depart,tmp,routeLongueur);
             
-            //Ajout de la connection au deux extréminté
-            if(depart.addConnection(tmp_lien) == true && tmp.addConnection(tmp_lien) == true){
-                System.out.println("[INFO] Lien ajouté : " + depart.getNom()+ " -> "+tmp.getNom());
-            }
-
-            this.addToListeRoutes(tmp_lien);
+            
   
         }
         this.listeVilles.add(depart);
@@ -212,6 +199,46 @@ public class Map {
                 villesTrouver.add(tmpVoisin.getOppose(depart));
             }
         return villesTrouver;
+        
+    }
+    public Liens stringToLiens(String data,Noeuds depart,Noeuds arriver) throws Exception{
+        String routeType;
+        float routeLongueur;
+            
+           
+        routeType = data.substring(0,data.indexOf(",")).trim();
+        routeLongueur = Float.parseFloat( data.substring(data.indexOf(",")+1,data.indexOf(":")).trim());
+        return new Liens(routeType,depart,arriver,routeLongueur);
+            
+        
+    }
+    public Noeuds stringToNoeudDroite(String data) throws Exception {
+        String voisinType;
+        String voisinNom;
+        voisinType = data.substring(data.indexOf("::")+2,data.indexOf(",", data.indexOf(",") + 1)).trim();
+        voisinNom = data.substring(data.indexOf(",", data.indexOf(",") + 1)+1,data.length()).trim();
+          
+            
+        Noeuds tmp = new Noeuds(voisinType,voisinNom);
+        return tmp;
+        
+    }
+    public Boolean ajouterRoute(String data, Noeuds depart) throws Exception{
+        
+            Noeuds tmp = this.stringToNoeudDroite(data);
+            if (!this.addToListeVilles(tmp)){
+                tmp = this.getNoeudsByNameAndType(tmp.getType(), tmp.getNom());
+            }
+            
+            //Creation du lien
+            Liens tmp_lien = this.stringToLiens(data, depart, tmp);
+            
+            //Ajout de la connection au deux extréminté
+            if(depart.addConnection(tmp_lien) == true && tmp.addConnection(tmp_lien) == true){
+                System.out.println("[INFO] Lien ajouté : " + depart.getNom()+ " -> "+tmp.getNom());
+            }
+
+            return this.addToListeRoutes(tmp_lien);
         
     }
     
