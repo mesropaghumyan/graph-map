@@ -241,6 +241,17 @@ public class Map {
             return this.addToListeRoutes(tmp_lien);
         
     }
+    public Boolean estA2Distance(Noeuds depart, Noeuds Arriver){
+        for (Liens voisin2Depart : depart.getConnection()){
+            for (Liens tmp :voisin2Depart.getOppose(depart).getConnection()){
+                if(tmp.getOppose(voisin2Depart.getOppose(depart)).equals(Arriver)){
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
     
 
 }

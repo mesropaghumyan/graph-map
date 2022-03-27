@@ -16,7 +16,8 @@ public class SAE {
      */
     public static void main(String[] args) throws Exception {
         Map m = new Map();
-        m.loadMap("test.txt");
+        m.loadMap("map.txt");
+        System.out.println(m.estA2Distance(m.listeVilles.get(0), m.listeVilles.get(1)));
      
     }
     
