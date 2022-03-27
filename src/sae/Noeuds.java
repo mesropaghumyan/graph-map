@@ -13,6 +13,7 @@ public class Noeuds  {
     String nomNoeuds;
     ArrayList<Liens> connection;
     Noeuds(String newtypeNoeuds, String newnomNoeuds) throws Exception{
+        newtypeNoeuds = newtypeNoeuds.toUpperCase();
         if (newtypeNoeuds.equals("V")  || newtypeNoeuds.equals("R") || newtypeNoeuds.equals("L") )
         {
             typeNoeuds = newtypeNoeuds;
@@ -48,6 +49,14 @@ public class Noeuds  {
         if (!this.connection.contains(tmp)){
             this.connection.add(tmp);
             return true;
+        }
+        return false;
+    }
+    public boolean estVoisin(Noeuds autre){
+        for (Liens tmp : this.connection){
+            if( tmp.getOppose(this).equals(autre)){
+                return true;
+            }
         }
         return false;
     }

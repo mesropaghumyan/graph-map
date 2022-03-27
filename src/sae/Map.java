@@ -252,6 +252,63 @@ public class Map {
         
         return false;
     }
+    public int ouvertureNoeuds(Noeuds depart){
+        int c=0;
+        ArrayList<Noeuds> skip = new ArrayList<Noeuds>();
+        skip.add(depart);
+    
+        for (Liens voisin2Depart : depart.getConnection()){
+            for (Liens tmp :voisin2Depart.getOppose(depart).getConnection()){
+               
+                if(!skip.contains(tmp.getOppose(voisin2Depart.getOppose(depart)))){
+                    skip.add(tmp.getOppose(voisin2Depart.getOppose(depart)));
+        
+                    c++;
+                 }
+            }
+        }
+        
+        return c;
+    }
+    
+    public int gastronomoieNoeuds(Noeuds depart){
+        int c=0;
+        for (Liens voisin2Depart : depart.getConnection()){
+            for (Liens tmp :voisin2Depart.getOppose(depart).getConnection()){
+                if(tmp.getOppose(voisin2Depart.getOppose(depart)).getType().equalsIgnoreCase("R") && !tmp.getOppose(voisin2Depart.getOppose(depart)).equals(depart)){
+                    c++;
+                }
+            }
+        }
+        
+        return c;
+    }
+    
+    public int cultureNoeuds(Noeuds depart){
+        int c=0;
+        for (Liens voisin2Depart : depart.getConnection()){
+            for (Liens tmp :voisin2Depart.getOppose(depart).getConnection()){
+                if(tmp.getOppose(voisin2Depart.getOppose(depart)).getType().equalsIgnoreCase("L") && !tmp.getOppose(voisin2Depart.getOppose(depart)).equals(depart)){
+                    c++;
+                }
+            }
+        }
+        
+        return c;
+    }
+    
+    //WARNING pas chack >= 2
+    public boolean estPlusOuvert(Noeuds sujet, Noeuds autre){
+        return (this.ouvertureNoeuds(sujet)> this.ouvertureNoeuds(autre));
+    }
+    
+    public boolean estPlusGastronomique(Noeuds sujet, Noeuds autre){
+        return (this.gastronomoieNoeuds(sujet)> this.gastronomoieNoeuds(autre));
+    }
+    
+    public boolean estPlusCulturel(Noeuds sujet, Noeuds autre){
+        return (this.cultureNoeuds(sujet)> this.cultureNoeuds(autre));
+    }
     
 
 }
