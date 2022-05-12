@@ -1,3 +1,60 @@
+L, Gare de Lyon-Paris:
+N,14::V, Seine-Saint-Denis;
+N,25::V, Nanterre;;
+
+L, La Grande-Motte:
+N,26::V, Montpellier;;
+
+L, MEGARAMA Saint-Gély-du-Fesc:
+N,6::V, Saint-Clément-de-Rivière;;
+
+L, Notre-Dame-du-Sacré-Coeur:
+A,463::L, Gare de Lyon-Paris;
+D,3::V, Miribel;;
+
+L, Piscine Municipale du Pic Saint-Loup:
+D,12::V, Saint-Clément-de-Rivière;
+N,23::V, Montpellier;;
+
+L, Stade de France-Saint-Denis:
+A,23::V, Créteil;
+N,12::V, Seine-Saint-Denis;;
+
+L, Théâtre de la Croix-Rousse:
+D,3::R, McDo Caluire;
+N,13::V, Ecully;;
+
+L, UGC Ciné Part-Dieu:
+D,3::V, La Doua;
+D,2::V, Villeurbanne Gratte-Ciel;;
+
+R, BurgerS Vaulx:
+A,7::V, Villeurbanne Gratte-Ciel;
+D,4::V, Decines-Charpieu;
+A,10::V, Rillieux;;
+
+R, Hamamet Tacos Charpennes:
+D,1::V, Villeurbanne Gratte-Ciel;
+D,2::V, La Doua;;
+
+R, La Boucherie:
+D,2::V, Saint-Clément-de-Rivière;;
+
+R, La Perle de Saint-Louis-Versailles:
+A,17::V, Nanterre;
+D,33::V, Créteil;;
+
+R, McDo Caluire:
+D,3::L, Théâtre de la Croix-Rousse;
+D,5::V, Rillieux;;
+
+R, Restaurant/Brasserie l'Hadrien:
+N,12::V, Saint-Clément-de-Rivière;
+D,1::V, Claret;;
+
+R, Tout en crêpe:
+D,1::V, Claret;;
+
 V,Chabeuil:
 N,12::V, Valence;;
 
@@ -66,7 +123,7 @@ N,6::L, MEGARAMA Saint-Gély-du-Fesc;
 N,12::R, Restaurant/Brasserie l'Hadrien;
 N,26::V, Claret;;
 
-V,Parilly:
+V,Seine-Saint-Denis:
 N,14::L, Gare de Lyon-Paris;
 N,12::L, Stade de Frane-Saint-Denis;;
 
@@ -87,4 +144,3 @@ A,7::R, BurgerS Vaulx;
 D,3::V, La Doua;
 D,2::L, UGC Ciné Part-Dieu;
 D,1::R, Hamamet Tacos Charpennes;;
-
