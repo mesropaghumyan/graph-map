@@ -16,14 +16,20 @@ public class SAE {
      */
     public static void main(String[] args) throws Exception {
         Map m = new Map();
-        m.loadMap("test.txt");
+        m.loadMap("map.csv");
         System.out.println(m.gastronomoieNoeuds(m.listeVilles.get(0)));
         System.out.println(m.gastronomoieNoeuds(m.listeVilles.get(1)));
         
         System.out.println(m.ouvertureNoeuds(m.listeVilles.get(0)));
         System.out.println(m.ouvertureNoeuds(m.listeVilles.get(1)));
         
+        
+        
+        
         System.out.println(m.estPlusCulturel(m.listeVilles.get(0), m.listeVilles.get(1)));
+        
+        
+        new IHM();
         
      
     }
