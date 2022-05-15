@@ -16,7 +16,7 @@ public class SAE {
      */
     public static void main(String[] args) throws Exception {
         Map m = new Map();
-        m.loadMap("map.csv");
+        m.loadMap("map2.csv");
         System.out.println(m.gastronomoieNoeuds(m.listeVilles.get(0)));
         System.out.println(m.gastronomoieNoeuds(m.listeVilles.get(1)));
         
@@ -29,7 +29,7 @@ public class SAE {
         System.out.println(m.estPlusCulturel(m.listeVilles.get(0), m.listeVilles.get(1)));
         
         
-        new IHM();
+        new IHM(m.listeVilles,m.listeRoutes);
         
      
     }
