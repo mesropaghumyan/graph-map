@@ -7,6 +7,7 @@ package sae;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
@@ -18,6 +19,7 @@ import javax.swing.JPanel;
 public class Carte extends JPanel{
     ArrayList<Noeuds> toDraw;
     ArrayList<Liens> toDrawLiens;
+    int circleWidth = 20;
 
     public Carte() {
         this.toDraw = new ArrayList<>();
@@ -30,7 +32,7 @@ public class Carte extends JPanel{
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
         
         g.setColor(Color.BLACK);
-        int width = 50;
+        int width = circleWidth;
         for(int i=0; i<toDrawLiens.size();i++){
             Noeuds noeudsUn = toDrawLiens.get(i).getNoeuds1();
             Noeuds noeudsDeux = toDrawLiens.get(i).getNoeuds2();
@@ -76,28 +78,54 @@ public class Carte extends JPanel{
     }
     
     public void init(){
-        boolean edit = false;
+        Random random = new Random();
+     
+        for(Noeuds tmpNoeuds2 : toDraw){
+            
+            tmpNoeuds2.setPosX(random.nextInt(0, this.getSize().width));
+            tmpNoeuds2.setPosY(random.nextInt(0, this.getSize().height));
+
+            
+        }
+        run();
+    }
+    
+    public void run(){
+        boolean edit = true;
         
-        for(int i=0; i<1000; i++){
+        //for(int i=0; i<2000; i++){
+        
+        while (edit){
+            edit = false;
             for(Noeuds tmp : toDraw){
             int tmpPosX =0;
             int tmpPosY =0;
-            int goal = 150;
-            int minSpace = 100;
-            edit = false;
+            int goal = 100;
+           
+            int minSpace = 80;
             
+            
+ 
             for(Noeuds tmpNoeuds2 : toDraw){
-                tmpPosX += tmp.getPosDeltaX(tmpNoeuds2, minSpace);
-                tmpPosY += tmp.getPosDeltaY(tmpNoeuds2, minSpace); 
+                tmpPosX += tmp.getPosDeltaX(tmpNoeuds2, minSpace)*0.5;
+                tmpPosY += tmp.getPosDeltaY(tmpNoeuds2, minSpace)*0.5; 
+       
+     
             }
-            for(Noeuds tmpNoeuds : tmp.getVoisin()){
+ 
+   
+            for(Noeuds tmpNoeuds : toDraw){
                 
                 //System.out.println(" diresction "+direction+" dsiatnce "+(Math.sqrt(dX*dX)+(dY*dY)));
-                tmpPosX += tmp.getDeltaX(tmpNoeuds,(int) tmp.getDistanceFromVoisin(tmpNoeuds));
-                tmpPosY += tmp.getDeltaY(tmpNoeuds, (int) tmp.getDistanceFromVoisin(tmpNoeuds));
+                //tmpPosX += tmp.getDeltaX(tmpNoeuds,(int) tmp.getDistanceFromVoisin(tmpNoeuds));
+                //tmpPosY += tmp.getDeltaY(tmpNoeuds, (int) tmp.getDistanceFromVoisin(tmpNoeuds));
+                
+                //important ne va plus se raprocher de ses voisins
+                tmpPosX -= tmp.getDeltaX(tmpNoeuds,goal);
+                tmpPosY -= tmp.getDeltaY(tmpNoeuds, goal);
             }
             
-            if (tmpPosX+tmpPosY !=0){
+            if (tmpPosY !=0 && tmpPosX != 0){
                 /*
                 System.out.println(tmp+" "+tmpPosX +" "+tmpPosY);
                 System.out.println("    |_>"+( - (int) tmpPosX)+" "+
@@ -110,8 +138,8 @@ public class Carte extends JPanel{
             
      
  
-            tmp.setPosX((int) ((tmp.getPosX()) - (int) tmpPosX),this.getSize().width);
-            tmp.setPosY((int) ((tmp.getPosY()) - (int) tmpPosY),this.getSize().height);
+            tmp.setPosX((int) ((tmp.getPosX()) + (int) tmpPosX),this.getSize().width);
+            tmp.setPosY((int) ((tmp.getPosY()) + (int) tmpPosY),this.getSize().height);
     
             
             
