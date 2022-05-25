@@ -62,12 +62,15 @@ public class Map {
        
 
         Noeuds depart = this.stringToNoeuds(villeListe[i]);
+        
         if (!this.addToListeVilles(depart)){
                 depart = this.getNoeudsByNameAndType(depart.getType(), depart.getNom());
             }
         for(int z=0; z<voisins.length ;z++){
             try{
+                
                 this.ajouterRoute(voisins[z], depart);
+                
             }catch (StringIndexOutOfBoundsException e){
                 System.out.println("\u001B[33m"+"[WARNING]"+"\u001B[0m"+" Une connection n'a pas pu etre ajouté, elle ne respect pas la structure");
             }
@@ -80,7 +83,10 @@ public class Map {
             
   
         }
-        this.listeVilles.add(depart);
+        if (!listeVilles.contains(depart)   ){
+            this.listeVilles.add(depart);
+        }
+        
    
     }
     
@@ -151,7 +157,8 @@ public class Map {
      * @return Retourne true si le nœud a été ajouté sinon false.
      */
     public boolean addToListeVilles(Noeuds newVille){
-        if(!this.isInListeVilles(newVille)){
+        
+        if(!listeVilles.contains(newVille)){
             this.listeVilles.add(newVille);
             System.out.println("\u001B[32m"+"[INFO]"+"\u001B[0m"+" Noeud ajouté : "+newVille.getNom());
             return true;
@@ -229,13 +236,13 @@ public class Map {
             if (!this.addToListeVilles(tmp)){
                 tmp = this.getNoeudsByNameAndType(tmp.getType(), tmp.getNom());
             }
-            
+     
             //Creation du lien
             Liens tmp_lien = this.stringToLiens(data, depart, tmp);
             
             //Ajout de la connection au deux extréminté
             if(depart.addConnection(tmp_lien) == true && tmp.addConnection(tmp_lien) == true){
-                System.out.println("\u001B[32m"+"[INFO]"+"\u001B[0m"+" Lien ajouté : " + depart.getNom()+ " -> "+tmp.getNom());
+                System.out.println("\u001B[32m"+"[INFO]"+"\u001B[0m"+" Lien ajouté : " + depart.getNom()+ " -> "+tmp.getNom()+" "+tmp_lien.poidsLiens+"km");
             }
 
             return this.addToListeRoutes(tmp_lien);

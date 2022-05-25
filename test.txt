@@ -1,2 +1,0 @@
-V, Macon: A,60::;;
-V,Meyzieu:A,60::V,Macon;D,5::R,McDo-Decines;;

@@ -72,6 +72,23 @@ public class IHM extends JFrame{
         
     }
     
+    public IHM(ArrayList<Noeuds> toDraw, ArrayList<Liens> toDrawLiens) throws HeadlessException, Exception {
+        
+        this.setTitle("IHM");
+        this.setSize(800, 600);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        this.toDraw = toDraw;
+        this.toDrawLiens = toDrawLiens;
+        
+        this.initContent();
+        this.setVisible(true);
+        
+        fondDeCarte.init();
+        fondDeCarte.run();
+        
+    }
+    
     private void initContent(){
         
         

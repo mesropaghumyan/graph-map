@@ -27,29 +27,18 @@ public class Noeuds  {
             typeNoeuds = newtypeNoeuds;
             nomNoeuds = newnomNoeuds;
             connection = new ArrayList<>();
+            vPosX = 1;
+            vPosY= 1;
+            labelNoeuds = new JLabel(newnomNoeuds);
+            labelNoeuds.setBounds(0, 0, 70, 20);
+            labelNoeuds.setLocation(0, 20);
         }else{
             throw new TypeNotSupportedException();
         }
         
     }
     
-    Noeuds(String newtypeNoeuds, String newnomNoeuds, int x, int y) throws Exception{
-        newtypeNoeuds = newtypeNoeuds.toUpperCase();
-        if (newtypeNoeuds.equals("V")  || newtypeNoeuds.equals("R") || newtypeNoeuds.equals("L") )
-        {
-            typeNoeuds = newtypeNoeuds;
-            nomNoeuds = newnomNoeuds;
-            connection = new ArrayList<>();
-            vPosX = x;
-            vPosY= y;
-        }else{
-            throw new TypeNotSupportedException();
-        }
-        labelNoeuds = new JLabel(newnomNoeuds);
-        labelNoeuds.setBounds(0, 0, 70, 20);
-        labelNoeuds.setLocation(x, y);
-        
-    }
+    
     
     Noeuds(String newtypeNoeuds, String newnomNoeuds, JFrame pan) throws Exception{
         newtypeNoeuds = newtypeNoeuds.toUpperCase();
@@ -68,7 +57,7 @@ public class Noeuds  {
             throw new TypeNotSupportedException();
         }
         labelNoeuds = new JLabel(newnomNoeuds);
-        labelNoeuds.setBounds(0, 0, 70, 20);
+        labelNoeuds.setBounds(0, 0, 120, 20);
         labelNoeuds.setLocation(x, y);
         
         
@@ -87,7 +76,7 @@ public class Noeuds  {
         return typeNoeuds;
     }
     public void updateLabelPos(){
-        labelNoeuds.setLocation(vPosX-30,vPosY);
+        labelNoeuds.setLocation(vPosX-30,vPosY-15);
         
     }
 
@@ -139,6 +128,7 @@ public class Noeuds  {
             return false;
         }
         final Noeuds other  = (Noeuds)obj;
+        
         return (this.getNom().equals(other.getNom())&&this.getType().equals(other.getType()));
          
     }
@@ -201,13 +191,28 @@ public class Noeuds  {
         }
         int dX = tmpVoisin.getPosX()- this.getPosX();
         int dY = tmpVoisin.getPosY()- this.getPosY();
-        int direction =0;
-        
-        if (Math.sqrt((dX*dX)+(dY*dY))< 0.95*goal){
-            System.out.println("x "+Math.sqrt((dX*dX)+(dY*dY))+" ; "+0.95*goal+ " ; "+(dX-goal)*direction*0.05);
-            direction = 1;
+        int move =0;
+        int direction = 1;
+        if (dX !=0){
+            direction = dX/Math.abs(dX)*(-1);
+        }else{
+            return goal; 
+            
         }
-        return (dX-goal)*direction*0.05;
+        
+        //ALED GIGA EREUR
+        if (Math.sqrt((dX*dX)+(dY*dY))< 0.95*goal){
+            move = 1;
+            
+        }
+        int res = (int) (goal - Math.sqrt((dX*dX)+(dY*dY))) *move *direction;
+        
+        
+        if (move == 1){
+            System.out.println("x dir "+direction+" ; dist "+(int)Math.sqrt((dX*dX)+(dY*dY))+" ; goal "+0.95*goal+ " ; "+this.vPosX+"+("+res+") ; extecpt "+ (int)Math.sqrt((dY*dY)+((dX-res)*(dX-res)))+"; pour "+tmpVoisin.getNom().substring(0, 3));
+        }
+        
+        return res;
     }
     public double getPosDeltaY(Noeuds tmpVoisin, int goal){
         if(tmpVoisin.equals(this)){
@@ -215,13 +220,29 @@ public class Noeuds  {
         }
         int dX = tmpVoisin.getPosX()- this.getPosX()+(tmpVoisin.width/2)-(this.width/2);
         int dY = tmpVoisin.getPosY()- this.getPosY()+(tmpVoisin.width/2)-(this.width/2);
-        int direction =0;
+        int move =0;
+        int direction = 1;
+        
+        if (dY !=0){
+            direction = dY/Math.abs(dY)*(-1);
+        }else{
+            return goal; 
+            
+        }
         
         if (Math.sqrt((dX*dX)+(dY*dY))< 0.95*goal){
-            System.out.println("y "+Math.sqrt((dX*dX)+(dY*dY))+" ; "+0.95*goal+ " ; "+(dY-goal)*direction*0.05);
-            direction = 1;
+            
+            move = 1;
+     
         }
-        return (dY-goal)*direction*0.05;
+        //(dY-goal)*direction*0.05;
+        int res = (int) (goal - Math.sqrt((dX*dX)+(dY*dY))) *move*direction;
+        
+        if (move == 1){
+            System.out.println("y dir "+direction+" ; dist "+(int)Math.sqrt((dX*dX)+(dY*dY))+" ; goal "+0.95*goal+ " ; "+this.vPosY+"+("+res+") ; extecpt "+ (int)Math.sqrt((dX*dX)+((dY-res)*(dY-res)))+"; pour "+tmpVoisin.getNom().substring(0, 3));
+        }
+        
+        return res;
     }
     
     public float getDistanceFromVoisin(Noeuds tmpVoisin){

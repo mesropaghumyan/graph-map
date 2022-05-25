@@ -121,8 +121,8 @@ public class Carte extends JPanel{
                 //tmpPosY += tmp.getDeltaY(tmpNoeuds, (int) tmp.getDistanceFromVoisin(tmpNoeuds));
                 
                 //important ne va plus se raprocher de ses voisins
-                tmpPosX -= tmp.getDeltaX(tmpNoeuds,goal);
-                tmpPosY -= tmp.getDeltaY(tmpNoeuds, goal);
+                //tmpPosX -= tmp.getDeltaX(tmpNoeuds,goal);
+                //tmpPosY -= tmp.getDeltaY(tmpNoeuds, goal);
             }
             
             if (tmpPosY !=0 && tmpPosX != 0){
