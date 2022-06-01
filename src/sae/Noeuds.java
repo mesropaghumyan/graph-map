@@ -44,8 +44,8 @@ public class Noeuds  {
         newtypeNoeuds = newtypeNoeuds.toUpperCase();
         Random random = new Random();
         System.out.println( pan.getSize().width);
-        int x = random.nextInt(0, pan.getSize().width);
-        int y = random.nextInt(0, pan.getSize().height);
+        int x = random.nextInt( pan.getSize().width);
+        int y = random.nextInt( pan.getSize().height);
         if (newtypeNoeuds.equals("V")  || newtypeNoeuds.equals("R") || newtypeNoeuds.equals("L") )
         {
             typeNoeuds = newtypeNoeuds;
