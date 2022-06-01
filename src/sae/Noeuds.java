@@ -30,7 +30,7 @@ public class Noeuds  {
             vPosX = 1;
             vPosY= 1;
             labelNoeuds = new JLabel(newnomNoeuds);
-            labelNoeuds.setBounds(0, 0, 70, 20);
+            labelNoeuds.setBounds(0, 0, 200, 20);
             labelNoeuds.setLocation(0, 20);
         }else{
             throw new TypeNotSupportedException();
@@ -76,7 +76,7 @@ public class Noeuds  {
         return typeNoeuds;
     }
     public void updateLabelPos(){
-        labelNoeuds.setLocation(vPosX-30,vPosY-15);
+        labelNoeuds.setLocation(vPosX-nomNoeuds.length()*3,vPosY-15);
         
     }
 

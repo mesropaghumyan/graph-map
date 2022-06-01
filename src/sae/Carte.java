@@ -5,7 +5,10 @@
 package sae;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -22,19 +25,48 @@ public class Carte extends JPanel{
     ArrayList<Noeuds> toDraw;
     ArrayList<Liens> toDrawLiens;
     int circleWidth = 20;
+    int edgeMarginV = 1*circleWidth;
+    int edgeMarginH = (int)4.5*circleWidth;
+    boolean running =false;
+    JPanel colorIndicator = null;
+    
+
+                
 
     public Carte() {
+       
         this.toDraw = new ArrayList<>();
         this.toDrawLiens = new ArrayList<>();
         this.addMouseListener(new NoeudsSelecter());
+        
+        
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent ev) {
+                if (!toDraw.isEmpty() && !running){
+                    Thread palceThreadtmp = new Thread(() -> {
+                        run();
+                        });
+                    palceThreadtmp.start();
+                }
+                
+                
+                
+                
+                    
+            }
+            
+        });
     }
-    
+    public void addColorIndicator(JPanel indi){
+        colorIndicator= indi;
+    }
     @Override
     public void paintComponent(Graphics g){
         g.setColor(this.getBackground());
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
         
-        g.setColor(Color.BLACK);
+        g.setColor(Color.GRAY);
         int width = circleWidth;
         for(int i=0; i<toDrawLiens.size();i++){
             Noeuds noeudsUn = toDrawLiens.get(i).getNoeuds1();
@@ -59,6 +91,7 @@ public class Carte extends JPanel{
     }
     
     public void paintLabel(){
+        this.removeAll();
         for(Noeuds tmp: toDraw){
             this.add(tmp.getLabelNoeuds());
             
@@ -81,31 +114,43 @@ public class Carte extends JPanel{
     }
     
     public void init(){
+        if (colorIndicator != null){
+            colorIndicator.setBackground(Color.yellow);}
         Random random = new Random();
      
         for(Noeuds tmpNoeuds2 : toDraw){
             
-            tmpNoeuds2.setPosX(random.nextInt( this.getSize().width));
-            tmpNoeuds2.setPosY(random.nextInt(this.getSize().height));
+            tmpNoeuds2.setPosX(random.nextInt(edgeMarginH, this.getSize().width-edgeMarginH));
+            tmpNoeuds2.setPosY(random.nextInt(edgeMarginV, this.getSize().height-edgeMarginV));
 
             
         }
-        run();
+        if (!toDraw.isEmpty() && !running){
+                    Thread palceThreadtmp = new Thread(() -> {
+                        run();
+                        });
+                    palceThreadtmp.start();
+                }
     }
     
     public void run(){
+        running = true;
         boolean edit = true;
         
         //for(int i=0; i<2000; i++){
         
         while (edit){
             edit = false;
+            Dimension tmpSize = this.getSize();
+            int maxH =  tmpSize.width-edgeMarginH-circleWidth/2;
+            int maxV = tmpSize.height-edgeMarginV-circleWidth/2 ;
             for(Noeuds tmp : toDraw){
-            int tmpPosX =0;
-            int tmpPosY =0;
-            int goal = 100;
-           
-            int minSpace = 80;
+                
+                int tmpPosX = tmp.getPosX();
+                int tmpPosY = tmp.getPosY();
+                int goal = 100;
+
+                int minSpace = 85;
             
             
  
@@ -124,25 +169,26 @@ public class Carte extends JPanel{
                 //tmpPosY += tmp.getDeltaY(tmpNoeuds, (int) tmp.getDistanceFromVoisin(tmpNoeuds));
                 
                 //important ne va plus se raprocher de ses voisins
-                tmpPosX -= tmp.getDeltaX(tmpNoeuds,goal)*0.1;
-                tmpPosY -= tmp.getDeltaY(tmpNoeuds, goal)*0.1;
+                //tmpPosX -= tmp.getDeltaX(tmpNoeuds,goal)*0.1;
+                //tmpPosY -= tmp.getDeltaY(tmpNoeuds, goal)*0.1;
             }
             
-            if (tmpPosY !=0 && tmpPosX != 0){
-                /*
-                System.out.println(tmp+" "+tmpPosX +" "+tmpPosY);
-                System.out.println("    |_>"+( - (int) tmpPosX)+" "+
-                        ( - (int) tmpPosY));
-                */
+            if (tmpPosY != tmp.getPosY() && tmpPosX != tmp.getPosX()){
+        
                 System.out.println(tmp.getNom());
                 edit = true;
                 
             }
             
-     
- 
-            tmp.setPosX((int) ((tmp.getPosX()) + (int) tmpPosX),this.getSize().width);
-            tmp.setPosY((int) ((tmp.getPosY()) + (int) tmpPosY),this.getSize().height);
+            
+            tmpPosX = (int) (tmpPosX > maxH ? maxH -tmpPosX%maxH*0: tmpPosX);
+            tmpPosY = (int) (tmpPosY > maxV ?maxV - tmpPosY%maxV*0: tmpPosY) ;
+            
+            tmpPosX = tmpPosX < edgeMarginH-circleWidth/2 ? tmpPosX +edgeMarginH-circleWidth/2: tmpPosX ;
+            tmpPosY = tmpPosY < edgeMarginV-circleWidth/2 ? tmpPosY +edgeMarginV-circleWidth/2: tmpPosY ;
+            
+            tmp.setPosX(tmpPosX );
+            tmp.setPosY(tmpPosY);
     
             
             
@@ -161,7 +207,9 @@ public class Carte extends JPanel{
             
         }
         
-        
+        running =false;
+        if (colorIndicator != null){
+            colorIndicator.setBackground(Color.green);}
         
     }
     

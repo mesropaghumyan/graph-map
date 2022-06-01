@@ -4,10 +4,12 @@
  * and open the template in the editor.
  */
 package sae;
+import java.awt.Color;
 import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.Scanner;
 import java.util.ArrayList;
+import javax.swing.JPanel;
 
 /**
  *
@@ -16,12 +18,28 @@ import java.util.ArrayList;
 public class Map {
     ArrayList<Noeuds> listeVilles;
     ArrayList<Liens> listeRoutes;
+    JPanel colorIndicator = null;
     Map(){
         listeVilles = new ArrayList<>();
         listeRoutes = new ArrayList<>();
         
     }
+    
+    public void addColorIndicator(JPanel indi){
+        
+        colorIndicator= indi;
+        System.out.println("colorIndicator"+colorIndicator+ "added");
+    }
+    
     public void loadMap(String filename){
+        if (colorIndicator != null){
+            colorIndicator.setBackground(Color.yellow);
+       
+        }
+     
+        
+        listeVilles = new ArrayList<>();
+        listeRoutes = new ArrayList<>();
     String res_file = "";
     try{
         File fileMap = new File(filename);
@@ -33,13 +51,19 @@ public class Map {
         }
         fileReader.close();
         this.stringMap(res_file);
+        if (colorIndicator != null){
+            colorIndicator.setBackground(Color.green);}
         
         
     } catch (FileNotFoundException e){
         System.out.println("Fichier introuvable");
+         if (colorIndicator != null){
+            colorIndicator.setBackground(Color.red);}
         
     }catch (Exception e){
         System.out.println(e);
+        if (colorIndicator != null){
+            colorIndicator.setBackground(Color.red);}
         
     }
     
