@@ -6,6 +6,8 @@ package sae;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
@@ -24,6 +26,7 @@ public class Carte extends JPanel{
     public Carte() {
         this.toDraw = new ArrayList<>();
         this.toDrawLiens = new ArrayList<>();
+        this.addMouseListener(new NoeudsSelecter());
     }
     
     @Override
@@ -82,8 +85,8 @@ public class Carte extends JPanel{
      
         for(Noeuds tmpNoeuds2 : toDraw){
             
-            tmpNoeuds2.setPosX(random.nextInt(0, this.getSize().width));
-            tmpNoeuds2.setPosY(random.nextInt(0, this.getSize().height));
+            tmpNoeuds2.setPosX(random.nextInt( this.getSize().width));
+            tmpNoeuds2.setPosY(random.nextInt(this.getSize().height));
 
             
         }
@@ -121,8 +124,8 @@ public class Carte extends JPanel{
                 //tmpPosY += tmp.getDeltaY(tmpNoeuds, (int) tmp.getDistanceFromVoisin(tmpNoeuds));
                 
                 //important ne va plus se raprocher de ses voisins
-                //tmpPosX -= tmp.getDeltaX(tmpNoeuds,goal);
-                //tmpPosY -= tmp.getDeltaY(tmpNoeuds, goal);
+                tmpPosX -= tmp.getDeltaX(tmpNoeuds,goal)*0.1;
+                tmpPosY -= tmp.getDeltaY(tmpNoeuds, goal)*0.1;
             }
             
             if (tmpPosY !=0 && tmpPosX != 0){
@@ -162,6 +165,34 @@ public class Carte extends JPanel{
         
     }
     
+    
+    
+    
+    
+    public class NoeudsSelecter extends MouseAdapter{
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            super.mouseClicked(e);
+            Noeuds clossest = null;
+            double d;
+            double best_lengest = Integer.MAX_VALUE;
+            for (Noeuds i : toDraw){
+                
+                d =   Math.pow(e.getX() - i.getPosX()-i.width/4,2)+  Math.pow(e.getY()-i.getPosY()-i.width/4,2);
+                d=  Math.sqrt(d);
+                if (d<best_lengest){
+                    best_lengest = d;
+                    clossest = i;
+                }
+                
+            }
+            System.out.println((int)best_lengest+" "+clossest+" X " + e.getX() + " Y " + e.getY());
+        }
+    
+        
+    
+}
     
     
 }
