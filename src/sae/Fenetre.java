@@ -20,8 +20,6 @@ public class Fenetre extends javax.swing.JFrame {
     
     Map m = new Map();
     JFileChooser fileChooser;
-    
-    
 
     /**
      * Creates new form Fenetre
@@ -33,7 +31,7 @@ public class Fenetre extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-             
+                
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
@@ -53,7 +51,7 @@ public class Fenetre extends javax.swing.JFrame {
         myinit();
         setSize(900, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      
+        
         setVisible(true);
     }
 
@@ -66,6 +64,12 @@ public class Fenetre extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        subPanelVoisin1 = new javax.swing.JPanel();
+        colorFileLoading1 = new javax.swing.JPanel();
+        labelFileLoading1 = new javax.swing.JLabel();
+        colorLocating1 = new javax.swing.JPanel();
+        labelLocating1 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
         sidePanel = new javax.swing.JPanel();
         subPanelChanger = new javax.swing.JPanel();
         labelMode = new javax.swing.JLabel();
@@ -105,6 +109,75 @@ public class Fenetre extends javax.swing.JFrame {
         menuEdition = new javax.swing.JMenu();
         itemRedispose = new javax.swing.JMenuItem();
 
+        colorFileLoading1.setBackground(new java.awt.Color(255, 255, 255));
+        colorFileLoading1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+
+        javax.swing.GroupLayout colorFileLoading1Layout = new javax.swing.GroupLayout(colorFileLoading1);
+        colorFileLoading1.setLayout(colorFileLoading1Layout);
+        colorFileLoading1Layout.setHorizontalGroup(
+            colorFileLoading1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 29, Short.MAX_VALUE)
+        );
+        colorFileLoading1Layout.setVerticalGroup(
+            colorFileLoading1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        labelFileLoading1.setText("Chargement du Fichier");
+
+        colorLocating1.setBackground(new java.awt.Color(255, 255, 255));
+        colorLocating1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+
+        javax.swing.GroupLayout colorLocating1Layout = new javax.swing.GroupLayout(colorLocating1);
+        colorLocating1.setLayout(colorLocating1Layout);
+        colorLocating1Layout.setHorizontalGroup(
+            colorLocating1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        colorLocating1Layout.setVerticalGroup(
+            colorLocating1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        labelLocating1.setText("Positionnement");
+
+        javax.swing.GroupLayout subPanelVoisin1Layout = new javax.swing.GroupLayout(subPanelVoisin1);
+        subPanelVoisin1.setLayout(subPanelVoisin1Layout);
+        subPanelVoisin1Layout.setHorizontalGroup(
+            subPanelVoisin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(subPanelVoisin1Layout.createSequentialGroup()
+                .addGroup(subPanelVoisin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(subPanelVoisin1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator3))
+                    .addGroup(subPanelVoisin1Layout.createSequentialGroup()
+                        .addContainerGap(31, Short.MAX_VALUE)
+                        .addGroup(subPanelVoisin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(colorFileLoading1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(colorLocating1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(34, 34, 34)
+                        .addGroup(subPanelVoisin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelLocating1)
+                            .addComponent(labelFileLoading1))
+                        .addGap(0, 25, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        subPanelVoisin1Layout.setVerticalGroup(
+            subPanelVoisin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(subPanelVoisin1Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(subPanelVoisin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(colorFileLoading1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelFileLoading1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addGroup(subPanelVoisin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(colorLocating1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelLocating1))
+                .addGap(14, 14, 14)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(270, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         sidePanel.setLayout(new java.awt.BorderLayout(10, 10));
@@ -115,7 +188,7 @@ public class Fenetre extends javax.swing.JFrame {
         labelMode.setText("Mode");
         subPanelChanger.add(labelMode);
 
-        modeChooser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Information", "Item 2", "Item 3", "Item 4" }));
+        modeChooser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Information", "Voisinage direct", "Voisinage à 2 sauts", "Comp à 2 >= sauts " }));
         modeChooser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 modeChooserActionPerformed(evt);
@@ -297,13 +370,13 @@ public class Fenetre extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(nbrDepartementales))))))
                     .addGroup(subPanelInfoLayout.createSequentialGroup()
-                        .addContainerGap(22, Short.MAX_VALUE)
+                        .addContainerGap(45, Short.MAX_VALUE)
                         .addComponent(labelAffichage)
                         .addGap(18, 18, 18)
                         .addComponent(labelType)
                         .addGap(66, 66, 66)
                         .addComponent(labelNombre)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         subPanelInfoLayout.setVerticalGroup(
             subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -414,7 +487,7 @@ public class Fenetre extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void myinit(){
+    private void myinit() {
         fileChooser = new JFileChooser();
         //fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         fileChooser.setCurrentDirectory(new File("D:/COUR/2022/JAVA/sae-java"));
@@ -422,8 +495,9 @@ public class Fenetre extends javax.swing.JFrame {
         carte.addColorIndicator(colorLocating);
         m.addColorIndicator(colorFileLoading);
         
+        sidePanel.add(subPanelVoisin1);
+        subPanelVoisin1.setVisible(false);
         
-       
     }
     private void itemOuvrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemOuvrirActionPerformed
         
@@ -436,7 +510,7 @@ public class Fenetre extends javax.swing.JFrame {
             carte.setToDraw(m.listeVilles);
             carte.setToDrawLiens(m.listeRoutes);
             Thread newThread = new Thread(() -> {
-            carte.init();
+                carte.init();
             });
             newThread.start();
             nbrLoisirs.setText(Integer.toString(m.getNbLoisirs()));
@@ -451,17 +525,42 @@ public class Fenetre extends javax.swing.JFrame {
     }//GEN-LAST:event_itemOuvrirActionPerformed
 
     private void itemRedisposeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRedisposeActionPerformed
-       
-            carte.init();
-      
+        
+        carte.init();
+        
     }//GEN-LAST:event_itemRedisposeActionPerformed
 
     private void modeChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeChooserActionPerformed
-        // TODO add your handling code here:
+
+        if(sidePanel.getComponents().length>1){
+            //sidePanel.remove(1);
+            subPanelInfo.setVisible(false);
+            subPanelVoisin1.setVisible(false);
+            
+            
+        }
+        
+        switch (modeChooser.getSelectedIndex()){
+            case 0:
+                subPanelInfo.setVisible(true);
+                break;
+            case 1:
+                subPanelVoisin1.setVisible(true);
+                break;
+                        
+            default:
+                subPanelInfo.setVisible(true);
+                break;
+                
+                
+            
+        }
+        
+        
     }//GEN-LAST:event_modeChooserActionPerformed
 
     private void checkAffichVillesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkAffichVillesActionPerformed
-              
+        
         carte.setTypeToDraw("V", checkAffichVilles.isSelected());
     }//GEN-LAST:event_checkAffichVillesActionPerformed
 
@@ -474,27 +573,25 @@ public class Fenetre extends javax.swing.JFrame {
     }//GEN-LAST:event_checkAffichRestoActionPerformed
 
     private void checkAffichDepartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkAffichDepartActionPerformed
-        carte.setTypeToDrawLiens("D",checkAffichDepart.isSelected());
+        carte.setTypeToDrawLiens("D", checkAffichDepart.isSelected());
     }//GEN-LAST:event_checkAffichDepartActionPerformed
 
     private void checkAffichAutoroutesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkAffichAutoroutesActionPerformed
-        carte.setTypeToDrawLiens("A",checkAffichAutoroutes.isSelected());
+        carte.setTypeToDrawLiens("A", checkAffichAutoroutes.isSelected());
     }//GEN-LAST:event_checkAffichAutoroutesActionPerformed
 
     private void checkAffichNationalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkAffichNationalesActionPerformed
-        carte.setTypeToDrawLiens("N",checkAffichNationales.isSelected());
+        carte.setTypeToDrawLiens("N", checkAffichNationales.isSelected());
     }//GEN-LAST:event_checkAffichNationalesActionPerformed
-    
-    
-    
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        
 
-        /* Create and display the form */
+
+ /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Fenetre().setVisible(true);
@@ -511,14 +608,19 @@ public class Fenetre extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkAffichResto;
     private javax.swing.JCheckBox checkAffichVilles;
     private javax.swing.JPanel colorFileLoading;
+    private javax.swing.JPanel colorFileLoading1;
     private javax.swing.JPanel colorLocating;
+    private javax.swing.JPanel colorLocating1;
     private javax.swing.JMenuItem itemOuvrir;
     private javax.swing.JMenuItem itemRedispose;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel labelAffichage;
     private javax.swing.JLabel labelFileLoading;
+    private javax.swing.JLabel labelFileLoading1;
     private javax.swing.JLabel labelLocating;
+    private javax.swing.JLabel labelLocating1;
     private javax.swing.JLabel labelMode;
     private javax.swing.JLabel labelNbrAutoroutes;
     private javax.swing.JLabel labelNbrDepartementales;
@@ -541,5 +643,6 @@ public class Fenetre extends javax.swing.JFrame {
     private javax.swing.JPanel sidePanel;
     private javax.swing.JPanel subPanelChanger;
     private javax.swing.JPanel subPanelInfo;
+    private javax.swing.JPanel subPanelVoisin1;
     // End of variables declaration//GEN-END:variables
 }
