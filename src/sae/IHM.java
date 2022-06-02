@@ -21,9 +21,9 @@ public class IHM extends JFrame{
     JLabel nomVille1;
     JLabel nomVille2;
     
-    ArrayList<Noeuds> toDraw;
-    ArrayList<Liens> toDrawLiens;
-    Noeuds tmpVV1;
+    ArrayList<Noeud> toDraw;
+    ArrayList<Lien> toDrawLiens;
+    Noeud tmpVV1;
     
     Carte fondDeCarte = new Carte();
 
@@ -37,17 +37,17 @@ public class IHM extends JFrame{
         
         this.toDraw = new ArrayList<>();
         this.toDrawLiens = new ArrayList<>();
-        tmpVV1 = new Noeuds("V","Lyon", this);//0
+        tmpVV1 = new Noeud("V","Lyon", this);//0
         toDraw.add(tmpVV1);
-        toDraw.add(new Noeuds("L","Place ..", this));//1
-        toDraw.add(new Noeuds("R","Resto", this));//2
-        toDraw.add(new Noeuds("V","Montpellier", this));//3
-        toDraw.add(new Noeuds("V","Marseille", this));//4
-        toDrawLiens.add(new Liens("A",tmpVV1,toDraw.get(1),220.f));//0
-        toDrawLiens.add(new Liens("D",toDraw.get(1),toDraw.get(2),150.f));//1
-        toDrawLiens.add(new Liens("A",toDraw.get(0),toDraw.get(3),180.f));//2
-        toDrawLiens.add(new Liens("A",toDraw.get(3),toDraw.get(4),120.f));//3
-        toDrawLiens.add(new Liens("A",toDraw.get(4),toDraw.get(0),200.f));//4
+        toDraw.add(new Noeud("L","Place ..", this));//1
+        toDraw.add(new Noeud("R","Resto", this));//2
+        toDraw.add(new Noeud("V","Montpellier", this));//3
+        toDraw.add(new Noeud("V","Marseille", this));//4
+        toDrawLiens.add(new Lien("A",tmpVV1,toDraw.get(1),220.f));//0
+        toDrawLiens.add(new Lien("D",toDraw.get(1),toDraw.get(2),150.f));//1
+        toDrawLiens.add(new Lien("A",toDraw.get(0),toDraw.get(3),180.f));//2
+        toDrawLiens.add(new Lien("A",toDraw.get(3),toDraw.get(4),120.f));//3
+        toDrawLiens.add(new Lien("A",toDraw.get(4),toDraw.get(0),200.f));//4
         toDraw.get(0).addConnection(toDrawLiens.get(0));
         toDraw.get(0).addConnection(toDrawLiens.get(2));
         toDraw.get(0).addConnection(toDrawLiens.get(4));
@@ -72,7 +72,7 @@ public class IHM extends JFrame{
         
     }
     
-    public IHM(ArrayList<Noeuds> toDraw, ArrayList<Liens> toDrawLiens) throws HeadlessException, Exception {
+    public IHM(ArrayList<Noeud> toDraw, ArrayList<Lien> toDrawLiens) throws HeadlessException, Exception {
         
         this.setTitle("IHM");
         this.setSize(800, 600);

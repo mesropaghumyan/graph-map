@@ -11,16 +11,16 @@ import javax.swing.JLabel;
  *
  * @author Loan
  */
-public class Noeuds  {
+public class Noeud  {
     String typeNoeuds;
     String nomNoeuds;
-    ArrayList<Liens> connection;
+    ArrayList<Lien> connection;
     int vPosX;
     int vPosY;
     int width =50;
     JLabel labelNoeuds;
  
-    Noeuds(String newtypeNoeuds, String newnomNoeuds) throws Exception{
+    Noeud(String newtypeNoeuds, String newnomNoeuds) throws Exception{
         newtypeNoeuds = newtypeNoeuds.toUpperCase();
         if (newtypeNoeuds.equals("V")  || newtypeNoeuds.equals("R") || newtypeNoeuds.equals("L") )
         {
@@ -40,7 +40,7 @@ public class Noeuds  {
     
     
     
-    Noeuds(String newtypeNoeuds, String newnomNoeuds, JFrame pan) throws Exception{
+    Noeud(String newtypeNoeuds, String newnomNoeuds, JFrame pan) throws Exception{
         newtypeNoeuds = newtypeNoeuds.toUpperCase();
         Random random = new Random();
         System.out.println( pan.getSize().width);
@@ -62,7 +62,8 @@ public class Noeuds  {
         
         
     }
-    
+
+  
     
     @Override
     public String toString(){
@@ -85,14 +86,14 @@ public class Noeuds  {
         return labelNoeuds;
     }
 
-    public ArrayList<Liens> getConnection() {
+    public ArrayList<Lien> getConnection() {
         return connection;
     }
     
-    public boolean containsConnection(Liens tmp){
+    public boolean containsConnection(Lien tmp){
         return connection.contains(tmp);
     }
-    public boolean addConnection(Liens tmp){
+    public boolean addConnection(Lien tmp){
         if (!this.connection.contains(tmp)){
             this.connection.add(tmp);
             return true;
@@ -100,15 +101,15 @@ public class Noeuds  {
         return false;
     }
     
-    public ArrayList<Noeuds> getVoisin(){
-        ArrayList<Noeuds> voi = new ArrayList<>();
-        for(Liens tmp : this.connection){
+    public ArrayList<Noeud> getVoisin(){
+        ArrayList<Noeud> voi = new ArrayList<>();
+        for(Lien tmp : this.connection){
             voi.add(tmp.getOppose(this));
         }
         return voi;
     }
-    public boolean estVoisin(Noeuds autre){
-        for (Liens tmp : this.connection){
+    public boolean estVoisin(Noeud autre){
+        for (Lien tmp : this.connection){
             if( tmp.getOppose(this).equals(autre)){
                 return true;
             }
@@ -127,7 +128,7 @@ public class Noeuds  {
         if ( obj.getClass() != getClass() ){
             return false;
         }
-        final Noeuds other  = (Noeuds)obj;
+        final Noeud other  = (Noeud)obj;
         
         return (this.getNom().equals(other.getNom())&&this.getType().equals(other.getType()));
          
@@ -157,7 +158,7 @@ public class Noeuds  {
         this.vPosY = Math.abs(vPosY%(max-(width))) ;
     }
     
-    public double getDeltaX(Noeuds tmpVoisin, int goal){
+    public double getDeltaX(Noeud tmpVoisin, int goal){
         int dX = tmpVoisin.getPosX()- this.getPosX();
         int dY = tmpVoisin.getPosY()- this.getPosY();
         int direction =0;
@@ -171,7 +172,7 @@ public class Noeuds  {
         
     }
     
-    public double getDeltaY(Noeuds tmpVoisin, int goal){
+    public double getDeltaY(Noeud tmpVoisin, int goal){
         int dX = tmpVoisin.getPosX()- this.getPosX();
         int dY = tmpVoisin.getPosY()- this.getPosY();
         int direction =0;
@@ -185,7 +186,7 @@ public class Noeuds  {
         
     }
     
-    public double getPosDeltaX(Noeuds tmpVoisin, int goal){
+    public double getPosDeltaX(Noeud tmpVoisin, int goal){
         if(tmpVoisin.equals(this)){
             return 0.0;
         }
@@ -214,7 +215,7 @@ public class Noeuds  {
         
         return res;
     }
-    public double getPosDeltaY(Noeuds tmpVoisin, int goal){
+    public double getPosDeltaY(Noeud tmpVoisin, int goal){
         if(tmpVoisin.equals(this)){
             return 0.0;
         }
@@ -245,8 +246,8 @@ public class Noeuds  {
         return res;
     }
     
-    public float getDistanceFromVoisin(Noeuds tmpVoisin){
-        for( Liens tmpLiens : this.connection){
+    public float getDistanceFromVoisin(Noeud tmpVoisin){
+        for( Lien tmpLiens : this.connection){
             if (tmpLiens.getOppose(this).equals(tmpVoisin)){
                 return tmpLiens.getPoidsLiens();
             }

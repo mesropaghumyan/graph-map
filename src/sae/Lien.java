@@ -8,12 +8,12 @@ package sae;
  *
  * @author Loan
  */
-public class Liens {
+public class Lien {
     String typeLiens;
-    Noeuds noeuds1;
-    Noeuds noeuds2;
+    Noeud noeuds1;
+    Noeud noeuds2;
     float poidsLiens;
-    Liens(String newtypeLiens,Noeuds newnoeuds1,Noeuds newnoeuds2,float newpoidsLiens) throws Exception{
+    Lien(String newtypeLiens,Noeud newnoeuds1,Noeud newnoeuds2,float newpoidsLiens) throws Exception{
         if (newtypeLiens.equals("A")  || newtypeLiens.equals("N") || newtypeLiens.equals("D") )
         {
             typeLiens = newtypeLiens;
@@ -28,10 +28,10 @@ public class Liens {
     public String getTypeLiens(){
         return typeLiens;
     }
-    public Noeuds getNoeuds1(){
+    public Noeud getNoeuds1(){
         return noeuds1;
     }
-    public Noeuds getNoeuds2(){
+    public Noeud getNoeuds2(){
         return noeuds2;
     }
     public float getPoidsLiens(){
@@ -55,7 +55,7 @@ public class Liens {
         if ( obj.getClass() != getClass() ){
             return false;
         }
-        final Liens other  = (Liens)obj;
+        final Lien other  = (Lien)obj;
         return (other.getPoidsLiens() == this.getPoidsLiens() && 
                 this.getTypeLiens().equals(other.getTypeLiens()) &&
                 (
@@ -70,11 +70,11 @@ public class Liens {
                 
                 );
     }
-    public boolean estExtremite(Noeuds depart){
+    public boolean estExtremite(Noeud depart){
         return this.getNoeuds1().equals(depart) || this.getNoeuds2().equals(depart);
     }
     
-    public Noeuds getOppose(Noeuds depart){
+    public Noeud getOppose(Noeud depart){
         if (this.getNoeuds1().equals(depart)){
             return this.getNoeuds2();
         }else{
