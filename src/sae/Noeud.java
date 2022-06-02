@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package sae;
+import sae.exception.TypeNotSupportedException;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JFrame;
@@ -68,6 +69,10 @@ public class Noeud  {
     @Override
     public String toString(){
         return ("Noeuds : "+typeNoeuds+" "+nomNoeuds);
+    }
+    
+    public String toStringList(){
+        return (typeNoeuds+" : "+nomNoeuds);
     }
     
     public String getNom(){

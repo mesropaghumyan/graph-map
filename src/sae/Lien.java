@@ -4,6 +4,8 @@
  */
 package sae;
 
+import sae.exception.TypeNotSupportedException;
+
 /**
  *
  * @author Loan
@@ -39,7 +41,8 @@ public class Lien {
     }
     @Override
     public String toString(){
-        return "[lien]->["+typeLiens+"; "+noeuds1+"; "+noeuds2+"; "+poidsLiens+";] ";
+        //return "[lien]->["+typeLiens+"; "+noeuds1+"; "+noeuds2+"; "+poidsLiens+";] ";
+        return typeLiens+" : "+poidsLiens;
         
     }
     

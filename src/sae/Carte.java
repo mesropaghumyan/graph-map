@@ -17,6 +17,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
+import sae.myInterface.NoeudListener;
 
 /**
  *
@@ -29,6 +30,7 @@ public class Carte extends JPanel{
     int edgeMarginV = 1*circleWidth;
     int edgeMarginH = (int)4.5*circleWidth;
     boolean running =false;
+    NoeudListener listenner =null;
     JPanel colorIndicator = null;
     ArrayList<String> typeToDraw =new ArrayList<>(Arrays.asList("V","L","R"));
     ArrayList<String> typeToDrawLiens =new ArrayList<>(Arrays.asList("A","D","N"));
@@ -261,7 +263,9 @@ public class Carte extends JPanel{
     }
     
     
-    
+    public void addNoeudListener(NoeudListener newlistenner){
+        listenner = newlistenner;
+    }
     
     
     public class NoeudsSelecter extends MouseAdapter{
@@ -283,6 +287,9 @@ public class Carte extends JPanel{
                 
             }
             System.out.println((int)best_lengest+" "+clossest+" X " + e.getX() + " Y " + e.getY());
+            if (listenner != null && best_lengest< clossest.width/2){
+                listenner.noeudSelected(clossest);
+            }
         }
     
         

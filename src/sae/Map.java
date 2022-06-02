@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package sae;
+import sae.exception.TypeNotSupportedException;
 import java.awt.Color;
 import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
