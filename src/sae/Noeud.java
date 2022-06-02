@@ -77,7 +77,7 @@ public class Noeud  {
         return typeNoeuds;
     }
     public void updateLabelPos(){
-        labelNoeuds.setLocation(vPosX-nomNoeuds.length()*3,vPosY-15);
+        labelNoeuds.setLocation((int) (vPosX-nomNoeuds.length()*2.5),vPosY-15);
         
     }
 
@@ -197,7 +197,8 @@ public class Noeud  {
         if (dX !=0){
             direction = dX/Math.abs(dX)*(-1);
         }else{
-            return goal; 
+            Random r = new Random();
+            return r.nextInt(goal*2) -goal; 
             
         }
         
@@ -227,7 +228,8 @@ public class Noeud  {
         if (dY !=0){
             direction = dY/Math.abs(dY)*(-1);
         }else{
-            return goal; 
+            Random r = new Random();
+            return r.nextInt(goal*2) -goal; 
             
         }
         
