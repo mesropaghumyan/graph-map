@@ -268,9 +268,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Nom Noeud B :"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioNoeudBActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="radioNoeudA">
           <Properties>
@@ -280,9 +277,6 @@
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Nom Noeud A :"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioNoeudAActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="labelSontA2">
           <Properties>

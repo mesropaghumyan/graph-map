@@ -252,20 +252,10 @@ public class Fenetre extends javax.swing.JFrame {
 
         v2Group.add(radioNoeudB);
         radioNoeudB.setText("Nom Noeud B :");
-        radioNoeudB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioNoeudBActionPerformed(evt);
-            }
-        });
 
         v2Group.add(radioNoeudA);
         radioNoeudA.setSelected(true);
         radioNoeudA.setText("Nom Noeud A :");
-        radioNoeudA.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioNoeudAActionPerformed(evt);
-            }
-        });
 
         labelSontA2.setText("Sont a 2 de distance : ");
 
@@ -791,14 +781,6 @@ public class Fenetre extends javax.swing.JFrame {
         nomNoeudA.setText(((Lien)choixLien.getSelectedItem()).noeuds1.toStringList());
         nomNoeudB.setText(((Lien)choixLien.getSelectedItem()).noeuds2.toStringList());
     }//GEN-LAST:event_choixLienActionPerformed
-
-    private void radioNoeudBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioNoeudBActionPerformed
-         
-    }//GEN-LAST:event_radioNoeudBActionPerformed
-
-    private void radioNoeudAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioNoeudAActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radioNoeudAActionPerformed
 
     
     /**
