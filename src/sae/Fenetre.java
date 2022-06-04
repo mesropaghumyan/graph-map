@@ -98,6 +98,15 @@ public class Fenetre extends javax.swing.JFrame {
         radioNoeudA = new javax.swing.JRadioButton();
         labelSontA2 = new javax.swing.JLabel();
         sontA2D = new javax.swing.JLabel();
+        subPanelVoisinC2 = new javax.swing.JPanel();
+        nomNoeudAP3 = new javax.swing.JLabel();
+        nomNoeudBP3 = new javax.swing.JLabel();
+        radioNoeudB2 = new javax.swing.JRadioButton();
+        radioNoeudA2 = new javax.swing.JRadioButton();
+        labelSontA3 = new javax.swing.JLabel();
+        estPOM = new javax.swing.JLabel();
+        labelSontA4 = new javax.swing.JLabel();
+        choixComp = new javax.swing.JComboBox<>();
         subPanelInfo = new javax.swing.JPanel();
         colorFileLoading = new javax.swing.JPanel();
         labelFileLoading = new javax.swing.JLabel();
@@ -254,7 +263,6 @@ public class Fenetre extends javax.swing.JFrame {
         radioNoeudB.setText("Nom Noeud B :");
 
         v2Group.add(radioNoeudA);
-        radioNoeudA.setSelected(true);
         radioNoeudA.setText("Nom Noeud A :");
 
         labelSontA2.setText("Sont a 2 de distance : ");
@@ -298,6 +306,78 @@ public class Fenetre extends javax.swing.JFrame {
                     .addComponent(sontA2D)
                     .addComponent(labelSontA2))
                 .addContainerGap(172, Short.MAX_VALUE))
+        );
+
+        nomNoeudAP3.setText("...");
+
+        nomNoeudBP3.setText("...");
+
+        v2Group.add(radioNoeudB2);
+        radioNoeudB2.setText("Nom Noeud B :");
+
+        v2Group.add(radioNoeudA2);
+        radioNoeudA2.setSelected(true);
+        radioNoeudA2.setText("Nom Noeud A :");
+
+        labelSontA3.setText("A est ");
+
+        estPOM.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        estPOM.setText("...");
+
+        labelSontA4.setText("que B");
+
+        choixComp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OUVERTE", "GASTRONOMIQUE", "CULTURELLE" }));
+        choixComp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                choixCompActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout subPanelVoisinC2Layout = new javax.swing.GroupLayout(subPanelVoisinC2);
+        subPanelVoisinC2.setLayout(subPanelVoisinC2Layout);
+        subPanelVoisinC2Layout.setHorizontalGroup(
+            subPanelVoisinC2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(subPanelVoisinC2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(subPanelVoisinC2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(subPanelVoisinC2Layout.createSequentialGroup()
+                        .addGroup(subPanelVoisinC2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(radioNoeudB2)
+                            .addComponent(radioNoeudA2)
+                            .addGroup(subPanelVoisinC2Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addGroup(subPanelVoisinC2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nomNoeudBP3)
+                                    .addComponent(nomNoeudAP3))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(subPanelVoisinC2Layout.createSequentialGroup()
+                        .addComponent(labelSontA3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(estPOM)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(choixComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelSontA4)
+                        .addGap(40, 40, 40))))
+        );
+        subPanelVoisinC2Layout.setVerticalGroup(
+            subPanelVoisinC2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(subPanelVoisinC2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(radioNoeudA2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nomNoeudAP3)
+                .addGap(30, 30, 30)
+                .addComponent(radioNoeudB2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nomNoeudBP3)
+                .addGap(35, 35, 35)
+                .addGroup(subPanelVoisinC2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(estPOM)
+                    .addComponent(labelSontA3)
+                    .addComponent(labelSontA4)
+                    .addComponent(choixComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
 
         colorFileLoading.setBackground(new java.awt.Color(255, 255, 255));
@@ -634,6 +714,7 @@ public class Fenetre extends javax.swing.JFrame {
         subPanelCard.add(subPanelInfo,"0");
         subPanelCard.add(subPanelVoisin1,"1");
         subPanelCard.add(subPanelVoisin2,"2");
+        subPanelCard.add(subPanelVoisinC2,"3");
         cardManager.first(subPanelCard);
         
         sontA2D.setOpaque(true);
@@ -656,12 +737,26 @@ public class Fenetre extends javax.swing.JFrame {
                     if(radioNoeudA.isSelected()){
                         subPanel2DAtmpNoeud =obj;
                         nomNoeudAP2.setText(obj.toStringList());
+                        ;
                     }else{
                         subPanel2DBtmpNoeud =obj;
                         nomNoeudBP2.setText(obj.toStringList());
                         
+                        
                     }
+                    
+                    
                     updateEstA2D();
+                    
+                }else if (modeChooser.getSelectedIndex()==3){
+                    if(radioNoeudA2.isSelected()){
+                        subPanel2DAtmpNoeud =obj;
+                        nomNoeudAP3.setText(obj.toStringList());
+                    }else{
+                        subPanel2DBtmpNoeud =obj;
+                        nomNoeudBP3.setText(obj.toStringList());
+                    }
+                    updateEstPO();
                     
                 }
                 
@@ -672,7 +767,41 @@ public class Fenetre extends javax.swing.JFrame {
         
     }
     
-    
+    private void updateEstPO(){
+        if(subPanel2DAtmpNoeud != null && subPanel2DBtmpNoeud!= null){
+            int res;
+            estPOM.setText("plus");
+            switch(choixComp.getSelectedIndex()){
+                case 0:
+                    res = m.estPlusOuvert(subPanel2DAtmpNoeud, subPanel2DBtmpNoeud) == false ? 0 : 1;
+                    res = m.ouvertureNoeuds(subPanel2DAtmpNoeud)==m.ouvertureNoeuds(subPanel2DBtmpNoeud) ? 2 : res;
+                    break;
+                case 1:
+                    res = m.estPlusGastronomique(subPanel2DAtmpNoeud, subPanel2DBtmpNoeud)== false ? 0 : 1;
+                    res = m.gastronomoieNoeuds(subPanel2DAtmpNoeud)==m.gastronomoieNoeuds(subPanel2DBtmpNoeud) ? 2 : res;
+                    break;
+                case 2:
+                    res = m.estPlusCulturel(subPanel2DAtmpNoeud, subPanel2DBtmpNoeud)== false ? 0 : 1;
+                    res = m.cultureNoeuds(subPanel2DAtmpNoeud)==m.cultureNoeuds(subPanel2DBtmpNoeud) ? 2 : res;                    
+                    break;
+                default:
+
+                    res = 0;
+                    
+                    
+            }
+      
+            if (res == 0){
+                estPOM.setText("moins");
+                                
+            }else if(res == 2){
+                estPOM.setText("autant");
+            }
+            
+            
+        }
+        
+    }
     private void updateEstA2D(){
         if(subPanel2DAtmpNoeud != null && subPanel2DBtmpNoeud!= null){
             sontA2D.setBackground(Color.red);
@@ -782,6 +911,10 @@ public class Fenetre extends javax.swing.JFrame {
         nomNoeudB.setText(((Lien)choixLien.getSelectedItem()).noeuds2.toStringList());
     }//GEN-LAST:event_choixLienActionPerformed
 
+    private void choixCompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choixCompActionPerformed
+        updateEstPO();
+    }//GEN-LAST:event_choixCompActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -806,10 +939,12 @@ public class Fenetre extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkAffichNationales;
     private javax.swing.JCheckBox checkAffichResto;
     private javax.swing.JCheckBox checkAffichVilles;
+    private javax.swing.JComboBox<String> choixComp;
     private javax.swing.JComboBox<Lien> choixLien;
     private javax.swing.JComboBox<String> choixTypeNoeud;
     private javax.swing.JPanel colorFileLoading;
     private javax.swing.JPanel colorLocating;
+    private javax.swing.JLabel estPOM;
     private javax.swing.JMenuItem itemOuvrir;
     private javax.swing.JMenuItem itemRedispose;
     private javax.swing.JScrollPane jScrollPane;
@@ -832,6 +967,8 @@ public class Fenetre extends javax.swing.JFrame {
     private javax.swing.JLabel labelNoeudChoisi;
     private javax.swing.JLabel labelNombre;
     private javax.swing.JLabel labelSontA2;
+    private javax.swing.JLabel labelSontA3;
+    private javax.swing.JLabel labelSontA4;
     private javax.swing.JLabel labelType;
     private javax.swing.JLabel labelTypeVoisin;
     private javax.swing.JList<String> listNoeud1;
@@ -847,11 +984,15 @@ public class Fenetre extends javax.swing.JFrame {
     private javax.swing.JLabel nbrVilles;
     private javax.swing.JLabel nomNoeudA;
     private javax.swing.JLabel nomNoeudAP2;
+    private javax.swing.JLabel nomNoeudAP3;
     private javax.swing.JLabel nomNoeudB;
     private javax.swing.JLabel nomNoeudBP2;
+    private javax.swing.JLabel nomNoeudBP3;
     private javax.swing.JLabel nomNoeudChoisi;
     private javax.swing.JRadioButton radioNoeudA;
+    private javax.swing.JRadioButton radioNoeudA2;
     private javax.swing.JRadioButton radioNoeudB;
+    private javax.swing.JRadioButton radioNoeudB2;
     private javax.swing.JSeparator sepVoisin1;
     private javax.swing.JPanel sidePanel;
     private javax.swing.JLabel sontA2D;
@@ -860,6 +1001,7 @@ public class Fenetre extends javax.swing.JFrame {
     private javax.swing.JPanel subPanelInfo;
     private javax.swing.JPanel subPanelVoisin1;
     private javax.swing.JPanel subPanelVoisin2;
+    private javax.swing.JPanel subPanelVoisinC2;
     private javax.swing.ButtonGroup v2Group;
     // End of variables declaration//GEN-END:variables
 }

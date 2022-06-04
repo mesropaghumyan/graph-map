@@ -341,19 +341,16 @@ public class Map {
     }
     public int ouvertureNoeuds(Noeud depart){
         int c=0;
-        ArrayList<Noeud> skip = new ArrayList<Noeud>();
-        skip.add(depart);
-    
+        System.out.println(depart+" :");
         for (Lien voisin2Depart : depart.getConnection()){
             for (Lien tmp :voisin2Depart.getOppose(depart).getConnection()){
-               
-                if(!skip.contains(tmp.getOppose(voisin2Depart.getOppose(depart)))){
-                    skip.add(tmp.getOppose(voisin2Depart.getOppose(depart)));
-        
+                System.out.println(tmp.getOppose(voisin2Depart.getOppose(depart)));
+                if(tmp.getOppose(voisin2Depart.getOppose(depart)).getType().equalsIgnoreCase("V") && !tmp.getOppose(voisin2Depart.getOppose(depart)).equals(depart)){
                     c++;
-                 }
+                }
             }
         }
+        System.out.println(" .....");
         
         return c;
     }
