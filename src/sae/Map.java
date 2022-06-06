@@ -10,6 +10,7 @@ import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.JPanel;
 
 /**
@@ -20,12 +21,206 @@ public class Map {
     ArrayList<Noeud> listeVilles;
     ArrayList<Lien> listeRoutes;
     JPanel colorIndicator = null;
+    final static int INF = 99999;
+    int dist[][];
+    Noeud path[][];
+    
     Map(){
         listeVilles = new ArrayList<>();
         listeRoutes = new ArrayList<>();
         
     }
+    
+    
+    /*
+    public void floydWarshall()
+    {
+        
+        int V = listeVilles.size();
+        dist = new int[V][V];
+        path = new Noeud[V][V];
+        int i, j, k;
+        for(int z=0;z<listeVilles.size();z++){
+            for (int w=0;w<V;w++){
+                if (w != z){
+                    dist[z][w]=INF;
+                    path[z][w] = null;
+                }else{
+                    dist[z][w]=0;
+                    path[z][w] = listeVilles.get(z);
+                }
+            }
+            for( Noeud w : listeVilles.get(z).getVoisin() ){
+                    dist[z][listeVilles.lastIndexOf(w)]=
+                            (int) listeVilles.get(z).getDistanceFromVoisin(w);
+                    path[z][listeVilles.lastIndexOf(w)]=listeVilles.get(z);
+                    
+            }
 
+        
+        }
+        
+        
+ 
+        for (k = 0; k < V; k++)
+        {
+            // Pick all vertices as source one by one
+            for (i = 0; i < V; i++)
+            {
+                // Pick all vertices as destination for the
+                // above picked source
+                for (j = 0; j < V; j++)
+                {
+                    // If vertex k is on the shortest path from
+                    // i to j, then update the value of dist[i][j]
+                    if (dist[i][k] + dist[k][j] < dist[i][j])
+                        dist[i][j] = dist[i][k] + dist[k][j];
+                        path[i][j] = path[k][k];
+                }
+            }
+        }
+ 
+        // Print the shortest distance matrix
+        //printSolution(dist);
+     
+    }
+ 
+    void printSolution(int dist[][])
+    {
+        int V = listeVilles.size();
+      
+        for (int i=0; i<V; ++i)
+        {
+            for (int j=0; j<V; ++j)
+            {
+                if (dist[i][j]==INF)
+                    System.out.print("INF ");
+                else
+                    System.out.print(dist[i][j]+"   ");
+            }
+            System.out.println();
+        }
+    }
+    
+    public int bestRouteDistance(Noeud noeudA, Noeud noeudB){
+        ArrayList<Noeud> res = new ArrayList<Noeud>();
+        res.add(noeudB);
+
+        int from = listeVilles.lastIndexOf(noeudA);
+        int to = listeVilles.lastIndexOf(noeudB);
+
+        return  dist[from][to];
+
+    }
+    
+    public ArrayList<Noeud> bestRoute(Noeud noeudA, Noeud noeudB){
+        ArrayList<Noeud> res = new ArrayList<Noeud>();
+        res.add(noeudB);
+        System.out.println("start end finsih "+noeudA+" "+noeudB);
+        int from = listeVilles.lastIndexOf(noeudA);
+        int to = listeVilles.lastIndexOf(noeudB);
+        int cur = to;
+       
+        for (Noeud i : path[from]){
+            //System.out.println(i+" ; "+noeudA);
+        }
+        for (int i =0; i<listeVilles.size();i++){
+            
+            if(path[from][cur] == null){
+                System.out.println("cur nul");
+                res = null;
+                break;
+            }else if(path[from][cur] != noeudA){
+                res.add(path[from][cur]);
+                cur = listeVilles.lastIndexOf(path[from][cur]);
+                
+            }else{
+                System.out.println("end found path");
+                res.add(path[from][cur]);
+                break;
+            }
+        }
+        
+         System.out.println("Path ");
+        for (Noeud i : res){
+            System.out.println(i+" ; ");
+        }
+        System.out.println("end Path ");
+       
+        if ( res != null && res.get(res.size()-1) != noeudA){
+            res = null;
+        }
+   
+        
+        
+        if (res != null){
+            Collections.reverse(res);
+        }
+        
+                
+                
+        return res;
+    }
+    
+    public ArrayList<Noeud> bestRouteDetour(Noeud noeudA, Noeud noeudB, int v, int l, int r){
+        ArrayList<Noeud> res = new ArrayList<Noeud>();
+        //res.add(noeudA);
+        
+        ArrayList<Noeud> stops = new ArrayList<Noeud>();
+        stops.add(noeudB);
+        for(int i =0; i< v;i++){
+            for( Noeud tmp: listeVilles){
+                if (tmp.getType().equals("V")&& !stops.contains(tmp)&& bestRouteDistance(stops.get(stops.size()-1), tmp)<INF){
+                    stops.add(tmp);
+                }
+            }
+            
+        }
+        
+        for(int i =0; i< l;i++){
+            for( Noeud tmp: listeVilles){
+                if (tmp.getType().equals("L")&& !stops.contains(tmp) && bestRouteDistance(stops.get(stops.size()-1), tmp)<INF){
+                    stops.add(tmp);
+                }
+            }
+            
+        }
+        
+        for(int i =0; i< r;i++){
+            for( Noeud tmp: listeVilles){
+                if (tmp.getType().equals("R")&& !stops.contains(tmp)&& bestRouteDistance(stops.get(stops.size()-1), tmp)<INF){
+                    stops.add(tmp);
+                }
+            }
+            
+        }
+        
+        Collections.reverse(stops);
+        stops.add(noeudA);
+        
+        stops.remove(0);
+        Noeud cur = noeudB;
+        
+        for (Noeud tmp: stops){
+            System.out.println("before add all"+cur+" "+tmp);
+            ArrayList<Noeud> tmp2 = bestRoute(cur, tmp);
+            System.out.println("luist before adda all "+tmp2);
+            res.addAll(tmp2);
+            cur = tmp;
+        }
+        
+
+       
+        
+        
+        
+                
+                
+                
+        return res;
+    }
+    */
+    
     public ArrayList<Noeud> getListeVilles() {
         return listeVilles;
     }
@@ -122,6 +317,10 @@ public class Map {
             colorIndicator.setBackground(Color.red);}
         
     }
+    
+    
+    //floydWarshall();
+    //System.out.println(bestRoute(listeVilles.get(0),listeVilles.get(2)));
     
 }
     /**

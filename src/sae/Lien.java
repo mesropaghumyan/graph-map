@@ -46,6 +46,12 @@ public class Lien {
         
     }
     
+    public String toStringMoreInfo(){
+        return "[lien]->["+typeLiens+"; "+noeuds1+"; "+noeuds2+"; "+poidsLiens+";] ";
+        //return typeLiens+" : "+poidsLiens;
+        
+    }
+    
   
     public boolean equals(Object obj){
         if(this == obj){

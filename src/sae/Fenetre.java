@@ -26,6 +26,8 @@ import sae.myInterface.NoeudListener;
 public class Fenetre extends javax.swing.JFrame {
     
     DefaultListModel<String> modelListNoeud = new DefaultListModel<>();
+    DefaultListModel<String> modelListNoeudInfo = new DefaultListModel<>();
+    DefaultListModel<String> modelListLienInfo = new DefaultListModel<>();
     Map m = new Map();
     JFileChooser fileChooser;
     Noeud subPanelVoisin1tmpNoeud =null;
@@ -135,6 +137,15 @@ public class Fenetre extends javax.swing.JFrame {
         checkAffichDepart = new javax.swing.JCheckBox();
         checkAffichAutoroutes = new javax.swing.JCheckBox();
         checkAffichNationales = new javax.swing.JCheckBox();
+        jSeparator3 = new javax.swing.JSeparator();
+        labelNoeudList = new javax.swing.JLabel();
+        choixTypeNoeudList = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listNoeudInfo = new javax.swing.JList<>(modelListNoeudInfo);
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listLienInfo = new javax.swing.JList<>(modelListLienInfo);
+        choixTypeLienList = new javax.swing.JComboBox<>();
+        labelLienList = new javax.swing.JLabel();
         v2Group = new javax.swing.ButtonGroup();
         sidePanel = new javax.swing.JPanel();
         subPanelChanger = new javax.swing.JPanel();
@@ -147,6 +158,7 @@ public class Fenetre extends javax.swing.JFrame {
         itemOuvrir = new javax.swing.JMenuItem();
         menuEdition = new javax.swing.JMenu();
         itemRedispose = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         labelNoeudChoisi.setText("Noeud Choisi :");
 
@@ -156,7 +168,7 @@ public class Fenetre extends javax.swing.JFrame {
 
         labelListVoisin.setText("Voisin Direct :");
 
-        choixTypeNoeud.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ville", "Centres de loisir", "Restaurant" }));
+        choixTypeNoeud.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ville", "Centre de loisir", "Restaurant" }));
         choixTypeNoeud.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 choixTypeNoeudActionPerformed(evt);
@@ -219,7 +231,7 @@ public class Fenetre extends javax.swing.JFrame {
                                         .addGroup(subPanelVoisin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(labelNoeudB)
                                             .addComponent(nomNoeudB))))))
-                        .addGap(0, 9, Short.MAX_VALUE))
+                        .addGap(0, 14, Short.MAX_VALUE))
                     .addComponent(sepVoisin1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -484,12 +496,51 @@ public class Fenetre extends javax.swing.JFrame {
             }
         });
 
+        labelNoeudList.setText("Noeud");
+
+        choixTypeNoeudList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ville", "Restaurant", "Centre de Loisir" }));
+        choixTypeNoeudList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                choixTypeNoeudListActionPerformed(evt);
+            }
+        });
+
+        jScrollPane1.setViewportView(listNoeudInfo);
+
+        jScrollPane2.setViewportView(listLienInfo);
+
+        choixTypeLienList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Autoroute", "Nationale", "Départementale" }));
+        choixTypeLienList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                choixTypeLienListActionPerformed(evt);
+            }
+        });
+
+        labelLienList.setText("Lien");
+
         javax.swing.GroupLayout subPanelInfoLayout = new javax.swing.GroupLayout(subPanelInfo);
         subPanelInfo.setLayout(subPanelInfoLayout);
         subPanelInfoLayout.setHorizontalGroup(
             subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(subPanelInfoLayout.createSequentialGroup()
                 .addGroup(subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(subPanelInfoLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subPanelInfoLayout.createSequentialGroup()
+                                .addGroup(subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(choixTypeNoeudList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelNoeudList))
+                                .addGap(18, 18, 18))
+                            .addGroup(subPanelInfoLayout.createSequentialGroup()
+                                .addGroup(subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(choixTypeLienList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelLienList))
+                                .addGap(24, 24, 24)))
+                        .addGroup(subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(subPanelInfoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jSeparator1))
@@ -502,18 +553,20 @@ public class Fenetre extends javax.swing.JFrame {
                         .addGroup(subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelLocating)
                             .addComponent(labelFileLoading))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subPanelInfoLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(subPanelInfoLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(11, 11, 11)
                         .addGroup(subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(subPanelInfoLayout.createSequentialGroup()
                                 .addGroup(subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(checkAffichVilles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(checkAffichLoisirs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(checkAffichResto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(checkAffichResto))
                                 .addGap(30, 30, 30)
                                 .addGroup(subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(subPanelInfoLayout.createSequentialGroup()
@@ -552,30 +605,29 @@ public class Fenetre extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(nbrDepartementales))))))
                     .addGroup(subPanelInfoLayout.createSequentialGroup()
-                        .addContainerGap(45, Short.MAX_VALUE)
                         .addComponent(labelAffichage)
                         .addGap(18, 18, 18)
                         .addComponent(labelType)
                         .addGap(66, 66, 66)
                         .addComponent(labelNombre)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         subPanelInfoLayout.setVerticalGroup(
             subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(subPanelInfoLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
+                .addGroup(subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(colorFileLoading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelFileLoading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addGroup(subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(colorLocating, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelLocating))
+                .addGap(14, 14, 14)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(subPanelInfoLayout.createSequentialGroup()
-                        .addGroup(subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(colorFileLoading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelFileLoading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(27, 27, 27)
-                        .addGroup(subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(colorLocating, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelLocating))
-                        .addGap(14, 14, 14)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addGroup(subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelAffichage)
                             .addComponent(labelType)
@@ -616,10 +668,28 @@ public class Fenetre extends javax.swing.JFrame {
                         .addComponent(labelNbrDepartementales)
                         .addComponent(nbrDepartementales))
                     .addComponent(checkAffichDepart, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(subPanelInfoLayout.createSequentialGroup()
+                        .addComponent(labelNoeudList)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(choixTypeNoeudList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(subPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(subPanelInfoLayout.createSequentialGroup()
+                        .addComponent(labelLienList)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(choixTypeLienList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SAE GRAMA");
+        setPreferredSize(new java.awt.Dimension(10, 451));
 
         sidePanel.setLayout(new java.awt.BorderLayout(10, 10));
 
@@ -657,16 +727,17 @@ public class Fenetre extends javax.swing.JFrame {
         getContentPane().add(sidePanel, java.awt.BorderLayout.EAST);
 
         carte.setBackground(new java.awt.Color(204, 204, 204));
+        carte.setPreferredSize(new java.awt.Dimension(200, 428));
 
         javax.swing.GroupLayout carteLayout = new javax.swing.GroupLayout(carte);
         carte.setLayout(carteLayout);
         carteLayout.setHorizontalGroup(
             carteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 536, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         carteLayout.setVerticalGroup(
             carteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 451, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         getContentPane().add(carte, java.awt.BorderLayout.CENTER);
@@ -686,6 +757,7 @@ public class Fenetre extends javax.swing.JFrame {
 
         menuEdition.setText("Edition");
 
+        itemRedispose.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
         itemRedispose.setText("Redisposer");
         itemRedispose.setEnabled(false);
         itemRedispose.addActionListener(new java.awt.event.ActionListener() {
@@ -694,6 +766,15 @@ public class Fenetre extends javax.swing.JFrame {
             }
         });
         menuEdition.add(itemRedispose);
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
+        jMenuItem1.setText("Swap");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menuEdition.add(jMenuItem1);
 
         menuBar.add(menuEdition);
 
@@ -820,7 +901,7 @@ public class Fenetre extends javax.swing.JFrame {
                     "V" : (String) choixTypeNoeud.getSelectedItem();
             slectedType = choixTypeNoeud.getSelectedItem().equals("Restaurant") ?
                     "R" : slectedType;
-            slectedType = choixTypeNoeud.getSelectedItem().equals("Centres de loisir") ?
+            slectedType = choixTypeNoeud.getSelectedItem().equals("Centre de loisir") ?
                     "L" : slectedType;
             
        
@@ -861,6 +942,8 @@ public class Fenetre extends javax.swing.JFrame {
             nomNoeudAP2.setText(((Lien)choixLien.getSelectedItem()).noeuds1.toStringList());
             nomNoeudBP2.setText(((Lien)choixLien.getSelectedItem()).noeuds2.toStringList());
             
+            updateListNoeudInfo();
+            updateListLienInfo();
         }
     }//GEN-LAST:event_itemOuvrirActionPerformed
 
@@ -915,6 +998,54 @@ public class Fenetre extends javax.swing.JFrame {
         updateEstPO();
     }//GEN-LAST:event_choixCompActionPerformed
 
+    private void choixTypeNoeudListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choixTypeNoeudListActionPerformed
+        updateListNoeudInfo();
+    }//GEN-LAST:event_choixTypeNoeudListActionPerformed
+
+    private void choixTypeLienListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choixTypeLienListActionPerformed
+        updateListLienInfo();
+    }//GEN-LAST:event_choixTypeLienListActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        carte.swap();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+        
+    private void updateListNoeudInfo(){
+            String slectedType =((String) choixTypeNoeudList.getSelectedItem()).equals("Ville") ?
+                    "V" : (String) choixTypeNoeudList.getSelectedItem();
+            slectedType = choixTypeNoeudList.getSelectedItem().equals("Restaurant") ?
+                    "R" : slectedType;
+            slectedType = choixTypeNoeudList.getSelectedItem().equals("Centre de loisir") ?
+                    "L" : slectedType;
+
+            modelListNoeudInfo.removeAllElements();
+                for (Noeud i : m.getListeVilles()){
+                    
+                    if(i.getType().equals(slectedType)){
+                        modelListNoeudInfo.addElement(i.toStringList());
+                    }
+                }
+        
+    }
+    
+    private void updateListLienInfo(){
+            String slectedType =((String) choixTypeLienList.getSelectedItem()).equals("Autoroute") ?
+                    "A" : (String) choixTypeLienList.getSelectedItem();
+            slectedType = choixTypeLienList.getSelectedItem().equals("Nationale") ?
+                    "N" : slectedType;
+            slectedType = choixTypeLienList.getSelectedItem().equals("Départementale") ?
+                    "D" : slectedType;
+
+            modelListLienInfo.removeAllElements();
+                for (Lien i : m.getlisteRoutes()){
+                    
+                    if(i.getTypeLiens().equals(slectedType)){
+                        modelListLienInfo.addElement(i.toString());
+                    }
+                }
+        
+    }
     
     /**
      * @param args the command line arguments
@@ -941,18 +1072,25 @@ public class Fenetre extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkAffichVilles;
     private javax.swing.JComboBox<String> choixComp;
     private javax.swing.JComboBox<Lien> choixLien;
+    private javax.swing.JComboBox<String> choixTypeLienList;
     private javax.swing.JComboBox<String> choixTypeNoeud;
+    private javax.swing.JComboBox<String> choixTypeNoeudList;
     private javax.swing.JPanel colorFileLoading;
     private javax.swing.JPanel colorLocating;
     private javax.swing.JLabel estPOM;
     private javax.swing.JMenuItem itemOuvrir;
     private javax.swing.JMenuItem itemRedispose;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel labelAffichage;
     private javax.swing.JLabel labelChoixLien;
     private javax.swing.JLabel labelFileLoading;
+    private javax.swing.JLabel labelLienList;
     private javax.swing.JLabel labelListVoisin;
     private javax.swing.JLabel labelLocating;
     private javax.swing.JLabel labelMode;
@@ -965,13 +1103,16 @@ public class Fenetre extends javax.swing.JFrame {
     private javax.swing.JLabel labelNoeudA;
     private javax.swing.JLabel labelNoeudB;
     private javax.swing.JLabel labelNoeudChoisi;
+    private javax.swing.JLabel labelNoeudList;
     private javax.swing.JLabel labelNombre;
     private javax.swing.JLabel labelSontA2;
     private javax.swing.JLabel labelSontA3;
     private javax.swing.JLabel labelSontA4;
     private javax.swing.JLabel labelType;
     private javax.swing.JLabel labelTypeVoisin;
+    private javax.swing.JList<String> listLienInfo;
     private javax.swing.JList<String> listNoeud1;
+    private javax.swing.JList<String> listNoeudInfo;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuEdition;
     private javax.swing.JMenu menuFichier;

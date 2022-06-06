@@ -164,30 +164,57 @@ public class Noeud  {
     }
     
     public double getDeltaX(Noeud tmpVoisin, int goal){
+        if(tmpVoisin.equals(this)){
+            return 0.0;
+        }
         int dX = tmpVoisin.getPosX()- this.getPosX();
         int dY = tmpVoisin.getPosY()- this.getPosY();
-        int direction =0;
-        if (Math.sqrt((dX*dX)+(dY*dY))> 1.05*goal)//a changer
-        {
-            direction = -1;
-        }else if (Math.sqrt((dX*dX)+(dY*dY))< 0.95*goal){
-            direction = 1;
+        int move =0;
+        int direction = 1;
+        if (dX !=0){
+            direction = dX/Math.abs(dX)*(-1);
+        }else{
+            Random r = new Random();
+            return r.nextInt(goal*2) -goal; 
+            
         }
-        return (dX-goal)*direction*0.0125;
+        
+        //ALED GIGA EREUR
+        if (Math.sqrt((dX*dX)+(dY*dY))> 3*goal){
+            move = 1;
+            
+        }
+        int res = (int) (goal - Math.sqrt((dX*dX)+(dY*dY))) *move *direction;
+          
+        return res;
         
     }
     
     public double getDeltaY(Noeud tmpVoisin, int goal){
-        int dX = tmpVoisin.getPosX()- this.getPosX();
-        int dY = tmpVoisin.getPosY()- this.getPosY();
-        int direction =0;
-        if (Math.sqrt((dX*dX)+(dY*dY))> 1.05*goal)//a changer
-        {
-            direction = -1;
-        }else if (Math.sqrt((dX*dX)+(dY*dY))< 0.95*goal){
-            direction = 1;
+       if(tmpVoisin.equals(this)){
+            return 0.0;
         }
-        return (dY-goal)*direction*0.0125;
+        int dX = tmpVoisin.getPosX()- this.getPosX()+(tmpVoisin.width/2)-(this.width/2);
+        int dY = tmpVoisin.getPosY()- this.getPosY()+(tmpVoisin.width/2)-(this.width/2);
+        int move =0;
+        int direction = 1;
+        
+        if (dY !=0){
+            direction = dY/Math.abs(dY)*(-1);
+        }else{
+            Random r = new Random();
+            return r.nextInt(goal*2) -goal; 
+            
+        }
+        
+        if (Math.sqrt((dX*dX)+(dY*dY))> 3*goal){
+            
+            move = 1;
+     
+        }
+        //(dY-goal)*direction*0.05;
+        int res = (int) (goal - Math.sqrt((dX*dX)+(dY*dY))) *move*direction;
+        return res;
         
     }
     
@@ -216,7 +243,7 @@ public class Noeud  {
         
         
         if (move == 1){
-            System.out.println("x dir "+direction+" ; dist "+(int)Math.sqrt((dX*dX)+(dY*dY))+" ; goal "+0.95*goal+ " ; "+this.vPosX+"+("+res+") ; extecpt "+ (int)Math.sqrt((dY*dY)+((dX-res)*(dX-res)))+"; pour "+tmpVoisin.getNom().substring(0, 3));
+            //System.out.println("x dir "+direction+" ; dist "+(int)Math.sqrt((dX*dX)+(dY*dY))+" ; goal "+0.95*goal+ " ; "+this.vPosX+"+("+res+") ; extecpt "+ (int)Math.sqrt((dY*dY)+((dX-res)*(dX-res)))+"; pour "+tmpVoisin.getNom().substring(0, 3));
         }
         
         return res;
@@ -247,7 +274,7 @@ public class Noeud  {
         int res = (int) (goal - Math.sqrt((dX*dX)+(dY*dY))) *move*direction;
         
         if (move == 1){
-            System.out.println("y dir "+direction+" ; dist "+(int)Math.sqrt((dX*dX)+(dY*dY))+" ; goal "+0.95*goal+ " ; "+this.vPosY+"+("+res+") ; extecpt "+ (int)Math.sqrt((dX*dX)+((dY-res)*(dY-res)))+"; pour "+tmpVoisin.getNom().substring(0, 3));
+            //System.out.println("y dir "+direction+" ; dist "+(int)Math.sqrt((dX*dX)+(dY*dY))+" ; goal "+0.95*goal+ " ; "+this.vPosY+"+("+res+") ; extecpt "+ (int)Math.sqrt((dX*dX)+((dY-res)*(dY-res)))+"; pour "+tmpVoisin.getNom().substring(0, 3));
         }
         
         return res;
@@ -260,6 +287,35 @@ public class Noeud  {
             }
         }
         return 0;
+    }
+    
+    public float getAverageDistDromV(){
+        int somme = 0;
+        for( Noeud i : this.getVoisin()){
+           somme += getDistanceFromVoisin(i);
+            
+            
+        }
+        return somme/this.getVoisin().size();
+    }
+    
+    public float getAverageDistDromV(int tmpx, int tmpy){
+        //System.out.println("Start"+vPosX+" "+vPosY);
+        int bx = vPosX;
+        int by = vPosY;
+        vPosX = tmpx;
+        vPosY = tmpy;
+        int somme = 0;
+        for( Noeud i : this.getVoisin()){
+           somme += getDistanceFromVoisin(i);
+            
+            
+        }
+        vPosX = bx;
+        vPosY = by;
+        //System.out.println("finsih"+vPosX+" "+vPosY);
+        
+        return somme ;//this.getVoisin().size();
     }
     
 }

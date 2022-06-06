@@ -193,7 +193,7 @@ public class Carte extends JPanel{
                 
                     int tmpPosX = tmp.getPosX();
                     int tmpPosY = tmp.getPosY();
-                    int goal = 100;
+                    int goal = 120;
 
                     int minSpace = 85;
 
@@ -201,23 +201,24 @@ public class Carte extends JPanel{
 
                 for(Noeud tmpNoeuds2 : toDraw){
                     if (typeToDraw.contains(tmpNoeuds2.getType())){
-                    tmpPosX += tmp.getPosDeltaX(tmpNoeuds2, minSpace)*0.5;
-                    tmpPosY += tmp.getPosDeltaY(tmpNoeuds2, minSpace)*0.5; 
+                    tmpPosX += tmp.getPosDeltaX(tmpNoeuds2, minSpace)*0.1;
+                    tmpPosY += tmp.getPosDeltaY(tmpNoeuds2, minSpace)*0.1; 
                     }
 
                 }
 
-
+                //System.out.println(tmp.toString());
+                //System.out.println("se raprroche de ");
                 for(Noeud tmpNoeuds : tmp.getVoisin()){// chanegr de toDraw a voisin
                     //if (typeToDraw.contains(tmpNoeuds2.getType())){
-
+                    //System.out.println(tmpNoeuds.toString());
                     //System.out.println(" diresction "+direction+" dsiatnce "+(Math.sqrt(dX*dX)+(dY*dY)));
                     //tmpPosX += tmp.getDeltaX(tmpNoeuds,(int) tmp.getDistanceFromVoisin(tmpNoeuds));
                     //tmpPosY += tmp.getDeltaY(tmpNoeuds, (int) tmp.getDistanceFromVoisin(tmpNoeuds));
 
                     //important ne va plus se raprocher de ses voisins
-                    //tmpPosX -= tmp.getDeltaX(tmpNoeuds,goal)*0.1;
-                    //tmpPosY -= tmp.getDeltaY(tmpNoeuds, goal)*0.1;
+                    //tmpPosX += tmp.getDeltaX(tmpNoeuds,goal)*0.1;
+                    //tmpPosY += tmp.getDeltaY(tmpNoeuds, goal)*0.1;
                     //}
                 }
 
@@ -247,14 +248,13 @@ public class Carte extends JPanel{
                 tmp.setPosX((tmp.getPosX())+1+(tmp.getPosY()/100));
                 }*/
                 this.repaint();
-                try {
-                    Thread.sleep(0);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(IHM.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                
 
             }
         }
+        
+        
+        
         
         running =false;
         if (colorIndicator != null){
@@ -262,7 +262,27 @@ public class Carte extends JPanel{
         
     }
     
-    
+    public void swap(){
+        for (Noeud i : toDraw){
+            int Xo = i.getPosX();
+            int Yo = i.getPosY();
+            for (Noeud w : toDraw){
+                System.out.println(Xo+" "+Yo+" "+w.getPosX()+" "+w.getPosY()+" "+i.getAverageDistDromV()+" "+w.getAverageDistDromV(Xo, Yo));
+                if (w.getAverageDistDromV(Xo, Yo)<i.getAverageDistDromV()){
+                    System.out.println("swaps");
+                    i.setPosX(w.getPosX());
+                    i.setPosY(w.getPosY());
+                    
+                    w.setPosX(Xo);
+                    w.setPosY(Yo);
+                    Xo = i.getPosX();
+                    Yo = i.getPosY();
+                }
+            }
+        }
+        repaint();
+        
+    }
     public void addNoeudListener(NoeudListener newlistenner){
         listenner = newlistenner;
     }
