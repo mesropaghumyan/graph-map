@@ -25,17 +25,27 @@ import sae.myInterface.NoeudListener;
  */
 public class Carte extends JPanel {
     
-    // <editor-fold defaultstate="collapsed" desc="Déclaration">   
-    ArrayList<Noeud> toDraw;
-    ArrayList<Lien> toDrawLiens;
-    int circleWidth = 20;
-    int edgeMarginV = 1 * circleWidth;
-    int edgeMarginH = (int) 4.5 * circleWidth;
-    boolean running = false;
-    NoeudListener listenner = null;
-    JPanel colorIndicator = null;
-    ArrayList<String> typeToDraw = new ArrayList<>(Arrays.asList("V", "L", "R"));
-    ArrayList<String> typeToDrawLiens = new ArrayList<>(Arrays.asList("A", "D", "N"));
+    // <editor-fold defaultstate="collapsed" desc="Déclaration">  
+    
+    ArrayList<Noeud> toDraw; // Noeuds à dessiner
+    
+    ArrayList<Lien> toDrawLiens; // Liens à dessiner
+    
+    int circleWidth = 20; // Taille cercle noeud
+    
+    int edgeMarginV = 1 * circleWidth; // padding veritcale
+    
+    int edgeMarginH = (int) 4.5 * circleWidth; // padding horizontal
+    
+    boolean running = false; // vraie si calcule de possition en cour
+    
+    NoeudListener listenner = null; // le neoud sélectionner
+    
+    JPanel colorIndicator = null; // panneau qui indique l'état  avec une couleur
+    
+    ArrayList<String> typeToDraw = new ArrayList<>(Arrays.asList("V", "L", "R")); // Liste des types de noeuds à dessiner
+    
+    ArrayList<String> typeToDrawLiens = new ArrayList<>(Arrays.asList("A", "D", "N")); // Liste des types de liens à dessiner
     
     //</editor-fold>
     
