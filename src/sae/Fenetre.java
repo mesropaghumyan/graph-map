@@ -24,16 +24,16 @@ import sae.myInterface.NoeudListener;
  * @author Loan
  */
 public class Fenetre extends javax.swing.JFrame {
-    
+
     DefaultListModel<String> modelListNoeud = new DefaultListModel<>();
     DefaultListModel<String> modelListNoeudInfo = new DefaultListModel<>();
     DefaultListModel<String> modelListLienInfo = new DefaultListModel<>();
     Map m = new Map();
     JFileChooser fileChooser;
-    Noeud subPanelVoisin1tmpNoeud =null;
-    Noeud subPanel2DAtmpNoeud =null;
-    Noeud subPanel2DBtmpNoeud =null;
-    CardLayout cardManager ;
+    Noeud subPanelVoisin1tmpNoeud = null;
+    Noeud subPanel2DAtmpNoeud = null;
+    Noeud subPanel2DBtmpNoeud = null;
+    CardLayout cardManager;
 
     /**
      * Creates new form Fenetre
@@ -45,7 +45,7 @@ public class Fenetre extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                
+
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
@@ -65,7 +65,7 @@ public class Fenetre extends javax.swing.JFrame {
         myinit();
         setSize(900, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         setVisible(true);
     }
 
@@ -782,145 +782,132 @@ public class Fenetre extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void myinit() {
         fileChooser = new JFileChooser();
         //fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         fileChooser.setCurrentDirectory(new File("D:/COUR/2022/JAVA/sae-java"));
-        
+
         carte.addColorIndicator(colorLocating);
         m.addColorIndicator(colorFileLoading);
-        
-        cardManager = (CardLayout) subPanelCard.getLayout();
-        subPanelCard.add(subPanelInfo,"0");
-        subPanelCard.add(subPanelVoisin1,"1");
-        subPanelCard.add(subPanelVoisin2,"2");
-        subPanelCard.add(subPanelVoisinC2,"3");
-        cardManager.first(subPanelCard);
-        
-        sontA2D.setOpaque(true);
-  
-        
-        
-        
 
-        
-        
-        
+        cardManager = (CardLayout) subPanelCard.getLayout();
+        subPanelCard.add(subPanelInfo, "0");
+        subPanelCard.add(subPanelVoisin1, "1");
+        subPanelCard.add(subPanelVoisin2, "2");
+        subPanelCard.add(subPanelVoisinC2, "3");
+        cardManager.first(subPanelCard);
+
+        sontA2D.setOpaque(true);
+
         carte.addNoeudListener(new NoeudListener() {
             @Override
             public void noeudSelected(Noeud obj) {
-                if (modeChooser.getSelectedIndex()==1){
-                    subPanelVoisin1tmpNoeud =obj;
+                if (modeChooser.getSelectedIndex() == 1) {
+                    subPanelVoisin1tmpNoeud = obj;
                     nomNoeudChoisi.setText(obj.toStringList());
                     updateListNoeudVoisn1();
-                }else if(modeChooser.getSelectedIndex()==2){
-                    if(radioNoeudA.isSelected()){
-                        subPanel2DAtmpNoeud =obj;
+                } else if (modeChooser.getSelectedIndex() == 2) {
+                    if (radioNoeudA.isSelected()) {
+                        subPanel2DAtmpNoeud = obj;
                         nomNoeudAP2.setText(obj.toStringList());
                         ;
-                    }else{
-                        subPanel2DBtmpNoeud =obj;
+                    } else {
+                        subPanel2DBtmpNoeud = obj;
                         nomNoeudBP2.setText(obj.toStringList());
-                        
-                        
+
                     }
-                    
-                    
+
                     updateEstA2D();
-                    
-                }else if (modeChooser.getSelectedIndex()==3){
-                    if(radioNoeudA2.isSelected()){
-                        subPanel2DAtmpNoeud =obj;
+
+                } else if (modeChooser.getSelectedIndex() == 3) {
+                    if (radioNoeudA2.isSelected()) {
+                        subPanel2DAtmpNoeud = obj;
                         nomNoeudAP3.setText(obj.toStringList());
-                    }else{
-                        subPanel2DBtmpNoeud =obj;
+                    } else {
+                        subPanel2DBtmpNoeud = obj;
                         nomNoeudBP3.setText(obj.toStringList());
                     }
                     updateEstPO();
-                    
+
                 }
-                
-                
-                
+
             }
         });
-        
+
     }
-    
-    private void updateEstPO(){
-        if(subPanel2DAtmpNoeud != null && subPanel2DBtmpNoeud!= null){
+
+    private void updateEstPO() {
+        if (subPanel2DAtmpNoeud != null && subPanel2DBtmpNoeud != null) {
             int res;
             estPOM.setText("plus");
-            switch(choixComp.getSelectedIndex()){
+            switch (choixComp.getSelectedIndex()) {
                 case 0:
                     res = m.estPlusOuvert(subPanel2DAtmpNoeud, subPanel2DBtmpNoeud) == false ? 0 : 1;
-                    res = m.ouvertureNoeuds(subPanel2DAtmpNoeud)==m.ouvertureNoeuds(subPanel2DBtmpNoeud) ? 2 : res;
+                    res = m.ouvertureNoeuds(subPanel2DAtmpNoeud) == m.ouvertureNoeuds(subPanel2DBtmpNoeud) ? 2 : res;
                     break;
                 case 1:
-                    res = m.estPlusGastronomique(subPanel2DAtmpNoeud, subPanel2DBtmpNoeud)== false ? 0 : 1;
-                    res = m.gastronomoieNoeuds(subPanel2DAtmpNoeud)==m.gastronomoieNoeuds(subPanel2DBtmpNoeud) ? 2 : res;
+                    res = m.estPlusGastronomique(subPanel2DAtmpNoeud, subPanel2DBtmpNoeud) == false ? 0 : 1;
+                    res = m.gastronomoieNoeuds(subPanel2DAtmpNoeud) == m.gastronomoieNoeuds(subPanel2DBtmpNoeud) ? 2 : res;
                     break;
                 case 2:
-                    res = m.estPlusCulturel(subPanel2DAtmpNoeud, subPanel2DBtmpNoeud)== false ? 0 : 1;
-                    res = m.cultureNoeuds(subPanel2DAtmpNoeud)==m.cultureNoeuds(subPanel2DBtmpNoeud) ? 2 : res;                    
+                    res = m.estPlusCulturel(subPanel2DAtmpNoeud, subPanel2DBtmpNoeud) == false ? 0 : 1;
+                    res = m.cultureNoeuds(subPanel2DAtmpNoeud) == m.cultureNoeuds(subPanel2DBtmpNoeud) ? 2 : res;
                     break;
                 default:
 
                     res = 0;
-                    
-                    
+
             }
-      
-            if (res == 0){
+
+            if (res == 0) {
                 estPOM.setText("moins");
-                                
-            }else if(res == 2){
+
+            } else if (res == 2) {
                 estPOM.setText("autant");
             }
-            
-            
+
         }
-        
+
     }
-    private void updateEstA2D(){
-        if(subPanel2DAtmpNoeud != null && subPanel2DBtmpNoeud!= null){
+
+    private void updateEstA2D() {
+        if (subPanel2DAtmpNoeud != null && subPanel2DBtmpNoeud != null) {
             sontA2D.setBackground(Color.red);
-            if (m.estA2Distance(subPanel2DAtmpNoeud, subPanel2DBtmpNoeud)){
+            if (m.estA2Distance(subPanel2DAtmpNoeud, subPanel2DBtmpNoeud)) {
                 sontA2D.setBackground(Color.green);
             }
-                
-            sontA2D.setText( (m.estA2Distance(subPanel2DAtmpNoeud, subPanel2DBtmpNoeud)).toString());
+
+            sontA2D.setText((m.estA2Distance(subPanel2DAtmpNoeud, subPanel2DBtmpNoeud)).toString());
         }
     }
-    
-    private void updateListNoeudVoisn1(){
-        if (subPanelVoisin1tmpNoeud!=null){
-            
-            String slectedType =((String) choixTypeNoeud.getSelectedItem()).equals("Ville") ?
-                    "V" : (String) choixTypeNoeud.getSelectedItem();
-            slectedType = choixTypeNoeud.getSelectedItem().equals("Restaurant") ?
-                    "R" : slectedType;
-            slectedType = choixTypeNoeud.getSelectedItem().equals("Centre de loisir") ?
-                    "L" : slectedType;
-            
-       
+
+    private void updateListNoeudVoisn1() {
+        if (subPanelVoisin1tmpNoeud != null) {
+
+            String slectedType = ((String) choixTypeNoeud.getSelectedItem()).equals("Ville")
+                    ? "V" : (String) choixTypeNoeud.getSelectedItem();
+            slectedType = choixTypeNoeud.getSelectedItem().equals("Restaurant")
+                    ? "R" : slectedType;
+            slectedType = choixTypeNoeud.getSelectedItem().equals("Centre de loisir")
+                    ? "L" : slectedType;
+
             System.out.println(slectedType);
             modelListNoeud.removeAllElements();
-                for (Noeud i : subPanelVoisin1tmpNoeud.getVoisin()){
-                    
-                    if(i.getType().equals(slectedType)){
-                        modelListNoeud.addElement(i.toStringList());
-                    }
+            for (Noeud i : subPanelVoisin1tmpNoeud.getVoisin()) {
+
+                if (i.getType().equals(slectedType)) {
+                    modelListNoeud.addElement(i.toStringList());
                 }
+            }
         }
     }
-    
+
     private void itemOuvrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemOuvrirActionPerformed
-        
+
         int result = fileChooser.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
-            
+
             itemRedispose.setEnabled(true);
             File selectedFile = fileChooser.getSelectedFile();
             m.loadMap(selectedFile.getAbsolutePath());
@@ -933,35 +920,35 @@ public class Fenetre extends javax.swing.JFrame {
             nbrLoisirs.setText(Integer.toString(m.getNbLoisirs()));
             nbrVilles.setText(Integer.toString(m.getNbVilles()));
             nbrResto.setText(Integer.toString(m.getNbRestaurants()));
-            
+
             nbrAutoroutes.setText(Integer.toString(m.getNbAutoroutes()));
             nbrNationales.setText(Integer.toString(m.getNbNationales()));
             nbrDepartementales.setText(Integer.toString(m.getNbDepartementales()));
-            
+
             choixLien.setModel(new DefaultComboBoxModel<Lien>(m.listeRoutes.toArray(new Lien[0])));
-            nomNoeudAP2.setText(((Lien)choixLien.getSelectedItem()).noeuds1.toStringList());
-            nomNoeudBP2.setText(((Lien)choixLien.getSelectedItem()).noeuds2.toStringList());
-            
+            nomNoeudAP2.setText(((Lien) choixLien.getSelectedItem()).noeuds1.toStringList());
+            nomNoeudBP2.setText(((Lien) choixLien.getSelectedItem()).noeuds2.toStringList());
+
             updateListNoeudInfo();
             updateListLienInfo();
         }
     }//GEN-LAST:event_itemOuvrirActionPerformed
 
     private void itemRedisposeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRedisposeActionPerformed
-        
+
         carte.init();
-        
+
     }//GEN-LAST:event_itemRedisposeActionPerformed
 
     private void modeChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeChooserActionPerformed
 
-        cardManager.show(subPanelCard,Integer.toString(modeChooser.getSelectedIndex()));
-        
+        cardManager.show(subPanelCard, Integer.toString(modeChooser.getSelectedIndex()));
+
 
     }//GEN-LAST:event_modeChooserActionPerformed
 
     private void checkAffichVillesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkAffichVillesActionPerformed
-        
+
         carte.setTypeToDraw("V", checkAffichVilles.isSelected());
     }//GEN-LAST:event_checkAffichVillesActionPerformed
 
@@ -990,8 +977,8 @@ public class Fenetre extends javax.swing.JFrame {
     }//GEN-LAST:event_choixTypeNoeudActionPerformed
 
     private void choixLienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choixLienActionPerformed
-        nomNoeudA.setText(((Lien)choixLien.getSelectedItem()).noeuds1.toStringList());
-        nomNoeudB.setText(((Lien)choixLien.getSelectedItem()).noeuds2.toStringList());
+        nomNoeudA.setText(((Lien) choixLien.getSelectedItem()).noeuds1.toStringList());
+        nomNoeudB.setText(((Lien) choixLien.getSelectedItem()).noeuds2.toStringList());
     }//GEN-LAST:event_choixLienActionPerformed
 
     private void choixCompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choixCompActionPerformed
@@ -1010,43 +997,42 @@ public class Fenetre extends javax.swing.JFrame {
         carte.swap();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-        
-    private void updateListNoeudInfo(){
-            String slectedType =((String) choixTypeNoeudList.getSelectedItem()).equals("Ville") ?
-                    "V" : (String) choixTypeNoeudList.getSelectedItem();
-            slectedType = choixTypeNoeudList.getSelectedItem().equals("Restaurant") ?
-                    "R" : slectedType;
-            slectedType = choixTypeNoeudList.getSelectedItem().equals("Centre de loisir") ?
-                    "L" : slectedType;
+    private void updateListNoeudInfo() {
+        String slectedType = ((String) choixTypeNoeudList.getSelectedItem()).equals("Ville")
+                ? "V" : (String) choixTypeNoeudList.getSelectedItem();
+        slectedType = choixTypeNoeudList.getSelectedItem().equals("Restaurant")
+                ? "R" : slectedType;
+        slectedType = choixTypeNoeudList.getSelectedItem().equals("Centre de loisir")
+                ? "L" : slectedType;
 
-            modelListNoeudInfo.removeAllElements();
-                for (Noeud i : m.getListeVilles()){
-                    
-                    if(i.getType().equals(slectedType)){
-                        modelListNoeudInfo.addElement(i.toStringList());
-                    }
-                }
-        
-    }
-    
-    private void updateListLienInfo(){
-            String slectedType =((String) choixTypeLienList.getSelectedItem()).equals("Autoroute") ?
-                    "A" : (String) choixTypeLienList.getSelectedItem();
-            slectedType = choixTypeLienList.getSelectedItem().equals("Nationale") ?
-                    "N" : slectedType;
-            slectedType = choixTypeLienList.getSelectedItem().equals("Départementale") ?
-                    "D" : slectedType;
+        modelListNoeudInfo.removeAllElements();
+        for (Noeud i : m.getListeVilles()) {
 
-            modelListLienInfo.removeAllElements();
-                for (Lien i : m.getlisteRoutes()){
-                    
-                    if(i.getTypeLiens().equals(slectedType)){
-                        modelListLienInfo.addElement(i.toString());
-                    }
-                }
-        
+            if (i.getType().equals(slectedType)) {
+                modelListNoeudInfo.addElement(i.toStringList());
+            }
+        }
+
     }
-    
+
+    private void updateListLienInfo() {
+        String slectedType = ((String) choixTypeLienList.getSelectedItem()).equals("Autoroute")
+                ? "A" : (String) choixTypeLienList.getSelectedItem();
+        slectedType = choixTypeLienList.getSelectedItem().equals("Nationale")
+                ? "N" : slectedType;
+        slectedType = choixTypeLienList.getSelectedItem().equals("Départementale")
+                ? "D" : slectedType;
+
+        modelListLienInfo.removeAllElements();
+        for (Lien i : m.getlisteRoutes()) {
+
+            if (i.getTypeLiens().equals(slectedType)) {
+                modelListLienInfo.addElement(i.toString());
+            }
+        }
+
+    }
+
     /**
      * @param args the command line arguments
      */

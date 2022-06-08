@@ -13,6 +13,7 @@ import javax.swing.JLabel;
  * @author Loan
  */
 public class Noeud  {
+    
     String typeNoeuds;
     String nomNoeuds;
     ArrayList<Lien> connection;
