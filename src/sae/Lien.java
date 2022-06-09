@@ -7,15 +7,26 @@ package sae;
 import sae.exception.TypeNotSupportedException;
 
 /**
- *
+ * Classe qui représente un lien/ route
  * @author Loan
  */
 public class Lien {
-    String typeLiens;
-    Noeud noeuds1;
-    Noeud noeuds2;
-    float poidsLiens;
+    
+    // <editor-fold defaultstate="collapsed" desc="Déclaration">  
+    
+    String typeLiens; // Type du lien
+    
+    Noeud noeuds1; // un noeud que relie le lien
+    
+    Noeud noeuds2; // un autre neoud que relie le lien
+    
+    float poidsLiens; // le poid du lien, dans notre cas les kilomètres
+    
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Constructeur">  
     Lien(String newtypeLiens,Noeud newnoeuds1,Noeud newnoeuds2,float newpoidsLiens) throws Exception{
+        // Verifie le type
         if (newtypeLiens.equals("A")  || newtypeLiens.equals("N") || newtypeLiens.equals("D") )
         {
             typeLiens = newtypeLiens;
@@ -27,25 +38,53 @@ public class Lien {
         }
                 
     }
+    
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Methode">  
+    
+    /**
+     * Getter le type du lien
+     * @return type String
+     */
     public String getTypeLiens(){
         return typeLiens;
     }
+    
+    /**
+     * Getter le noeud 1 du lien
+     * @return type Noeud
+     */
     public Noeud getNoeuds1(){
         return noeuds1;
     }
+    
+    /**
+     * Getter le noeud 2 du lien
+     * @return type Noeud
+     */
     public Noeud getNoeuds2(){
         return noeuds2;
     }
+    
+    /**
+     * Getter le poid du lien
+     * @return type float
+     */
     public float getPoidsLiens(){
         return poidsLiens;
     }
+    
     @Override
     public String toString(){
         //return "[lien]->["+typeLiens+"; "+noeuds1+"; "+noeuds2+"; "+poidsLiens+";] ";
         return typeLiens+" : "+poidsLiens;
-        
     }
     
+    /**
+     * toString mais avec plus d'info
+     * @return type String
+     */
     public String toStringMoreInfo(){
         return "[lien]->["+typeLiens+"; "+noeuds1+"; "+noeuds2+"; "+poidsLiens+";] ";
         //return typeLiens+" : "+poidsLiens;
@@ -79,10 +118,21 @@ public class Lien {
                 
                 );
     }
+    
+    /**
+     * Retourne vrai si le nœud passer en paramètre est l’une des extrémités du lien
+     * @param depart
+     * @return type boolean
+     */
     public boolean estExtremite(Noeud depart){
         return this.getNoeuds1().equals(depart) || this.getNoeuds2().equals(depart);
     }
     
+    /**
+     * Retourne le nœud situé à l'autre extrémité du lie
+     * @param depart
+     * @return type Noeud
+     */
     public Noeud getOppose(Noeud depart){
         if (this.getNoeuds1().equals(depart)){
             return this.getNoeuds2();
@@ -90,4 +140,6 @@ public class Lien {
             return this.getNoeuds1();
         }
     }
+    
+    // </editor-fold>
 }

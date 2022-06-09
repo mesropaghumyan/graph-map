@@ -20,21 +20,22 @@ import javax.swing.JPanel;
 import sae.myInterface.NoeudListener;
 
 /**
- *
+ *  Classe responsable de la représentation du graphe
  * @author Loan
  */
 public class Carte extends JPanel {
 
     // <editor-fold defaultstate="collapsed" desc="Déclaration">  
+    
     ArrayList<Noeud> toDraw; // Noeuds à dessiner
 
     ArrayList<Lien> toDrawLiens; // Liens à dessiner
 
-    int circleWidth = 20; // Taille cercle noeud
+    int avgTextWidth = 20; // Taille cercle noeud
 
-    int edgeMarginV = 1 * circleWidth; // padding veritcale
+    int edgeMarginV = 1 * avgTextWidth; // padding veritcale
 
-    int edgeMarginH = (int) 4.5 * circleWidth; // padding horizontal
+    int edgeMarginH = (int) 4.5 * avgTextWidth; // padding horizontal
 
     boolean running = false; // vraie si calcule de possition en cour
 
@@ -47,6 +48,7 @@ public class Carte extends JPanel {
     ArrayList<String> typeToDrawLiens = new ArrayList<>(Arrays.asList("A", "D", "N")); // Liste des types de liens à dessiner
 
     //</editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Constructeur">  
     public Carte() {
         initComp(); // initalisation
@@ -143,9 +145,9 @@ public class Carte extends JPanel {
                     g.setColor(new Color(100, 100, 150));
                 }
 
-                g.drawLine(noeudsUn.getPosX() + (circleWidth / 2), noeudsUn.getPosY() + (circleWidth / 2),
-                        noeudsDeux.getPosX() + (circleWidth / 2),
-                        noeudsDeux.getPosY() + (circleWidth / 2));
+                g.drawLine(noeudsUn.getPosX() + (avgTextWidth / 2), noeudsUn.getPosY() + (avgTextWidth / 2),
+                        noeudsDeux.getPosX() + (avgTextWidth / 2),
+                        noeudsDeux.getPosY() + (avgTextWidth / 2));
             }
         }
     }
@@ -169,7 +171,7 @@ public class Carte extends JPanel {
                 }
 
                 g.setColor(tmpColor);
-                g.fillOval(tmp.getPosX(), tmp.getPosY(), circleWidth, circleWidth);
+                g.fillOval(tmp.getPosX(), tmp.getPosY(), tmp.getWidth(), tmp.getWidth());
             }
         }
 
@@ -306,8 +308,8 @@ public class Carte extends JPanel {
         while (edit) {
             edit = false;
             Dimension tmpSize = this.getSize();
-            int maxH = tmpSize.width - edgeMarginH - circleWidth / 2;
-            int maxV = tmpSize.height - edgeMarginV - circleWidth / 2;
+            int maxH = tmpSize.width - edgeMarginH - avgTextWidth / 2;
+            int maxV = tmpSize.height - edgeMarginV - avgTextWidth / 2;
             for (Noeud tmp : toDraw) {
                 if (typeToDraw.contains(tmp.getType())) {
 
@@ -350,8 +352,8 @@ public class Carte extends JPanel {
                     tmpPosX = (int) (tmpPosX > maxH ? maxH - tmpPosX % maxH * 0 : tmpPosX);
                     tmpPosY = (int) (tmpPosY > maxV ? maxV - tmpPosY % maxV * 0 : tmpPosY);
 
-                    tmpPosX = tmpPosX < edgeMarginH - circleWidth / 2 ? tmpPosX + edgeMarginH - circleWidth / 2 : tmpPosX;
-                    tmpPosY = tmpPosY < edgeMarginV - circleWidth / 2 ? tmpPosY + edgeMarginV - circleWidth / 2 : tmpPosY;
+                    tmpPosX = tmpPosX < edgeMarginH - avgTextWidth / 2 ? tmpPosX + edgeMarginH - avgTextWidth / 2 : tmpPosX;
+                    tmpPosY = tmpPosY < edgeMarginV - avgTextWidth / 2 ? tmpPosY + edgeMarginV - avgTextWidth / 2 : tmpPosY;
 
                     tmp.setPosX(tmpPosX);
                     tmp.setPosY(tmpPosY);
