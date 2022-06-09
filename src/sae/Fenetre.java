@@ -989,7 +989,10 @@ public class Fenetre extends javax.swing.JFrame {
         }
 
     }
-
+    
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Action Performed">  
     private void itemOuvrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemOuvrirActionPerformed
 
         int result = fileChooser.showOpenDialog(this);
@@ -1095,9 +1098,9 @@ public class Fenetre extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_radioNoeudBActionPerformed
 
-    
-    
     // </editor-fold>
+    
+    
     
     /**
      * @param args the command line arguments
