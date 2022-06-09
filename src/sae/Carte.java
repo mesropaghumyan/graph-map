@@ -24,63 +24,110 @@ import sae.myInterface.NoeudListener;
  * @author Loan
  */
 public class Carte extends JPanel {
-    
-    // <editor-fold defaultstate="collapsed" desc="Déclaration">  
-    
-    ArrayList<Noeud> toDraw; // Noeuds à dessiner
-    
-    ArrayList<Lien> toDrawLiens; // Liens à dessiner
-    
-    int circleWidth = 20; // Taille cercle noeud
-    
-    int edgeMarginV = 1 * circleWidth; // padding veritcale
-    
-    int edgeMarginH = (int) 4.5 * circleWidth; // padding horizontal
-    
-    boolean running = false; // vraie si calcule de possition en cour
-    
-    NoeudListener listenner = null; // le neoud sélectionner
-    
-    JPanel colorIndicator = null; // panneau qui indique l'état  avec une couleur
-    
-    ArrayList<String> typeToDraw = new ArrayList<>(Arrays.asList("V", "L", "R")); // Liste des types de noeuds à dessiner
-    
-    ArrayList<String> typeToDrawLiens = new ArrayList<>(Arrays.asList("A", "D", "N")); // Liste des types de liens à dessiner
-    
-    //</editor-fold>
-    
-    public Carte() {
 
+    // <editor-fold defaultstate="collapsed" desc="Déclaration">  
+    ArrayList<Noeud> toDraw; // Noeuds à dessiner
+
+    ArrayList<Lien> toDrawLiens; // Liens à dessiner
+
+    int circleWidth = 20; // Taille cercle noeud
+
+    int edgeMarginV = 1 * circleWidth; // padding veritcale
+
+    int edgeMarginH = (int) 4.5 * circleWidth; // padding horizontal
+
+    boolean running = false; // vraie si calcule de possition en cour
+
+    NoeudListener listenner = null; // le neoud sélectionner
+
+    JPanel colorIndicator = null; // panneau qui indique l'état  avec une couleur
+
+    ArrayList<String> typeToDraw = new ArrayList<>(Arrays.asList("V", "L", "R")); // Liste des types de noeuds à dessiner
+
+    ArrayList<String> typeToDrawLiens = new ArrayList<>(Arrays.asList("A", "D", "N")); // Liste des types de liens à dessiner
+
+    //</editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Constructeur">  
+    public Carte() {
+        initComp(); // initalisation
+    }
+    //</editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Methodes">  
+    /**
+     * Première méthode à exécuter, exécutée par le constructeur Initialise les
+     * listes et les listeners
+     */
+    public void initComp() {
+
+        // initaliastion des ArrayList
         this.toDraw = new ArrayList<>();
         this.toDrawLiens = new ArrayList<>();
+
+        // Ajouter Listener pour le nœud sélectionner
         this.addMouseListener(new NoeudsSelecter());
 
+        // Ajouter Listener pour le redimensionnement de fenêtre
         this.addComponentListener(new ComponentAdapter() {
+
             @Override
             public void componentResized(ComponentEvent ev) {
+
+                // si ne tourne pas deja
                 if (!toDraw.isEmpty() && !running) {
+
+                    // crée le thread
                     Thread palceThreadtmp = new Thread(() -> {
                         run();
                     });
+
+                    // lancer le thread
                     palceThreadtmp.start();
                 }
-
             }
-
         });
+
     }
 
+    /**
+     * Enregistrer le JPanel qui indique la progression
+     *
+     * @param indi type JPanel
+     */
     public void addColorIndicator(JPanel indi) {
         colorIndicator = indi;
     }
 
+    /**
+     * Redéfinition de painComponent.
+     *
+     * @param g type Graphics
+     */
     @Override
     public void paintComponent(Graphics g) {
+
+        // Effacer le dernier paintComp
         g.setColor(this.getBackground());
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-        g.setColor(Color.GRAY);
-        int width = circleWidth;
+        // Dessiner les liens
+        paintLien(g);
+
+        // Desssiner les noeuds
+        paintNoeud(g);
+
+        // Dessiner les noms de neouds
+        paintLabel();
+
+    }
+
+    /**
+     * Dessiner les liens
+     *
+     * @param g type Graphics
+     */
+    public void paintLien(Graphics g) {
+        // Dessiner les liens
         for (int i = 0; i < toDrawLiens.size(); i++) {
             if (typeToDraw.contains(toDrawLiens.get(i).getNoeuds1().getType())
                     && typeToDraw.contains(toDrawLiens.get(i).getNoeuds2().getType())
@@ -96,11 +143,21 @@ public class Carte extends JPanel {
                     g.setColor(new Color(100, 100, 150));
                 }
 
-                g.drawLine(noeudsUn.getPosX() + (width / 2), noeudsUn.getPosY() + (width / 2),
-                         noeudsDeux.getPosX() + (width / 2),
-                         noeudsDeux.getPosY() + (width / 2));
+                g.drawLine(noeudsUn.getPosX() + (circleWidth / 2), noeudsUn.getPosY() + (circleWidth / 2),
+                        noeudsDeux.getPosX() + (circleWidth / 2),
+                        noeudsDeux.getPosY() + (circleWidth / 2));
             }
         }
+    }
+
+    /**
+     * Desssiner les noeuds
+     *
+     * @param g type Graphics
+     */
+    public void paintNoeud(Graphics g) {
+
+        // Dessiner les noeuds
         for (Noeud tmp : toDraw) {
             if (typeToDraw.contains(tmp.getType())) {
                 Color tmpColor = Color.red;
@@ -112,12 +169,15 @@ public class Carte extends JPanel {
                 }
 
                 g.setColor(tmpColor);
-                g.fillOval(tmp.getPosX(), tmp.getPosY(), width, width);
+                g.fillOval(tmp.getPosX(), tmp.getPosY(), circleWidth, circleWidth);
             }
         }
-        this.paintLabel();
+
     }
 
+    /**
+     * Dessiner les noms de neouds
+     */
     public void paintLabel() {
         this.removeAll();
         for (Noeud tmp : toDraw) {
@@ -127,30 +187,57 @@ public class Carte extends JPanel {
         }
 
     }
-
+    
+    /**
+     * Getter
+     * @return type ArrayList<Noeud>
+     */
     public ArrayList<Noeud> getToDraw() {
         return toDraw;
     }
-
+    
+    /**
+     * Setter
+     * @param toDraw type ArrayList<Noeud>
+     */
     public void setToDraw(ArrayList<Noeud> toDraw) {
         this.toDraw = toDraw;
     }
-
+    
+    /**
+     * Ajoute le noeud a toDraw
+     * @param toDraw type Noeud
+     */
     public void addToDraw(Noeud toDraw) {
         this.toDraw.add(toDraw);
     }
-
+    
+    
+    /**
+     * Setter
+     * @param toDrawLiens type ArrayList<Lien>
+     */
     public void setToDrawLiens(ArrayList<Lien> toDrawLiens) {
         this.toDrawLiens = toDrawLiens;
     }
-
+    
+    
+    /**
+     * Définit les nœuds à afficher
+     * @param type type String
+     * @param affich type boolean
+     */
     public void setTypeToDraw(String type, boolean affich) {
-        System.out.println("check" + type + " " + affich);
+        //System.out.println("check" + type + " " + affich);
+        
+        // Ajouter si il n'est pas dans la liste
         if (affich && !typeToDraw.contains(type)) {
             typeToDraw.add(type);
         } else if (!affich && typeToDraw.contains(type)) {
             typeToDraw.remove(type);
         }
+        
+        // Si il y a qlqc à dessiner  alors on dessine
         if (!toDraw.isEmpty() && !running) {
             Thread palceThreadtmp = new Thread(() -> {
                 run();
@@ -158,14 +245,23 @@ public class Carte extends JPanel {
             palceThreadtmp.start();
         }
     }
-
+    
+    /**
+     * Définit les liens à afficher
+     * @param type type String
+     * @param affich type boolean
+     */
     public void setTypeToDrawLiens(String type, boolean affich) {
-        System.out.println("check" + type + " " + affich);
+        //System.out.println("check" + type + " " + affich);
+        
+        // Ajouter si il n'est pas dans la liste
         if (affich && !typeToDrawLiens.contains(type)) {
             typeToDrawLiens.add(type);
         } else if (!affich && typeToDrawLiens.contains(type)) {
             typeToDrawLiens.remove(type);
         }
+        
+        // Si il y a qlqc à dessiner  alors on dessine
         if (!toDraw.isEmpty() && !running) {
             Thread palceThreadtmp = new Thread(() -> {
                 run();
@@ -173,7 +269,12 @@ public class Carte extends JPanel {
             palceThreadtmp.start();
         }
     }
-
+    
+    
+    /**
+     * méthode à exécuter avant run, permet d'initialiser 
+     * la position des nœuds sur la carte
+     */
     public void init() {
         if (colorIndicator != null) {
             colorIndicator.setBackground(Color.yellow);
@@ -181,11 +282,11 @@ public class Carte extends JPanel {
         Random random = new Random();
 
         for (Noeud tmpNoeuds2 : toDraw) {
-
             tmpNoeuds2.setPosX(random.nextInt(edgeMarginH, this.getSize().width - edgeMarginH));
             tmpNoeuds2.setPosY(random.nextInt(edgeMarginV, this.getSize().height - edgeMarginV));
-
         }
+        
+        // Si il y a qlqc à dessiner  alors on dessine
         if (!toDraw.isEmpty() && !running) {
             Thread palceThreadtmp = new Thread(() -> {
                 run();
@@ -194,11 +295,14 @@ public class Carte extends JPanel {
         }
     }
 
+    /**
+     * Méthode qui calcule des nouvelles positions pour pas que les nœuds se chevauchent
+     */
     public void run() {
         running = true;
         boolean edit = true;
 
-        //for(int i=0; i<2000; i++){
+       
         while (edit) {
             edit = false;
             Dimension tmpSize = this.getSize();
@@ -270,7 +374,12 @@ public class Carte extends JPanel {
         }
 
     }
-
+    
+    
+    /**
+     * Méthode expérimentale qui permet d'échanger la position 
+     * des nœuds pour raccourcir la distance entre leurs voisins
+     */
     public void swap() {
         for (Noeud i : toDraw) {
             int Xo = i.getPosX();
@@ -292,13 +401,31 @@ public class Carte extends JPanel {
         repaint();
 
     }
-
+    
+    
+    /**
+     * Ajouter un Listener appeler quand un nœud est sélectionné
+     * @param newlistenner type NoeudListener
+     */
     public void addNoeudListener(NoeudListener newlistenner) {
         listenner = newlistenner;
     }
-
+    
+    //</editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Classe Interne">  
+   
+    
+    /**
+     * Classe chargée de gérer la sélection des nœuds
+     */
     public class NoeudsSelecter extends MouseAdapter {
-
+        
+        
+        /**
+         * Redéfinition de mouseClicked
+         * @param e type MouseEvent
+         */
         @Override
         public void mouseClicked(MouseEvent e) {
             super.mouseClicked(e);
@@ -322,5 +449,7 @@ public class Carte extends JPanel {
         }
 
     }
+    //</editor-fold>
+    
 
 }
