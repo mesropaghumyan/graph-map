@@ -230,74 +230,7 @@ public class Noeud {
         return somme;//this.getVoisin().size();
     }
     
-    /**
-     * Retourne combien il faut déplacer le noeud sur l'axe X
-     * pour atteindre  l'objectif de distance avec le voisin
-     * @param tmpVoisin type Noeud
-     * @param goal type int
-     * @return type double
-     */
-    protected double getDeltaX(Noeud tmpVoisin, int goal) {
-        if (tmpVoisin.equals(this)) {
-            return 0.0;
-        }
-        int dX = tmpVoisin.getPosX() - this.getPosX();
-        int dY = tmpVoisin.getPosY() - this.getPosY();
-        int move = 0;
-        int direction = 1;
-        if (dX != 0) {
-            direction = dX / Math.abs(dX) * (-1);
-        } else {
-            Random r = new Random();
-            return r.nextInt(goal * 2) - goal;
-
-        }
-
-        //ALED GIGA EREUR
-        if (Math.sqrt((dX * dX) + (dY * dY)) > 3 * goal) {
-            move = 1;
-
-        }
-        int res = (int) (goal - Math.sqrt((dX * dX) + (dY * dY))) * move * direction;
-
-        return res;
-
-    }
     
-    /**
-     * Retourne combien il faut déplacer le noeud sur l'axe Y
-     * pour atteindre  l'objectif de distance avec le voisin
-     * @param tmpVoisin type Noeud
-     * @param goal type int
-     * @return type double
-     */
-    protected double getDeltaY(Noeud tmpVoisin, int goal) {
-        if (tmpVoisin.equals(this)) {
-            return 0.0;
-        }
-        int dX = tmpVoisin.getPosX() - this.getPosX() + (tmpVoisin.width / 2) - (this.width / 2);
-        int dY = tmpVoisin.getPosY() - this.getPosY() + (tmpVoisin.width / 2) - (this.width / 2);
-        int move = 0;
-        int direction = 1;
-
-        if (dY != 0) {
-            direction = dY / Math.abs(dY) * (-1);
-        } else {
-            Random r = new Random();
-            return r.nextInt(goal * 2) - goal;
-
-        }
-
-        if (Math.sqrt((dX * dX) + (dY * dY)) > 3 * goal) {
-
-            move = 1;
-
-        }
-        //(dY-goal)*direction*0.05;
-        int res = (int) (goal - Math.sqrt((dX * dX) + (dY * dY))) * move * direction;
-        return res;
-
-    }
     
     /**
      * Retourne combien il faut déplacer le noeud sur l'axe X
@@ -322,17 +255,12 @@ public class Noeud {
 
         }
 
-        //ALED GIGA EREUR
+        
         if (Math.sqrt((dX * dX) + (dY * dY)) < 0.95 * goal) {
             move = 1;
 
         }
         int res = (int) (goal - Math.sqrt((dX * dX) + (dY * dY))) * move * direction;
-
-        if (move == 1) {
-            //System.out.println("x dir "+direction+" ; dist "+(int)Math.sqrt((dX*dX)+(dY*dY))+" ; goal "+0.95*goal+ " ; "+this.vPosX+"+("+res+") ; extecpt "+ (int)Math.sqrt((dY*dY)+((dX-res)*(dX-res)))+"; pour "+tmpVoisin.getNom().substring(0, 3));
-        }
-
         return res;
     }
     
@@ -367,11 +295,6 @@ public class Noeud {
         }
         //(dY-goal)*direction*0.05;
         int res = (int) (goal - Math.sqrt((dX * dX) + (dY * dY))) * move * direction;
-
-        if (move == 1) {
-            //System.out.println("y dir "+direction+" ; dist "+(int)Math.sqrt((dX*dX)+(dY*dY))+" ; goal "+0.95*goal+ " ; "+this.vPosY+"+("+res+") ; extecpt "+ (int)Math.sqrt((dX*dX)+((dY-res)*(dY-res)))+"; pour "+tmpVoisin.getNom().substring(0, 3));
-        }
-
         return res;
     }
 

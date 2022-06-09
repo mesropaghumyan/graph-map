@@ -937,7 +937,7 @@ public class Fenetre extends javax.swing.JFrame {
             slectedType = choixTypeNoeud.getSelectedItem().equals("Centre de loisir")
                     ? "L" : slectedType;
 
-            System.out.println(slectedType);
+            System.out.println("\u001B[32m"+"[INFO]"+"\u001B[0m"+" Type selected " +slectedType);
             modelListNoeud.removeAllElements();
             for (Noeud i : subPanelVoisin1tmpNoeud.getVoisin()) {
 

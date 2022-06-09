@@ -230,7 +230,8 @@ public class MapVisual extends JPanel {
      * @param affich type boolean
      */
     public void setTypeToDraw(String type, boolean affich) {
-        //System.out.println("check" + type + " " + affich);
+        System.out.println("\u001B[32m"+"[INFO]"+"\u001B[0m"+" Affichage " + type + " " + affich);
+        
         
         // Ajouter si il n'est pas dans la liste
         if (affich && !typeToDraw.contains(type)) {
@@ -254,7 +255,7 @@ public class MapVisual extends JPanel {
      * @param affich type boolean
      */
     public void setTypeToDrawLiens(String type, boolean affich) {
-        //System.out.println("check" + type + " " + affich);
+        System.out.println("\u001B[32m"+"[INFO]"+"\u001B[0m"+" Affichage " + type + " " + affich);
         
         // Ajouter si il n'est pas dans la liste
         if (affich && !typeToDrawLiens.contains(type)) {
@@ -327,28 +328,6 @@ public class MapVisual extends JPanel {
 
                     }
 
-                    //System.out.println(tmp.toString());
-                    //System.out.println("se raprroche de ");
-                    for (Noeud tmpNoeuds : tmp.getVoisin()) {// chanegr de toDraw a voisin
-                        //if (typeToDraw.contains(tmpNoeuds2.getType())){
-                        //System.out.println(tmpNoeuds.toString());
-                        //System.out.println(" diresction "+direction+" dsiatnce "+(Math.sqrt(dX*dX)+(dY*dY)));
-                        //tmpPosX += tmp.getDeltaX(tmpNoeuds,(int) tmp.getDistanceFromVoisin(tmpNoeuds));
-                        //tmpPosY += tmp.getDeltaY(tmpNoeuds, (int) tmp.getDistanceFromVoisin(tmpNoeuds));
-
-                        //important ne va plus se raprocher de ses voisins
-                        //tmpPosX += tmp.getDeltaX(tmpNoeuds,goal)*0.1;
-                        //tmpPosY += tmp.getDeltaY(tmpNoeuds, goal)*0.1;
-                        //}
-                    }
-
-                    if (tmpPosY != tmp.getPosY() && tmpPosX != tmp.getPosX()) {
-
-                        System.out.println(tmp.getNom());
-                        edit = true;
-
-                    }
-
                     tmpPosX = (int) (tmpPosX > maxH ? maxH - tmpPosX % maxH * 0 : tmpPosX);
                     tmpPosY = (int) (tmpPosY > maxV ? maxV - tmpPosY % maxV * 0 : tmpPosY);
 
@@ -359,12 +338,7 @@ public class MapVisual extends JPanel {
                     tmp.setPosY(tmpPosY);
 
                 }
-                if (edit) {
-                    System.out.println("==");
-                }
-                /*for(Noeuds tmp: toDraw){
-                tmp.setPosX((tmp.getPosX())+1+(tmp.getPosY()/100));
-                }*/
+       
                 this.repaint();
 
             }
@@ -383,13 +357,14 @@ public class MapVisual extends JPanel {
      * des nœuds pour raccourcir la distance entre leurs voisins
      */
     public void swap() {
+        
         for (Noeud i : toDraw) {
             int Xo = i.getPosX();
             int Yo = i.getPosY();
             for (Noeud w : toDraw) {
-                System.out.println(Xo + " " + Yo + " " + w.getPosX() + " " + w.getPosY() + " " + i.getAverageDistDromV() + " " + w.getAverageDistDromV(Xo, Yo));
+                
                 if (w.getAverageDistDromV(Xo, Yo) < i.getAverageDistDromV()) {
-                    System.out.println("swaps");
+                    
                     i.setPosX(w.getPosX());
                     i.setPosY(w.getPosY());
 
@@ -401,6 +376,7 @@ public class MapVisual extends JPanel {
             }
         }
         repaint();
+        System.out.println("\u001B[32m"+"[INFO]"+"\u001B[0m"+" Swaped");
 
     }
     
@@ -444,7 +420,7 @@ public class MapVisual extends JPanel {
                 }
 
             }
-            System.out.println((int) best_lengest + " " + clossest + " X " + e.getX() + " Y " + e.getY());
+            System.out.println("\u001B[32m"+"[INFO]"+"\u001B[0m"+ " Cliked "+(int) best_lengest + " " + clossest );
             if (listenner != null && best_lengest < clossest.width / 2) {
                 listenner.noeudSelected(clossest);
             }
