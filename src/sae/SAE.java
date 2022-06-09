@@ -15,7 +15,7 @@ public class SAE {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        Map m = new Map();
+        MapManager m = new MapManager();
         m.loadMap("map2.csv");
         
      

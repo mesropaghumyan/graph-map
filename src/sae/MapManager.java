@@ -17,7 +17,7 @@ import javax.swing.JPanel;
  *
  * @author p2103642
  */
-public class Map {
+public class MapManager {
     
     // <editor-fold defaultstate="collapsed" desc="Déclaration">  
     
@@ -31,7 +31,7 @@ public class Map {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Constructeur">  
-    Map(){
+    MapManager(){
         // initalisation des listes
         listeNoeuds = new ArrayList<>();
         listeLiens = new ArrayList<>();
@@ -420,9 +420,9 @@ public class Map {
     }
     
     /**
-     * 
-     * @param depart
-     * @return 
+     * Retourne le nombre de ville a 2 distance du noeud
+     * @param depart type noeud
+     * @return return int
      */
     public int villeNoeuds(Noeud depart){
         int c=0;
@@ -440,6 +440,11 @@ public class Map {
         return c;
     }
     
+    /**
+     * Retourne le nombre de restaurant a 2 distance du noeud
+     * @param depart type noeud
+     * @return return int
+     */
     public int gastronomoieNoeuds(Noeud depart){
         int c=0;
         for (Lien voisin2Depart : depart.getConnection()){
@@ -453,6 +458,11 @@ public class Map {
         return c;
     }
     
+    /**
+     * Retourne le nombre de centre de loisir a 2 distance du noeud
+     * @param depart type noeud
+     * @return return int
+     */
     public int cultureNoeuds(Noeud depart){
         int c=0;
         for (Lien voisin2Depart : depart.getConnection()){
@@ -466,15 +476,35 @@ public class Map {
         return c;
     }
     
-   
+    /**
+     * Retourne true si le nombre de ville a 2 distance de noeud sujet
+     * est superieur au noeud autre sinon false
+     * @param sujet type noeud
+     * @param autre type noeud
+     * @return return boolean
+     */
     public boolean estPlusOuvert(Noeud sujet, Noeud autre){
         return (this.villeNoeuds(sujet)> this.villeNoeuds(autre));
     }
     
+    /**
+     * Retourne true si le nombre de restaurant a 2 distance de noeud sujet
+     * est superieur au noeud autre sinon false
+     * @param sujet type noeud
+     * @param autre type noeud
+     * @return return boolean
+     */
     public boolean estPlusGastronomique(Noeud sujet, Noeud autre){
         return (this.gastronomoieNoeuds(sujet)> this.gastronomoieNoeuds(autre));
     }
     
+    /**
+     * Retourne true si le nombre de centre de loisir a 2 distance de noeud sujet
+     * est superieur au noeud autre sinon false
+     * @param sujet type noeud
+     * @param autre type noeud
+     * @return return boolean
+     */
     public boolean estPlusCulturel(Noeud sujet, Noeud autre){
         return (this.cultureNoeuds(sujet)> this.cultureNoeuds(autre));
     }

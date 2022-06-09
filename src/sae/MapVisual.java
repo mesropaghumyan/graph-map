@@ -23,7 +23,7 @@ import sae.myInterface.NoeudListener;
  *  Classe responsable de la représentation du graphe
  * @author Loan
  */
-public class Carte extends JPanel {
+public class MapVisual extends JPanel {
 
     // <editor-fold defaultstate="collapsed" desc="Déclaration">  
     
@@ -50,7 +50,7 @@ public class Carte extends JPanel {
     //</editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Constructeur">  
-    public Carte() {
+    public MapVisual() {
         initComp(); // initalisation
     }
     //</editor-fold>

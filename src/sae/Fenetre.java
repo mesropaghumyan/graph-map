@@ -24,16 +24,37 @@ import sae.myInterface.NoeudListener;
  * @author Loan
  */
 public class Fenetre extends javax.swing.JFrame {
-
+    
+    // <editor-fold defaultstate="collapsed" desc="Déclaration">  
+    
+    // Model List Noeud ecran 1
     DefaultListModel<String> modelListNoeud = new DefaultListModel<>();
+    
+    // Model List Noeud ecran 2
     DefaultListModel<String> modelListNoeudInfo = new DefaultListModel<>();
+    
+    // Model List Lien ecran 1
     DefaultListModel<String> modelListLienInfo = new DefaultListModel<>();
-    Map m = new Map();
+    
+    // Créer une map
+    MapManager m = new MapManager();
+    
+    // Déclaration du sélecteur de fichier
     JFileChooser fileChooser;
+    
+    // Variable conserve noeud choisi ecran 2
     Noeud subPanelVoisin1tmpNoeud = null;
+    
+    // Variable conserve noeud choisi ecran 3
     Noeud subPanel2DAtmpNoeud = null;
+    
+    // Variable conserve le deuxième  noeud choisi ecran 3
     Noeud subPanel2DBtmpNoeud = null;
+    
+    // Déclaration du carLayout pour la gestion des ecrans
     CardLayout cardManager;
+    
+    // </editor-fold>
 
     /**
      * Creates new form Fenetre
@@ -153,7 +174,7 @@ public class Fenetre extends javax.swing.JFrame {
         labelMode = new javax.swing.JLabel();
         modeChooser = new javax.swing.JComboBox<>();
         subPanelCard = new javax.swing.JPanel();
-        carte = new sae.Carte();
+        carte = new sae.MapVisual();
         menuBar = new javax.swing.JMenuBar();
         menuFichier = new javax.swing.JMenu();
         itemOuvrir = new javax.swing.JMenuItem();
@@ -793,7 +814,11 @@ public class Fenetre extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    // <editor-fold defaultstate="collapsed" desc="Methode">  
+    /**
+     * Initialisation  des composants
+     */
     private void myinit() {
         fileChooser = new JFileChooser();
         //fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
@@ -847,7 +872,10 @@ public class Fenetre extends javax.swing.JFrame {
         });
 
     }
-
+    
+    /**
+     * Gestion combo box comparaison ouverture
+     */
     private void updateEstPO() {
         if (subPanel2DAtmpNoeud != null && subPanel2DBtmpNoeud != null) {
             int res;
@@ -882,6 +910,9 @@ public class Fenetre extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Gestion graphique comparaison a 2 de distances
+     */
     private void updateEstA2D() {
         if (subPanel2DAtmpNoeud != null && subPanel2DBtmpNoeud != null) {
             sontA2D.setBackground(Color.red);
@@ -892,7 +923,10 @@ public class Fenetre extends javax.swing.JFrame {
             sontA2D.setText(String.valueOf(m.estA2Distance(subPanel2DAtmpNoeud, subPanel2DBtmpNoeud)));
         }
     }
-
+    
+    /**
+     * Met à jour la liste de noeud voisin sur l'ecran 1
+     */
     private void updateListNoeudVoisn1() {
         if (subPanelVoisin1tmpNoeud != null) {
 
@@ -912,6 +946,48 @@ public class Fenetre extends javax.swing.JFrame {
                 }
             }
         }
+    }
+    
+    /**
+     * Met à jour la liste de noeud sur l'ecran 0
+     */
+    private void updateListNoeudInfo() {
+        String slectedType = ((String) choixTypeNoeudList.getSelectedItem()).equals("Ville")
+                ? "V" : (String) choixTypeNoeudList.getSelectedItem();
+        slectedType = choixTypeNoeudList.getSelectedItem().equals("Restaurant")
+                ? "R" : slectedType;
+        slectedType = choixTypeNoeudList.getSelectedItem().equals("Centre de loisir")
+                ? "L" : slectedType;
+
+        modelListNoeudInfo.removeAllElements();
+        for (Noeud i : m.getListeNoeuds()) {
+
+            if (i.getType().equals(slectedType)) {
+                modelListNoeudInfo.addElement(i.toStringList());
+            }
+        }
+
+    }
+    
+    /**
+     * Met à jour la liste de lien sur l'ecran 0
+     */
+    private void updateListLienInfo() {
+        String slectedType = ((String) choixTypeLienList.getSelectedItem()).equals("Autoroute")
+                ? "A" : (String) choixTypeLienList.getSelectedItem();
+        slectedType = choixTypeLienList.getSelectedItem().equals("Nationale")
+                ? "N" : slectedType;
+        slectedType = choixTypeLienList.getSelectedItem().equals("Départementale")
+                ? "D" : slectedType;
+
+        modelListLienInfo.removeAllElements();
+        for (Lien i : m.getlisteLiens()) {
+
+            if (i.getTypeLiens().equals(slectedType)) {
+                modelListLienInfo.addElement(i.toString());
+            }
+        }
+
     }
 
     private void itemOuvrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemOuvrirActionPerformed
@@ -1019,42 +1095,10 @@ public class Fenetre extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_radioNoeudBActionPerformed
 
-    private void updateListNoeudInfo() {
-        String slectedType = ((String) choixTypeNoeudList.getSelectedItem()).equals("Ville")
-                ? "V" : (String) choixTypeNoeudList.getSelectedItem();
-        slectedType = choixTypeNoeudList.getSelectedItem().equals("Restaurant")
-                ? "R" : slectedType;
-        slectedType = choixTypeNoeudList.getSelectedItem().equals("Centre de loisir")
-                ? "L" : slectedType;
-
-        modelListNoeudInfo.removeAllElements();
-        for (Noeud i : m.getListeNoeuds()) {
-
-            if (i.getType().equals(slectedType)) {
-                modelListNoeudInfo.addElement(i.toStringList());
-            }
-        }
-
-    }
-
-    private void updateListLienInfo() {
-        String slectedType = ((String) choixTypeLienList.getSelectedItem()).equals("Autoroute")
-                ? "A" : (String) choixTypeLienList.getSelectedItem();
-        slectedType = choixTypeLienList.getSelectedItem().equals("Nationale")
-                ? "N" : slectedType;
-        slectedType = choixTypeLienList.getSelectedItem().equals("Départementale")
-                ? "D" : slectedType;
-
-        modelListLienInfo.removeAllElements();
-        for (Lien i : m.getlisteLiens()) {
-
-            if (i.getTypeLiens().equals(slectedType)) {
-                modelListLienInfo.addElement(i.toString());
-            }
-        }
-
-    }
-
+    
+    
+    // </editor-fold>
+    
     /**
      * @param args the command line arguments
      */
@@ -1072,7 +1116,7 @@ public class Fenetre extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup c2Group;
-    private sae.Carte carte;
+    private sae.MapVisual carte;
     private javax.swing.JCheckBox checkAffichAutoroutes;
     private javax.swing.JCheckBox checkAffichDepart;
     private javax.swing.JCheckBox checkAffichLoisirs;
