@@ -146,6 +146,7 @@ public class Fenetre extends javax.swing.JFrame {
         listLienInfo = new javax.swing.JList<>(modelListLienInfo);
         choixTypeLienList = new javax.swing.JComboBox<>();
         labelLienList = new javax.swing.JLabel();
+        c2Group = new javax.swing.ButtonGroup();
         v2Group = new javax.swing.ButtonGroup();
         sidePanel = new javax.swing.JPanel();
         subPanelChanger = new javax.swing.JPanel();
@@ -273,9 +274,20 @@ public class Fenetre extends javax.swing.JFrame {
 
         v2Group.add(radioNoeudB);
         radioNoeudB.setText("Nom Noeud B :");
+        radioNoeudB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioNoeudBActionPerformed(evt);
+            }
+        });
 
         v2Group.add(radioNoeudA);
+        radioNoeudA.setSelected(true);
         radioNoeudA.setText("Nom Noeud A :");
+        radioNoeudA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioNoeudAActionPerformed(evt);
+            }
+        });
 
         labelSontA2.setText("Sont a 2 de distance : ");
 
@@ -324,10 +336,10 @@ public class Fenetre extends javax.swing.JFrame {
 
         nomNoeudBP3.setText("...");
 
-        v2Group.add(radioNoeudB2);
+        c2Group.add(radioNoeudB2);
         radioNoeudB2.setText("Nom Noeud B :");
 
-        v2Group.add(radioNoeudA2);
+        c2Group.add(radioNoeudA2);
         radioNoeudA2.setSelected(true);
         radioNoeudA2.setText("Nom Noeud A :");
 
@@ -689,7 +701,6 @@ public class Fenetre extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SAE GRAMA");
-        setPreferredSize(new java.awt.Dimension(10, 451));
 
         sidePanel.setLayout(new java.awt.BorderLayout(10, 10));
 
@@ -844,7 +855,7 @@ public class Fenetre extends javax.swing.JFrame {
             switch (choixComp.getSelectedIndex()) {
                 case 0:
                     res = m.estPlusOuvert(subPanel2DAtmpNoeud, subPanel2DBtmpNoeud) == false ? 0 : 1;
-                    res = m.ouvertureNoeuds(subPanel2DAtmpNoeud) == m.ouvertureNoeuds(subPanel2DBtmpNoeud) ? 2 : res;
+                    res = m.villeNoeuds(subPanel2DAtmpNoeud) == m.villeNoeuds(subPanel2DBtmpNoeud) ? 2 : res;
                     break;
                 case 1:
                     res = m.estPlusGastronomique(subPanel2DAtmpNoeud, subPanel2DBtmpNoeud) == false ? 0 : 1;
@@ -878,7 +889,7 @@ public class Fenetre extends javax.swing.JFrame {
                 sontA2D.setBackground(Color.green);
             }
 
-            sontA2D.setText((m.estA2Distance(subPanel2DAtmpNoeud, subPanel2DBtmpNoeud)).toString());
+            sontA2D.setText(String.valueOf(m.estA2Distance(subPanel2DAtmpNoeud, subPanel2DBtmpNoeud)));
         }
     }
 
@@ -911,8 +922,8 @@ public class Fenetre extends javax.swing.JFrame {
             itemRedispose.setEnabled(true);
             File selectedFile = fileChooser.getSelectedFile();
             m.loadMap(selectedFile.getAbsolutePath());
-            carte.setToDraw(m.listeVilles);
-            carte.setToDrawLiens(m.listeRoutes);
+            carte.setToDraw(m.listeNoeuds);
+            carte.setToDrawLiens(m.listeLiens);
             Thread newThread = new Thread(() -> {
                 carte.init();
             });
@@ -925,10 +936,13 @@ public class Fenetre extends javax.swing.JFrame {
             nbrNationales.setText(Integer.toString(m.getNbNationales()));
             nbrDepartementales.setText(Integer.toString(m.getNbDepartementales()));
 
-            choixLien.setModel(new DefaultComboBoxModel<Lien>(m.listeRoutes.toArray(new Lien[0])));
-            nomNoeudAP2.setText(((Lien) choixLien.getSelectedItem()).noeuds1.toStringList());
-            nomNoeudBP2.setText(((Lien) choixLien.getSelectedItem()).noeuds2.toStringList());
+            choixLien.setModel(new DefaultComboBoxModel<Lien>(m.listeLiens.toArray(new Lien[0])));
+            if (choixLien.getSelectedItem() != null){
+                nomNoeudAP2.setText(((Lien) choixLien.getSelectedItem()).noeuds1.toStringList());
+                nomNoeudBP2.setText(((Lien) choixLien.getSelectedItem()).noeuds2.toStringList());
 
+            }
+            
             updateListNoeudInfo();
             updateListLienInfo();
         }
@@ -997,6 +1011,14 @@ public class Fenetre extends javax.swing.JFrame {
         carte.swap();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void radioNoeudAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioNoeudAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioNoeudAActionPerformed
+
+    private void radioNoeudBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioNoeudBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioNoeudBActionPerformed
+
     private void updateListNoeudInfo() {
         String slectedType = ((String) choixTypeNoeudList.getSelectedItem()).equals("Ville")
                 ? "V" : (String) choixTypeNoeudList.getSelectedItem();
@@ -1006,7 +1028,7 @@ public class Fenetre extends javax.swing.JFrame {
                 ? "L" : slectedType;
 
         modelListNoeudInfo.removeAllElements();
-        for (Noeud i : m.getListeVilles()) {
+        for (Noeud i : m.getListeNoeuds()) {
 
             if (i.getType().equals(slectedType)) {
                 modelListNoeudInfo.addElement(i.toStringList());
@@ -1024,7 +1046,7 @@ public class Fenetre extends javax.swing.JFrame {
                 ? "D" : slectedType;
 
         modelListLienInfo.removeAllElements();
-        for (Lien i : m.getlisteRoutes()) {
+        for (Lien i : m.getlisteLiens()) {
 
             if (i.getTypeLiens().equals(slectedType)) {
                 modelListLienInfo.addElement(i.toString());
@@ -1049,6 +1071,7 @@ public class Fenetre extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup c2Group;
     private sae.Carte carte;
     private javax.swing.JCheckBox checkAffichAutoroutes;
     private javax.swing.JCheckBox checkAffichDepart;

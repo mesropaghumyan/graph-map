@@ -19,13 +19,13 @@ public class SAE {
         m.loadMap("map2.csv");
         
      
-        //System.out.println(m.bestRouteDetour(m.getListeVilles().get(0), m.getListeVilles().get(7), 1, 0, 0));
+        //System.out.println(m.bestRouteDetour(m.getListeNoeuds().get(0), m.getListeNoeuds().get(7), 1, 0, 0));
         /*
         System.out.println(m.gastronomoieNoeuds(m.listeVilles.get(0)));
         System.out.println(m.gastronomoieNoeuds(m.listeVilles.get(1)));
         
-        System.out.println(m.ouvertureNoeuds(m.listeVilles.get(0)));
-        System.out.println(m.ouvertureNoeuds(m.listeVilles.get(1)));
+        System.out.println(m.villeNoeuds(m.listeVilles.get(0)));
+        System.out.println(m.villeNoeuds(m.listeVilles.get(1)));
         
         
         

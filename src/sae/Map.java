@@ -18,270 +18,164 @@ import javax.swing.JPanel;
  * @author p2103642
  */
 public class Map {
-    ArrayList<Noeud> listeVilles;
-    ArrayList<Lien> listeRoutes;
-    JPanel colorIndicator = null;
-    final static int INF = 99999;
-    int dist[][];
-    Noeud path[][];
     
+    // <editor-fold defaultstate="collapsed" desc="Déclaration">  
+    
+    ArrayList<Noeud> listeNoeuds; // liste de noeuds
+    
+    ArrayList<Lien> listeLiens; // liste de liens
+    
+    JPanel colorIndicator = null; // indicateur de progression
+ 
+    
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Constructeur">  
     Map(){
-        listeVilles = new ArrayList<>();
-        listeRoutes = new ArrayList<>();
+        // initalisation des listes
+        listeNoeuds = new ArrayList<>();
+        listeLiens = new ArrayList<>();
+        
+    }
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Methodes"> 
+    
+    /**
+     * Getter retourne la liste de noeud
+     * @return type ArrayList<Noeud>
+     */
+    public ArrayList<Noeud> getListeNoeuds() {
+        return listeNoeuds;
+    }
+    
+    /**
+     * Getter retourne la liste de Liens
+     * @return type ArrayList<Lien>
+     */
+    public ArrayList<Lien> getlisteLiens() {
+        return listeLiens;
+    }
+    
+    /**
+     * Retourne les liens reliés au nœud en paramètre
+     * @param depart type Noeud
+     * @return type ArrayList<Lien>
+     */
+    public ArrayList<Lien> getCoonections1Noeud(Noeud depart){
+        ArrayList<Lien> routesTrouver = new ArrayList<>();
+        for(Lien tmpVoisin: this.listeLiens){
+            if(tmpVoisin.estExtremite(depart)){
+                routesTrouver.add(tmpVoisin);
+            }
+        }
+        return routesTrouver;
         
     }
     
-    
-    /*
-    public void floydWarshall()
-    {
-        
-        int V = listeVilles.size();
-        dist = new int[V][V];
-        path = new Noeud[V][V];
-        int i, j, k;
-        for(int z=0;z<listeVilles.size();z++){
-            for (int w=0;w<V;w++){
-                if (w != z){
-                    dist[z][w]=INF;
-                    path[z][w] = null;
-                }else{
-                    dist[z][w]=0;
-                    path[z][w] = listeVilles.get(z);
-                }
+    /**
+     * Retourne les nœuds voisins au nœud en paramètre
+     * @param depart type Noeud
+     * @return type ArrayList<Noeud>
+     */
+    public ArrayList<Noeud> getVoisins1Noeud(Noeud depart){
+        ArrayList<Noeud> villesTrouver = new ArrayList<>();
+        for(Lien tmpVoisin: this.listeLiens){
+            if (!villesTrouver.contains(tmpVoisin.getOppose(depart)))
+                villesTrouver.add(tmpVoisin.getOppose(depart));
             }
-            for( Noeud w : listeVilles.get(z).getVoisin() ){
-                    dist[z][listeVilles.lastIndexOf(w)]=
-                            (int) listeVilles.get(z).getDistanceFromVoisin(w);
-                    path[z][listeVilles.lastIndexOf(w)]=listeVilles.get(z);
-                    
-            }
-
+        return villesTrouver;
         
-        }
-        
-        
- 
-        for (k = 0; k < V; k++)
-        {
-            // Pick all vertices as source one by one
-            for (i = 0; i < V; i++)
-            {
-                // Pick all vertices as destination for the
-                // above picked source
-                for (j = 0; j < V; j++)
-                {
-                    // If vertex k is on the shortest path from
-                    // i to j, then update the value of dist[i][j]
-                    if (dist[i][k] + dist[k][j] < dist[i][j])
-                        dist[i][j] = dist[i][k] + dist[k][j];
-                        path[i][j] = path[k][k];
-                }
-            }
-        }
- 
-        // Print the shortest distance matrix
-        //printSolution(dist);
-     
-    }
- 
-    void printSolution(int dist[][])
-    {
-        int V = listeVilles.size();
-      
-        for (int i=0; i<V; ++i)
-        {
-            for (int j=0; j<V; ++j)
-            {
-                if (dist[i][j]==INF)
-                    System.out.print("INF ");
-                else
-                    System.out.print(dist[i][j]+"   ");
-            }
-            System.out.println();
-        }
     }
     
-    public int bestRouteDistance(Noeud noeudA, Noeud noeudB){
-        ArrayList<Noeud> res = new ArrayList<Noeud>();
-        res.add(noeudB);
-
-        int from = listeVilles.lastIndexOf(noeudA);
-        int to = listeVilles.lastIndexOf(noeudB);
-
-        return  dist[from][to];
-
-    }
-    
-    public ArrayList<Noeud> bestRoute(Noeud noeudA, Noeud noeudB){
-        ArrayList<Noeud> res = new ArrayList<Noeud>();
-        res.add(noeudB);
-        System.out.println("start end finsih "+noeudA+" "+noeudB);
-        int from = listeVilles.lastIndexOf(noeudA);
-        int to = listeVilles.lastIndexOf(noeudB);
-        int cur = to;
-       
-        for (Noeud i : path[from]){
-            //System.out.println(i+" ; "+noeudA);
-        }
-        for (int i =0; i<listeVilles.size();i++){
-            
-            if(path[from][cur] == null){
-                System.out.println("cur nul");
-                res = null;
-                break;
-            }else if(path[from][cur] != noeudA){
-                res.add(path[from][cur]);
-                cur = listeVilles.lastIndexOf(path[from][cur]);
-                
-            }else{
-                System.out.println("end found path");
-                res.add(path[from][cur]);
-                break;
-            }
-        }
-        
-         System.out.println("Path ");
-        for (Noeud i : res){
-            System.out.println(i+" ; ");
-        }
-        System.out.println("end Path ");
-       
-        if ( res != null && res.get(res.size()-1) != noeudA){
-            res = null;
-        }
-   
-        
-        
-        if (res != null){
-            Collections.reverse(res);
-        }
-        
-                
-                
-        return res;
-    }
-    
-    public ArrayList<Noeud> bestRouteDetour(Noeud noeudA, Noeud noeudB, int v, int l, int r){
-        ArrayList<Noeud> res = new ArrayList<Noeud>();
-        //res.add(noeudA);
-        
-        ArrayList<Noeud> stops = new ArrayList<Noeud>();
-        stops.add(noeudB);
-        for(int i =0; i< v;i++){
-            for( Noeud tmp: listeVilles){
-                if (tmp.getType().equals("V")&& !stops.contains(tmp)&& bestRouteDistance(stops.get(stops.size()-1), tmp)<INF){
-                    stops.add(tmp);
-                }
-            }
-            
-        }
-        
-        for(int i =0; i< l;i++){
-            for( Noeud tmp: listeVilles){
-                if (tmp.getType().equals("L")&& !stops.contains(tmp) && bestRouteDistance(stops.get(stops.size()-1), tmp)<INF){
-                    stops.add(tmp);
-                }
-            }
-            
-        }
-        
-        for(int i =0; i< r;i++){
-            for( Noeud tmp: listeVilles){
-                if (tmp.getType().equals("R")&& !stops.contains(tmp)&& bestRouteDistance(stops.get(stops.size()-1), tmp)<INF){
-                    stops.add(tmp);
-                }
-            }
-            
-        }
-        
-        Collections.reverse(stops);
-        stops.add(noeudA);
-        
-        stops.remove(0);
-        Noeud cur = noeudB;
-        
-        for (Noeud tmp: stops){
-            System.out.println("before add all"+cur+" "+tmp);
-            ArrayList<Noeud> tmp2 = bestRoute(cur, tmp);
-            System.out.println("luist before adda all "+tmp2);
-            res.addAll(tmp2);
-            cur = tmp;
-        }
-        
-
-       
-        
-        
-        
-                
-                
-                
-        return res;
-    }
-    */
-    
-    public ArrayList<Noeud> getListeVilles() {
-        return listeVilles;
-    }
-    
-    public ArrayList<Lien> getlisteRoutes() {
-        return listeRoutes;
-    }
-    
+    /**
+     * Retourne le nombre de ville
+     * @return type int
+     */
     public int getNbVilles(){
         int res =0;
-        for (Noeud i : listeVilles){
+        for (Noeud i : listeNoeuds){
             res = i.getType().equals("V") ? res+1: res;
         }
         return res;
     }
+    
+    /**
+     * Retourne le nombre de centre de loisir
+     * @return type int
+     */
     public int getNbLoisirs(){
         int res =0;
-        for (Noeud i : listeVilles){
+        for (Noeud i : listeNoeuds){
             res = i.getType().equals("L") ? res+1: res;
         }
         return res;
     }
     
+    /**
+     * Retourne le nombre de restaurant
+     * @return type int
+     */
     public int getNbRestaurants(){
         int res =0;
-        for (Noeud i : listeVilles){
+        for (Noeud i : listeNoeuds){
             res = i.getType().equals("R") ? res+1: res;
         }
         return res;
     }
     
+    /**
+     * Retourne le nombre d'autoroute
+     * @return type int
+     */
     public int getNbAutoroutes(){
         int res =0;
-        for (Lien i : listeRoutes){
+        for (Lien i : listeLiens){
             res = i.getTypeLiens().equals("A") ? res+1: res;
         }
         return res;
     }
     
+    /**
+     * Retourne le nombre de nationale
+     * @return type int
+     */
     public int getNbNationales(){
         int res =0;
-        for (Lien i : listeRoutes){
+        for (Lien i : listeLiens){
             res = i.getTypeLiens().equals("N") ? res+1: res;
         }
         return res;
     }
     
+    /**
+     * Retourne le nombre de departementales
+     * @return type int
+     */
     public int getNbDepartementales(){
         int res =0;
-        for (Lien i : listeRoutes){
+        for (Lien i : listeLiens){
             res = i.getTypeLiens().equals("D") ? res+1: res;
         }
         return res;
     }
     
+    /**
+     * Enregistre l'indicateur de progression
+     * @param indi type JPanel 
+     */
     public void addColorIndicator(JPanel indi){
         
         colorIndicator= indi;
         System.out.println("colorIndicator"+colorIndicator+ "added");
     }
     
+    /**
+     * Méthode  générale  pour charger un graphe à partir d'un fichier
+     * techniquement elle ne gère que les exceptions de fichier elle même 
+     * le reste fait appel à d'autre méthode
+     * @param filename type String
+     */
     public void loadMap(String filename){
         if (colorIndicator != null){
             colorIndicator.setBackground(Color.yellow);
@@ -289,8 +183,8 @@ public class Map {
         }
      
         
-        listeVilles = new ArrayList<>();
-        listeRoutes = new ArrayList<>();
+        listeNoeuds = new ArrayList<>();
+        listeLiens = new ArrayList<>();
     String res_file = "";
     try{
         File fileMap = new File(filename);
@@ -320,15 +214,16 @@ public class Map {
     
     
     //floydWarshall();
-    //System.out.println(bestRoute(listeVilles.get(0),listeVilles.get(2)));
+    //System.out.println(bestRoute(listeNoeuds.get(0),listeNoeuds.get(2)));
     
 }
+    
     /**
-     * Découpe le string multiligne avant de le passer a stringToListNoeuds
-     * @param data String multiligne exemple venant d'un fichier csv
-     * @throws Exception 
+     * Convertit un string en graphe
+     * Techniquement ne fait qu' un split sur les “;;” et d’autre méthode se charge du reste
+     * @param data type String
      */
-    public void stringMap(String data) throws Exception{
+    public void stringMap(String data){
     String[] villeListe;
    
     String[] voisins;
@@ -338,13 +233,13 @@ public class Map {
     villeListe = data.split(";;");
     for(int i=0; i<villeListe.length;i++){
         voisins = villeListe[i].substring(villeListe[i].indexOf(":")+1,villeListe[i].length()).split(";");
-       
 
-        Noeud depart = this.stringToNoeuds(villeListe[i]);
+        Noeud depart = this.stringToNoeud(villeListe[i].substring(0, villeListe[i].indexOf(":")));
         
-        if (!this.addToListeVilles(depart)){
-                depart = this.getNoeudsByNameAndType(depart.getType(), depart.getNom());
+        if (!this.addToListeNoeuds(depart)){
+                depart = this.getNoeudsByNameAndType(depart);
             }
+        
         for(int z=0; z<voisins.length ;z++){
             try{
                 
@@ -362,8 +257,8 @@ public class Map {
             
   
         }
-        if (!listeVilles.contains(depart)   ){
-            this.listeVilles.add(depart);
+        if (!listeNoeuds.contains(depart)   ){
+            this.listeNoeuds.add(depart);
         }
         
    
@@ -378,15 +273,14 @@ public class Map {
 }
  
     /**
-     * Extrait le nœud départ à partir d’un String.
+     * Extrait le nœud à partir d’un String.
      * @param data
      * @return 
      */
-    public Noeud stringToNoeuds(String data){
+    public Noeud stringToNoeud(String villeInfo){
       
-            String villeInfo = data.substring(0,data.indexOf(":"));
-            String villeType = villeInfo.substring(0,data.indexOf(",")).trim();
-            String villeNom = villeInfo.substring(data.indexOf(",")+1,villeInfo.length()).trim();
+            String villeType = villeInfo.substring(0,villeInfo.indexOf(",")).trim();
+            String villeNom = villeInfo.substring(villeInfo.indexOf(",")+1,villeInfo.length()).trim();
     
             try{
                 Noeud newNoeuds = new Noeud(villeType,villeNom);
@@ -402,91 +296,12 @@ public class Map {
         
         
     } 
-    /**
-     * Retourne un objet noeud qui a le même type et nom.
-     * @param name Nom du noeud
-     * @param type Type du noeud
-     * @return Retourne le noeud is trouver sinon null
-     */
-    public Noeud getNoeudsByNameAndType( String type,String name){
-        for (Noeud ville: listeVilles){
-            
-            if(ville.getNom().equals(name) && ville.getType().equals(type)){
-                return ville;
-            }
-        }
-        return null;
-    }
-    /**
-     * Vérifie si le nœud est déjà présent dans la liste.
-     * @param newVille Le nœud à vérifier la présence dans la liste.
-     * @return Retourne un true si le nœud est présent sinon false.
-     */
-    public boolean isInListeVilles(Noeud newVille){
-        for(Noeud ville: this.listeVilles){
-            if (ville.equals(newVille)){
-                return true;
-            }
-        }
-        return false;
-    }
-    /**
-     * Ajoute un nœud à la liste tout en vérifiant qu’il n’est déjà pas présent.
-     * @param newVille Le nœud à ajouter.
-     * @return Retourne true si le nœud a été ajouté sinon false.
-     */
-    public boolean addToListeVilles(Noeud newVille){
-        
-        if(!listeVilles.contains(newVille)){
-            this.listeVilles.add(newVille);
-            System.out.println("\u001B[32m"+"[INFO]"+"\u001B[0m"+" Noeud ajouté : "+newVille.getNom());
-            return true;
-        }
-        return false;
-    }
     
-   
-   
-    
-    public boolean addToListeRoutes(Lien newRoute){
-        if(!this.listeRoutes.contains(newRoute)){
-            this.listeRoutes.add(newRoute);
-            return true;
-        }
-        return false;
-    }
-    public boolean removeFromListeRoutes(Lien newRoute){
-        if(this.listeRoutes.contains(newRoute)){
-            this.listeRoutes.remove(newRoute);
-            return true;
-        }
-        return false;
-        
-    }
-
-    public ArrayList<Lien> getListeRoutes() {
-        return listeRoutes;
-    }
-    
-    public ArrayList<Lien> getCoonections(Noeud depart){
-        ArrayList<Lien> routesTrouver = new ArrayList<>();
-        for(Lien tmpVoisin: this.listeRoutes){
-            if(tmpVoisin.estExtremite(depart)){
-                routesTrouver.add(tmpVoisin);
-            }
-        }
-        return routesTrouver;
-        
-    }
-    public ArrayList<Noeud> getVoisins(Noeud depart){
-        ArrayList<Noeud> villesTrouver = new ArrayList<>();
-        for(Lien tmpVoisin: this.listeRoutes){
-            if (!villesTrouver.contains(tmpVoisin.getOppose(depart)))
-                villesTrouver.add(tmpVoisin.getOppose(depart));
-            }
-        return villesTrouver;
-        
-    }
+    /**
+     * Extrait le lien à partir d’un String.
+     * @param data
+     * @return 
+     */
     public Lien stringToLiens(String data,Noeud depart,Noeud arriver) throws Exception{
         String routeType;
         float routeLongueur;
@@ -498,22 +313,80 @@ public class Map {
             
         
     }
-    public Noeud stringToNoeudDroite(String data) throws Exception {
-        String voisinType;
-        String voisinNom;
-        voisinType = data.substring(data.indexOf("::")+2,data.indexOf(",", data.indexOf(",") + 1)).trim();
-        voisinNom = data.substring(data.indexOf(",", data.indexOf(",") + 1)+1,data.length()).trim();
-          
+    
+    /**
+     * Retourne un objet noeud qui a le même type et nom.
+     * @param name Nom du noeud
+     * @param type Type du noeud
+     * @return Retourne le noeud is trouver sinon null
+     */
+    public Noeud getNoeudsByNameAndType( Noeud or){
+        for (Noeud ville: listeNoeuds){
             
-        Noeud tmp = new Noeud(voisinType,voisinNom);
-        return tmp;
+            if(or.equals(ville)){
+                return ville;
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Ajoute un nœud à la liste tout en vérifiant qu’il n’est déjà pas présent.
+     * @param newVille Le nœud à ajouter.
+     * @return Retourne true si le nœud a été ajouté sinon false.
+     */
+    public boolean addToListeNoeuds(Noeud newVille){
+        
+        if(!listeNoeuds.contains(newVille)){
+            this.listeNoeuds.add(newVille);
+            System.out.println("\u001B[32m"+"[INFO]"+"\u001B[0m"+" Noeud ajouté : "+newVille.getNom());
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Ajoute un lein à la liste tout en vérifiant qu’il n’est déjà pas présent.
+     * @param newRoute Le nœud à ajouter.
+     * @return Retourne true si le nœud a été ajouté sinon false.
+     */
+    public boolean addToListeLiens(Lien newRoute){
+        if(!this.listeLiens.contains(newRoute)){
+            this.listeLiens.add(newRoute);
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Retire un lien de la liste si existant true sinon false
+     * @param newRoute type Lien
+     * @return type boolean
+     */
+    public boolean removeFromListeRoutes(Lien newRoute){
+        if(this.listeLiens.contains(newRoute)){
+            this.listeLiens.remove(newRoute);
+            return true;
+        }
+        return false;
         
     }
+
+   
+    
+   /**
+    * Convertit un string en noeud (parti a droite du ‘:’)
+    * @param data type String
+    * @param depart type Noeud
+    * @return type Boolean
+    * @throws Exception 
+    */
     public Boolean ajouterRoute(String data, Noeud depart) throws Exception{
-        
-            Noeud tmp = this.stringToNoeudDroite(data);
-            if (!this.addToListeVilles(tmp)){
-                tmp = this.getNoeudsByNameAndType(tmp.getType(), tmp.getNom());
+           
+            
+            Noeud tmp = this.stringToNoeud(data.substring(data.indexOf("::")+2,data.length()));
+            if (!this.addToListeNoeuds(tmp)){
+                tmp = this.getNoeudsByNameAndType(tmp);
             }
      
             //Creation du lien
@@ -524,10 +397,17 @@ public class Map {
                 System.out.println("\u001B[32m"+"[INFO]"+"\u001B[0m"+" Lien ajouté : " + depart.getNom()+ " -> "+tmp.getNom()+" "+tmp_lien.poidsLiens+"km");
             }
 
-            return this.addToListeRoutes(tmp_lien);
+            return this.addToListeLiens(tmp_lien);
         
     }
-    public Boolean estA2Distance(Noeud depart, Noeud Arriver){
+    
+    /**
+     * Retourne true si les noeuds sont a 2 de distance
+     * @param depart type noeud
+     * @param Arriver type noeud
+     * @return type type boolean
+     */
+    public boolean estA2Distance(Noeud depart, Noeud Arriver){
         for (Lien voisin2Depart : depart.getConnection()){
             for (Lien tmp :voisin2Depart.getOppose(depart).getConnection()){
                 if(tmp.getOppose(voisin2Depart.getOppose(depart)).equals(Arriver)){
@@ -538,7 +418,13 @@ public class Map {
         
         return false;
     }
-    public int ouvertureNoeuds(Noeud depart){
+    
+    /**
+     * 
+     * @param depart
+     * @return 
+     */
+    public int villeNoeuds(Noeud depart){
         int c=0;
         System.out.println(depart+" :");
         for (Lien voisin2Depart : depart.getConnection()){
@@ -580,9 +466,9 @@ public class Map {
         return c;
     }
     
-    //WARNING pas chack >= 2
+   
     public boolean estPlusOuvert(Noeud sujet, Noeud autre){
-        return (this.ouvertureNoeuds(sujet)> this.ouvertureNoeuds(autre));
+        return (this.villeNoeuds(sujet)> this.villeNoeuds(autre));
     }
     
     public boolean estPlusGastronomique(Noeud sujet, Noeud autre){
@@ -593,5 +479,5 @@ public class Map {
         return (this.cultureNoeuds(sujet)> this.cultureNoeuds(autre));
     }
     
-
+    // </editor-fold>
 }

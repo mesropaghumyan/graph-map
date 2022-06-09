@@ -268,14 +268,21 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Nom Noeud B :"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioNoeudBActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="radioNoeudA">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="v2Group"/>
             </Property>
+            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Nom Noeud A :"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioNoeudAActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="labelSontA2">
           <Properties>
@@ -365,7 +372,7 @@
         <Component class="javax.swing.JRadioButton" name="radioNoeudB2">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="v2Group"/>
+              <ComponentRef name="c2Group"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Nom Noeud B :"/>
           </Properties>
@@ -373,7 +380,7 @@
         <Component class="javax.swing.JRadioButton" name="radioNoeudA2">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="v2Group"/>
+              <ComponentRef name="c2Group"/>
             </Property>
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Nom Noeud A :"/>
@@ -920,6 +927,8 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.ButtonGroup" name="c2Group">
+    </Component>
     <Component class="javax.swing.ButtonGroup" name="v2Group">
     </Component>
     <Menu class="javax.swing.JMenuBar" name="menuBar">
