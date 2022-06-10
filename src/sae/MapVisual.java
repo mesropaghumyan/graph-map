@@ -285,8 +285,8 @@ public class MapVisual extends JPanel {
         Random random = new Random();
 
         for (Noeud tmpNoeuds2 : toDraw) {
-            tmpNoeuds2.setPosX(random.nextInt(edgeMarginH, this.getSize().width - edgeMarginH));
-            tmpNoeuds2.setPosY(random.nextInt(edgeMarginV, this.getSize().height - edgeMarginV));
+            tmpNoeuds2.setPosX(random.nextInt( this.getSize().width - edgeMarginH*2)-edgeMarginH);
+            tmpNoeuds2.setPosY(random.nextInt( this.getSize().height - edgeMarginV*2)-edgeMarginV);
         }
         
         // Si il y a qlqc à dessiner  alors on dessine
