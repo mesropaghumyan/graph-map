@@ -4,7 +4,7 @@
  */
 package sae.myInterface;
 
-import sae.Noeud;
+import sae.map.Noeud;
 
 /**
  *

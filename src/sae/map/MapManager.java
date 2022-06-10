@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sae;
+package sae.map;
 
 import sae.exception.TypeNotSupportedException;
 import java.awt.Color;
@@ -11,7 +11,6 @@ import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Collections;
 import javax.swing.JPanel;
 
 /**
@@ -28,8 +27,9 @@ public class MapManager {
     JPanel colorIndicator = null; // indicateur de progression
 
     // </editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Constructeur">  
-    MapManager() {
+    public MapManager() {
         // initalisation des listes
         listeNoeuds = new ArrayList<>();
         listeLiens = new ArrayList<>();
@@ -41,7 +41,7 @@ public class MapManager {
     /**
      * Getter retourne la liste de noeud
      *
-     * @return type ArrayList<Noeud>
+     * @return type ArrayList de Noeud
      */
     public ArrayList<Noeud> getListeNoeuds() {
         return listeNoeuds;
@@ -50,7 +50,7 @@ public class MapManager {
     /**
      * Getter retourne la liste de Liens
      *
-     * @return type ArrayList<Lien>
+     * @return type ArrayList de Lien
      */
     public ArrayList<Lien> getlisteLiens() {
         return listeLiens;
@@ -60,8 +60,8 @@ public class MapManager {
      * Retourne les liens reliés au nœud en paramètre
      *
      * @param depart type Noeud
-     * @return type ArrayList<Lien>
-     */
+     * @return type ArrayList de Lien
+     */ 
     public ArrayList<Lien> getCoonections1Noeud(Noeud depart) {
         ArrayList<Lien> routesTrouver = new ArrayList<>();
         for (Lien tmpVoisin : this.listeLiens) {
@@ -77,7 +77,7 @@ public class MapManager {
      * Retourne les nœuds voisins au nœud en paramètre
      *
      * @param depart type Noeud
-     * @return type ArrayList<Noeud>
+     * @return type ArrayList de Noeud
      */
     public ArrayList<Noeud> getVoisins1Noeud(Noeud depart) {
         ArrayList<Noeud> villesTrouver = new ArrayList<>();
@@ -273,8 +273,8 @@ public class MapManager {
     /**
      * Extrait le nœud à partir d’un String.
      *
-     * @param data
-     * @return
+     * @param villeInfo type String
+     * @return type Noeud
      */
     public Noeud stringToNoeud(String villeInfo) {
 
@@ -296,8 +296,11 @@ public class MapManager {
     /**
      * Extrait le lien à partir d’un String.
      *
-     * @param data
-     * @return
+     * @param data type String
+     * @param depart type Noeud
+     * @param arriver type Noeud
+     * @return type Lien
+     * @throws java.lang.Exception type non supporter
      */
     public Lien stringToLiens(String data, Noeud depart, Noeud arriver) throws Exception {
         String routeType;
@@ -311,9 +314,7 @@ public class MapManager {
 
     /**
      * Retourne un objet noeud qui a le même type et nom.
-     *
-     * @param name Nom du noeud
-     * @param type Type du noeud
+     * @param or type Noeud
      * @return Retourne le noeud is trouver sinon null
      */
     public Noeud getNoeudsByNameAndType(Noeud or) {
@@ -377,7 +378,7 @@ public class MapManager {
      * @param data type String
      * @param depart type Noeud
      * @return type Boolean
-     * @throws Exception
+     * @throws Exception Exception géré au dessus
      */
     public Boolean ajouterRoute(String data, Noeud depart) throws Exception {
 
@@ -391,7 +392,7 @@ public class MapManager {
 
         //Ajout de la connection au deux extréminté
         if (depart.addConnection(tmp_lien) == true && tmp.addConnection(tmp_lien) == true) {
-            System.out.println("\u001B[32m" + "[INFO]" + "\u001B[0m" + " Lien ajouté : " + depart.getNom() + " -> " + tmp.getNom() + " " + tmp_lien.poidsLiens + "km");
+            System.out.println("\u001B[32m" + "[INFO]" + "\u001B[0m" + " Lien ajouté : " + depart.getNom() + " -> " + tmp.getNom() + " " + tmp_lien.getPoidsLiens() + "km");
         }
 
         return this.addToListeLiens(tmp_lien);

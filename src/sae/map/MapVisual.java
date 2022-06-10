@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package sae;
+package sae.map;
 
+import sae.map.Noeud;
+import sae.map.Lien;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -192,7 +194,7 @@ public class MapVisual extends JPanel {
     
     /**
      * Getter
-     * @return type ArrayList<Noeud>
+     * @return type ArrayList de Noeud
      */
     public ArrayList<Noeud> getToDraw() {
         return toDraw;
@@ -200,8 +202,8 @@ public class MapVisual extends JPanel {
     
     /**
      * Setter
-     * @param toDraw type ArrayList<Noeud>
-     */
+     * @param toDraw type ArrayList de Noeud
+     */ 
     public void setToDraw(ArrayList<Noeud> toDraw) {
         this.toDraw = toDraw;
     }
@@ -217,8 +219,8 @@ public class MapVisual extends JPanel {
     
     /**
      * Setter
-     * @param toDrawLiens type ArrayList<Lien>
-     */
+     * @param toDrawLiens type ArrayList de Lien
+     */ 
     public void setToDrawLiens(ArrayList<Lien> toDrawLiens) {
         this.toDrawLiens = toDrawLiens;
     }

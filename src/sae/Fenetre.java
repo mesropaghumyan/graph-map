@@ -4,6 +4,9 @@
  */
 package sae;
 
+import sae.map.MapManager;
+import sae.map.Noeud;
+import sae.map.Lien;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
@@ -174,7 +177,7 @@ public class Fenetre extends javax.swing.JFrame {
         labelMode = new javax.swing.JLabel();
         modeChooser = new javax.swing.JComboBox<>();
         subPanelCard = new javax.swing.JPanel();
-        carte = new sae.MapVisual();
+        carte = new sae.map.MapVisual();
         menuBar = new javax.swing.JMenuBar();
         menuFichier = new javax.swing.JMenu();
         itemOuvrir = new javax.swing.JMenuItem();
@@ -1001,8 +1004,8 @@ public class Fenetre extends javax.swing.JFrame {
             itemRedispose.setEnabled(true);
             File selectedFile = fileChooser.getSelectedFile();
             m.loadMap(selectedFile.getAbsolutePath());
-            carte.setToDraw(m.listeNoeuds);
-            carte.setToDrawLiens(m.listeLiens);
+            carte.setToDraw(m.getListeNoeuds());
+            carte.setToDrawLiens(m.getlisteLiens());
             Thread newThread = new Thread(() -> {
                 carte.init();
             });
@@ -1015,10 +1018,10 @@ public class Fenetre extends javax.swing.JFrame {
             nbrNationales.setText(Integer.toString(m.getNbNationales()));
             nbrDepartementales.setText(Integer.toString(m.getNbDepartementales()));
 
-            choixLien.setModel(new DefaultComboBoxModel<Lien>(m.listeLiens.toArray(new Lien[0])));
+            choixLien.setModel(new DefaultComboBoxModel<Lien>(m.getlisteLiens().toArray(new Lien[0])));
             if (choixLien.getSelectedItem() != null){
-                nomNoeudAP2.setText(((Lien) choixLien.getSelectedItem()).noeuds1.toStringList());
-                nomNoeudBP2.setText(((Lien) choixLien.getSelectedItem()).noeuds2.toStringList());
+                nomNoeudAP2.setText(((Lien) choixLien.getSelectedItem()).getNoeuds1().toStringList());
+                nomNoeudBP2.setText(((Lien) choixLien.getSelectedItem()).getNoeuds2().toStringList());
 
             }
             
@@ -1070,8 +1073,8 @@ public class Fenetre extends javax.swing.JFrame {
     }//GEN-LAST:event_choixTypeNoeudActionPerformed
 
     private void choixLienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choixLienActionPerformed
-        nomNoeudA.setText(((Lien) choixLien.getSelectedItem()).noeuds1.toStringList());
-        nomNoeudB.setText(((Lien) choixLien.getSelectedItem()).noeuds2.toStringList());
+        nomNoeudA.setText(((Lien) choixLien.getSelectedItem()).getNoeuds1().toStringList());
+        nomNoeudB.setText(((Lien) choixLien.getSelectedItem()).getNoeuds2().toStringList());
     }//GEN-LAST:event_choixLienActionPerformed
 
     private void choixCompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choixCompActionPerformed
@@ -1119,7 +1122,7 @@ public class Fenetre extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup c2Group;
-    private sae.MapVisual carte;
+    private sae.map.MapVisual carte;
     private javax.swing.JCheckBox checkAffichAutoroutes;
     private javax.swing.JCheckBox checkAffichDepart;
     private javax.swing.JCheckBox checkAffichLoisirs;

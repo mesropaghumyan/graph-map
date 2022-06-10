@@ -1088,7 +1088,7 @@
         </Container>
       </SubComponents>
     </Container>
-    <Container class="sae.MapVisual" name="carte">
+    <Container class="sae.map.MapVisual" name="carte">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>

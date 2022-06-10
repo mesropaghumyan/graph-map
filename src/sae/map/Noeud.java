@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package sae;
+package sae.map;
 
+import sae.map.Lien;
 import sae.exception.TypeNotSupportedException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -93,7 +94,7 @@ public class Noeud {
     /**
      * Getter liste des liens connceté
      *
-     * @return type ArrayList<Lien>
+     * @return type ArrayList de Lien
      */
     public ArrayList<Lien> getConnection() {
         return connection;
@@ -157,7 +158,7 @@ public class Noeud {
     
     /**
      * Retourne la liste de noeud voisin
-     * @return type ArrayList<Noeud>
+     * @return type ArrayList de Noeud
      */
     public ArrayList<Noeud> getVoisin() {
         ArrayList<Noeud> voi = new ArrayList<>();

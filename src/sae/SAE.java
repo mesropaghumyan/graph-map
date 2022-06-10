@@ -5,6 +5,8 @@
  */
 package sae;
 
+import sae.map.MapManager;
+
 /**
  *
  * @author p2103642
@@ -13,6 +15,7 @@ public class SAE {
 
     /**
      * @param args the command line arguments
+     * @throws java.lang.Exception erreur dans fichier
      */
     public static void main(String[] args) throws Exception {
         MapManager m = new MapManager();
