@@ -1,12 +1,12 @@
 L, Gare de Lyon-Paris:
 N,14::V, Seine-Saint-Denis;
-N,25::V, Nanterre;
+N,25::R, Nanterre;
 A,206::V, Montpellier;;
 
 L, La Grande-Motte:
 N,26::V, Montpellier;;
 
 L, MEGARAMA Saint-Gély-du-Fesc:
-N,15::L, La Grande-Motte;
+D,15::L, La Grande-Motte;
 N,6::V, Saint-Clément-de-Rivière;;
 

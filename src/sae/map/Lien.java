@@ -25,8 +25,8 @@ public class Lien {
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Constructeur">  
-    public Lien(String newtypeLiens,Noeud newnoeuds1,Noeud newnoeuds2,float newpoidsLiens) throws Exception{
-        // Verifie le type
+    public Lien(String newtypeLiens,Noeud newnoeuds1,Noeud newnoeuds2,float newpoidsLiens) throws TypeNotSupportedException{
+        newtypeLiens = newtypeLiens.toUpperCase();
         if (newtypeLiens.equals("A")  || newtypeLiens.equals("N") || newtypeLiens.equals("D") )
         {
             typeLiens = newtypeLiens;

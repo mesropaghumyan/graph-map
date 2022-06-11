@@ -407,6 +407,12 @@ public class MapManager {
      * @return type type boolean
      */
     public boolean estA2Distance(Noeud depart, Noeud Arriver) {
+        if (depart == null || Arriver == null){
+            return false;            
+        }
+        if (depart.equals(Arriver)){
+            return false;
+        }
         for (Lien voisin2Depart : depart.getConnection()) {
             for (Lien tmp : voisin2Depart.getOppose(depart).getConnection()) {
                 if (tmp.getOppose(voisin2Depart.getOppose(depart)).equals(Arriver)) {
@@ -484,6 +490,15 @@ public class MapManager {
      * @return return boolean
      */
     public boolean estPlusOuvert(Noeud sujet, Noeud autre) {
+        if(sujet == null && autre == null){
+            return false;
+        }
+        if(sujet == null){
+            return false;
+        }
+        if(autre == null){
+            return true;
+        }
         return (this.villeNoeuds(sujet) > this.villeNoeuds(autre));
     }
 
@@ -496,6 +511,15 @@ public class MapManager {
      * @return return boolean
      */
     public boolean estPlusGastronomique(Noeud sujet, Noeud autre) {
+        if(sujet == null && autre == null){
+            return false;
+        }
+        if(sujet == null){
+            return false;
+        }
+        if(autre == null){
+            return true;
+        }
         return (this.gastronomoieNoeuds(sujet) > this.gastronomoieNoeuds(autre));
     }
 
@@ -508,6 +532,15 @@ public class MapManager {
      * @return return boolean
      */
     public boolean estPlusCulturel(Noeud sujet, Noeud autre) {
+        if(sujet == null && autre == null){
+            return false;
+        }
+        if(sujet == null){
+            return false;
+        }
+        if(autre == null){
+            return true;
+        }
         return (this.cultureNoeuds(sujet) > this.cultureNoeuds(autre));
     }
 

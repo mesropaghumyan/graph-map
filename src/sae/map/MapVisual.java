@@ -16,8 +16,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JPanel;
 import sae.myInterface.NoeudListener;
 
@@ -48,7 +46,12 @@ public class MapVisual extends JPanel {
     ArrayList<String> typeToDraw = new ArrayList<>(Arrays.asList("V", "L", "R")); // Liste des types de noeuds à dessiner
 
     ArrayList<String> typeToDrawLiens = new ArrayList<>(Arrays.asList("A", "D", "N")); // Liste des types de liens à dessiner
-
+        
+    ArrayList<Noeud> selectedNoeud = new ArrayList<>(); // la liste des noeud selectionner
+    
+    int selectedOffset = 4; // La largeur de l'anneau qui représente que le nœud est sélectionné
+    
+    
     //</editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Constructeur">  
@@ -164,7 +167,12 @@ public class MapVisual extends JPanel {
         // Dessiner les noeuds
         for (Noeud tmp : toDraw) {
             if (typeToDraw.contains(tmp.getType())) {
-                Color tmpColor = Color.red;
+                if (tmp.isSelected()){
+                    g.setColor( Color.BLACK);
+                    g.fillOval(tmp.getPosX()-(selectedOffset/2), tmp.getPosY()-(selectedOffset/2), 
+                            tmp.getWidth()+selectedOffset, tmp.getWidth()+selectedOffset);
+                }
+                Color tmpColor = Color.RED;
                 if (tmp.getType().equals("R")) {
                     tmpColor = Color.GREEN;
                 }
@@ -409,7 +417,7 @@ public class MapVisual extends JPanel {
         @Override
         public void mouseClicked(MouseEvent e) {
             super.mouseClicked(e);
-            Noeud clossest = null;
+            Noeud closest = null;
             double d;
             double best_lengest = Integer.MAX_VALUE;
             for (Noeud i : toDraw) {
@@ -418,14 +426,28 @@ public class MapVisual extends JPanel {
                 d = Math.sqrt(d);
                 if (d < best_lengest) {
                     best_lengest = d;
-                    clossest = i;
+                    closest = i;
                 }
 
             }
-            System.out.println("\u001B[32m"+"[INFO]"+"\u001B[0m"+ " Cliked "+(int) best_lengest + " " + clossest );
-            if (listenner != null && best_lengest < clossest.width / 2) {
-                listenner.noeudSelected(clossest);
+            
+            for (Noeud i : selectedNoeud){
+                i.setSelected(false);
             }
+            if(closest != null && best_lengest < closest.width ){
+                closest.setSelected(true);
+                selectedNoeud.add(closest);
+                System.out.println("\u001B[32m"+"[INFO]"+"\u001B[0m"+ " Cliked "+(int) best_lengest + " " + closest );
+                if (listenner != null ) {
+                
+                listenner.noeudSelected(closest);
+            }
+            }
+            
+            
+            
+            
+            repaint();
         }
 
     }
