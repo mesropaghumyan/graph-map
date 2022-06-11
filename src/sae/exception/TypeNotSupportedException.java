@@ -9,10 +9,13 @@ package sae.exception;
  * @author Loan
  */
 public class TypeNotSupportedException extends RuntimeException{
+    
     private String message = "Type not supported";
+    
     public TypeNotSupportedException(){
         super();
     }
+    
     @Override
     public String toString(){
         return message;
