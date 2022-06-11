@@ -31,11 +31,13 @@ public class Noeud {
     int width = 20; // sa taille
 
     JLabel labelNoeuds; // son label associé
+    
+    boolean selected; // si le noeud est selectionner
 
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Constructeur">  
-    Noeud(String newtypeNoeuds, String newnomNoeuds) throws Exception {
+    public Noeud(String newtypeNoeuds, String newnomNoeuds) throws TypeNotSupportedException {
         newtypeNoeuds = newtypeNoeuds.toUpperCase();
         if (newtypeNoeuds.equals("V") || newtypeNoeuds.equals("R") || newtypeNoeuds.equals("L")) {
             typeNoeuds = newtypeNoeuds;
@@ -99,7 +101,24 @@ public class Noeud {
     public ArrayList<Lien> getConnection() {
         return connection;
     }
-
+    
+    /**
+     * Getter est sélectionner
+     * @return type boolean
+     */
+    public boolean isSelected() {
+        return selected;
+    }
+    
+    /**
+     * Setter est sélectionner
+     * @param selected type boolean
+     */
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+    
+    
     /**
      * Getter pos en x
      *

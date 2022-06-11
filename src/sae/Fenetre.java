@@ -842,6 +842,7 @@ public class Fenetre extends javax.swing.JFrame {
         carte.addNoeudListener(new NoeudListener() {
             @Override
             public void noeudSelected(Noeud obj) {
+                
                 if (modeChooser.getSelectedIndex() == 1) {
                     subPanelVoisin1tmpNoeud = obj;
                     nomNoeudChoisi.setText(obj.toStringList());
@@ -917,6 +918,7 @@ public class Fenetre extends javax.swing.JFrame {
      * Gestion graphique comparaison a 2 de distances
      */
     private void updateEstA2D() {
+        
         if (subPanel2DAtmpNoeud != null && subPanel2DBtmpNoeud != null) {
             sontA2D.setBackground(Color.red);
             if (m.estA2Distance(subPanel2DAtmpNoeud, subPanel2DBtmpNoeud)) {
@@ -1020,13 +1022,14 @@ public class Fenetre extends javax.swing.JFrame {
 
             choixLien.setModel(new DefaultComboBoxModel<Lien>(m.getlisteLiens().toArray(new Lien[0])));
             if (choixLien.getSelectedItem() != null){
-                nomNoeudAP2.setText(((Lien) choixLien.getSelectedItem()).getNoeuds1().toStringList());
-                nomNoeudBP2.setText(((Lien) choixLien.getSelectedItem()).getNoeuds2().toStringList());
+                nomNoeudA.setText(((Lien) choixLien.getSelectedItem()).getNoeuds1().toStringList());
+                nomNoeudB.setText(((Lien) choixLien.getSelectedItem()).getNoeuds2().toStringList());
 
             }
             
             updateListNoeudInfo();
             updateListLienInfo();
+            updateEstA2D();
         }
     }//GEN-LAST:event_itemOuvrirActionPerformed
 
@@ -1039,7 +1042,26 @@ public class Fenetre extends javax.swing.JFrame {
     private void modeChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeChooserActionPerformed
 
         cardManager.show(subPanelCard, Integer.toString(modeChooser.getSelectedIndex()));
-
+        if (modeChooser.getSelectedIndex() == 1 && subPanelVoisin1tmpNoeud != null) {
+            nomNoeudChoisi.setText(subPanelVoisin1tmpNoeud.toStringList());
+            updateListNoeudVoisn1();
+        } else if (modeChooser.getSelectedIndex() == 2 ) {
+            if (subPanel2DAtmpNoeud != null){
+                nomNoeudAP2.setText(subPanel2DAtmpNoeud.toStringList());
+            }
+            if (subPanel2DBtmpNoeud != null){
+                nomNoeudBP2.setText(subPanel2DBtmpNoeud.toStringList());
+            }
+            updateEstA2D();
+        } else if (modeChooser.getSelectedIndex() == 3) {
+            if(subPanel2DAtmpNoeud != null){
+                nomNoeudAP3.setText(subPanel2DAtmpNoeud.toStringList());
+            }
+            if (subPanel2DBtmpNoeud != null){
+                nomNoeudBP3.setText(subPanel2DBtmpNoeud.toStringList());
+            }
+            updateEstPO();
+            }
 
     }//GEN-LAST:event_modeChooserActionPerformed
 
