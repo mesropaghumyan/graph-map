@@ -263,8 +263,8 @@ public class Noeud {
         if (tmpVoisin.equals(this)) {
             return 0.0;
         }
-        int dX = tmpVoisin.getPosX() - this.getPosX();
-        int dY = tmpVoisin.getPosY() - this.getPosY();
+        int dX = tmpVoisin.getPosX() - this.getPosX() + (tmpVoisin.width / 2) - (this.width / 2);
+        int dY = tmpVoisin.getPosY() - this.getPosY() + (tmpVoisin.width / 2) - (this.width / 2);
         int move = 0;
         int direction = 1;
         if (dX != 0) {
@@ -276,7 +276,7 @@ public class Noeud {
         }
 
         
-        if (Math.sqrt((dX * dX) + (dY * dY)) < 0.95 * goal) {
+        if ((dX * dX) + (dY * dY) < 0.95 * goal*goal) {
             move = 1;
 
         }
@@ -308,7 +308,7 @@ public class Noeud {
 
         }
 
-        if (Math.sqrt((dX * dX) + (dY * dY)) < 0.95 * goal) {
+        if ((dX * dX) + (dY * dY) < 0.95 * goal*goal) {
 
             move = 1;
 

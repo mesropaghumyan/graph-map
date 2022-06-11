@@ -4,8 +4,7 @@
  */
 package sae.map;
 
-import sae.map.Noeud;
-import sae.map.Lien;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -33,7 +32,7 @@ public class MapVisual extends JPanel {
 
     int avgTextWidth = 20; // Taille cercle noeud
 
-    int edgeMarginV = 1 * avgTextWidth; // padding veritcale
+    int edgeMarginV = (int) (1 * avgTextWidth); // padding veritcale
 
     int edgeMarginH = (int) 4.5 * avgTextWidth; // padding horizontal
 
@@ -150,9 +149,9 @@ public class MapVisual extends JPanel {
                     g.setColor(new Color(100, 100, 150));
                 }
 
-                g.drawLine(noeudsUn.getPosX() + (avgTextWidth / 2), noeudsUn.getPosY() + (avgTextWidth / 2),
-                        noeudsDeux.getPosX() + (avgTextWidth / 2),
-                        noeudsDeux.getPosY() + (avgTextWidth / 2));
+                g.drawLine(noeudsUn.getPosX() + (noeudsUn.getWidth() / 2), noeudsUn.getPosY() + (noeudsUn.getWidth() / 2),
+                        noeudsDeux.getPosX() + (noeudsUn.getWidth() / 2),
+                        noeudsDeux.getPosY() + (noeudsUn.getWidth() / 2));
             }
         }
     }
@@ -295,8 +294,8 @@ public class MapVisual extends JPanel {
         Random random = new Random();
 
         for (Noeud tmpNoeuds2 : toDraw) {
-            tmpNoeuds2.setPosX(random.nextInt( this.getSize().width - edgeMarginH*2)-edgeMarginH);
-            tmpNoeuds2.setPosY(random.nextInt( this.getSize().height - edgeMarginV*2)-edgeMarginV);
+            tmpNoeuds2.setPosX(random.nextInt( this.getSize().width - edgeMarginH*2)+edgeMarginH);
+            tmpNoeuds2.setPosY(random.nextInt( this.getSize().height - edgeMarginV*2)+edgeMarginV);
         }
         
         // Si il y a qlqc à dessiner  alors on dessine
@@ -319,21 +318,21 @@ public class MapVisual extends JPanel {
         while (edit) {
             edit = false;
             Dimension tmpSize = this.getSize();
-            int maxH = tmpSize.width - edgeMarginH - avgTextWidth / 2;
-            int maxV = tmpSize.height - edgeMarginV - avgTextWidth / 2;
+            int maxH = tmpSize.width - edgeMarginH ;
+            int maxV = tmpSize.height - edgeMarginV ;
             for (Noeud tmp : toDraw) {
                 if (typeToDraw.contains(tmp.getType())) {
 
                     int tmpPosX = tmp.getPosX();
                     int tmpPosY = tmp.getPosY();
-                    int goal = 120;
+      
 
                     int minSpace = 85;
 
                     for (Noeud tmpNoeuds2 : toDraw) {
                         if (typeToDraw.contains(tmpNoeuds2.getType())) {
-                            tmpPosX += tmp.getPosDeltaX(tmpNoeuds2, minSpace) * 0.1;
-                            tmpPosY += tmp.getPosDeltaY(tmpNoeuds2, minSpace) * 0.1;
+                            tmpPosX += tmp.getPosDeltaX(tmpNoeuds2, minSpace) * 0.2;
+                            tmpPosY += tmp.getPosDeltaY(tmpNoeuds2, minSpace) * 0.2;
                         }
 
                     }
@@ -341,9 +340,12 @@ public class MapVisual extends JPanel {
                     tmpPosX = (int) (tmpPosX > maxH ? maxH - tmpPosX % maxH * 0 : tmpPosX);
                     tmpPosY = (int) (tmpPosY > maxV ? maxV - tmpPosY % maxV * 0 : tmpPosY);
 
-                    tmpPosX = tmpPosX < edgeMarginH - avgTextWidth / 2 ? tmpPosX + edgeMarginH - avgTextWidth / 2 : tmpPosX;
-                    tmpPosY = tmpPosY < edgeMarginV - avgTextWidth / 2 ? tmpPosY + edgeMarginV - avgTextWidth / 2 : tmpPosY;
-
+                    tmpPosX = tmpPosX < edgeMarginH + tmp.getWidth() / 2 ?  edgeMarginH + tmp.getWidth() / 2 : tmpPosX; //tmpPosX +
+                    tmpPosY = tmpPosY < edgeMarginV + tmp.getWidth() / 2 ?  edgeMarginV + tmp.getWidth() / 2 : tmpPosY; //tmpPosY +
+                    
+                    if (edit == false && (tmpPosX != tmp.getPosX() || tmpPosY != tmp.getPosY())){
+                        edit = true;
+                    }
                     tmp.setPosX(tmpPosX);
                     tmp.setPosY(tmpPosY);
 
