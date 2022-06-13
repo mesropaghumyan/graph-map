@@ -139,12 +139,15 @@ public class MapVisual extends JPanel {
     public void paintLien(Graphics2D g) {
         // Dessiner les liens
         for (int i = 0; i < toDrawLiens.size(); i++) {
+            // Vérifier qu’il faut dessiner le lien
+
             if (typeToDraw.contains(toDrawLiens.get(i).getNoeuds1().getType())
                     && typeToDraw.contains(toDrawLiens.get(i).getNoeuds2().getType())
                     && typeToDrawLiens.contains(toDrawLiens.get(i).getTypeLiens())) {
                 Noeud noeudsUn = toDrawLiens.get(i).getNoeuds1();
                 Noeud noeudsDeux = toDrawLiens.get(i).getNoeuds2();
-
+                
+                // Définir la bonne couleur
                 g.setColor(new Color(150, 100, 100));
                 if (toDrawLiens.get(i).getTypeLiens().equals("D")) {
                     g.setColor(new Color(100, 150, 100));
@@ -152,7 +155,8 @@ public class MapVisual extends JPanel {
                 if (toDrawLiens.get(i).getTypeLiens().equals("N")) {
                     g.setColor(new Color(100, 100, 150));
                 }
-
+                
+                // Dessiner le lien
                 g.drawLine(noeudsUn.getPosX() + (noeudsUn.getWidth() / 2), noeudsUn.getPosY() + (noeudsUn.getWidth() / 2),
                         noeudsDeux.getPosX() + (noeudsUn.getWidth() / 2),
                         noeudsDeux.getPosY() + (noeudsUn.getWidth() / 2));
@@ -169,12 +173,15 @@ public class MapVisual extends JPanel {
 
         // Dessiner les noeuds
         for (Noeud tmp : toDraw) {
+            // Vérifier qu’il faut dessiner le nœud
             if (typeToDraw.contains(tmp.getType())) {
+                // Si le nœud est sélectionné, alors ajouter un anneau autour
                 if (tmp.isSelected()){
                     g.setColor( Color.BLACK);
                     g.fillOval(tmp.getPosX()-(selectedOffset/2), tmp.getPosY()-(selectedOffset/2), 
                             tmp.getWidth()+selectedOffset, tmp.getWidth()+selectedOffset);
                 }
+                // Définir la bonne couleur
                 Color tmpColor = Color.RED;
                 if (tmp.getType().equals("R")) {
                     tmpColor = Color.GREEN;
@@ -182,7 +189,8 @@ public class MapVisual extends JPanel {
                 if (tmp.getType().equals("L")) {
                     tmpColor = Color.BLUE;
                 }
-
+                
+                // Dessiner le noeud
                 g.setColor(tmpColor);
                 g.fillOval(tmp.getPosX(), tmp.getPosY(), tmp.getWidth(), tmp.getWidth());
             }
@@ -194,7 +202,10 @@ public class MapVisual extends JPanel {
      * Dessiner les noms de neouds
      */
     public void paintLabel() {
+        // Effacer les aniciens
         this.removeAll();
+        
+        // Dessiner les labels
         for (Noeud tmp : toDraw) {
             if (typeToDraw.contains(tmp.getType())) {
                 this.add(tmp.getLabelNoeuds());
@@ -296,7 +307,8 @@ public class MapVisual extends JPanel {
             colorIndicator.setBackground(Color.yellow);
         }
         Random random = new Random();
-
+        
+        // Initialiser la position des nœuds
         for (Noeud tmpNoeuds2 : toDraw) {
             tmpNoeuds2.setPosX(random.nextInt( this.getSize().width - edgeMarginH*2)+edgeMarginH);
             tmpNoeuds2.setPosY(random.nextInt( this.getSize().height - edgeMarginV*2)+edgeMarginV);
@@ -321,10 +333,14 @@ public class MapVisual extends JPanel {
        
         while (edit) {
             edit = false;
+            
+            // Définir la position max et min des nœuds par rapport a la taille de la fenêtre
             Dimension tmpSize = this.getSize();
             int maxH = tmpSize.width - edgeMarginH ;
             int maxV = tmpSize.height - edgeMarginV ;
+            
             for (Noeud tmp : toDraw) {
+                // Si le noeud est a dessiner
                 if (typeToDraw.contains(tmp.getType())) {
 
                     int tmpPosX = tmp.getPosX();
@@ -332,7 +348,8 @@ public class MapVisual extends JPanel {
       
 
                     int minSpace = 85;
-
+                    
+                    // Calculer les mouvements a effectuer
                     for (Noeud tmpNoeuds2 : toDraw) {
                         if (typeToDraw.contains(tmpNoeuds2.getType())) {
                             tmpPosX += tmp.getPosDeltaX(tmpNoeuds2, minSpace) * 0.2;
@@ -340,10 +357,12 @@ public class MapVisual extends JPanel {
                         }
 
                     }
-
+                    
+                    // Verifier que la nouvelle valeur n'est pas trop petite
                     tmpPosX = (int) (tmpPosX > maxH ? maxH - tmpPosX % maxH * 0 : tmpPosX);
                     tmpPosY = (int) (tmpPosY > maxV ? maxV - tmpPosY % maxV * 0 : tmpPosY);
-
+                    
+                    // Verifier que la nouvelle valeur n'est pas trop grande
                     tmpPosX = tmpPosX < edgeMarginH + tmp.getWidth() / 2 ?  edgeMarginH + tmp.getWidth() / 2 : tmpPosX; //tmpPosX +
                     tmpPosY = tmpPosY < edgeMarginV + tmp.getWidth() / 2 ?  edgeMarginV + tmp.getWidth() / 2 : tmpPosY; //tmpPosY +
                     
@@ -379,6 +398,8 @@ public class MapVisual extends JPanel {
             int Yo = i.getPosY();
             for (Noeud w : toDraw) {
                 
+                // La distance moyenne entre le nœud et ses voisins au coordonné 
+                // en parmareamtre est plus petite que celle de l’autre nœud, alors les changer de position.
                 if (w.getAverageDistDromV(Xo, Yo) < i.getAverageDistDromV()) {
                     
                     i.setPosX(w.getPosX());

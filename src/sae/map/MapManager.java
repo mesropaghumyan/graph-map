@@ -236,20 +236,24 @@ public class MapManager {
 
         String[] voisins;
 
-        //this.stringToListNoeuds(data); recupere to les noeuds de departs
+        // Diviser le string à tous les ;;
         villeListe = data.split(";;");
         for (int i = 0; i < villeListe.length; i++) {
+            // Récupérer la partie de droite et la diviser par ;
             voisins = villeListe[i].substring(villeListe[i].indexOf(":") + 1, villeListe[i].length()).split(";");
-
+            
+            //this.stringToListNoeuds(data); recupere to les noeuds de departs
             Noeud depart = this.stringToNoeud(villeListe[i].substring(0, villeListe[i].indexOf(":")));
-
+            
+            // Ajouter le noeud si il n'éxiste pas
             if (!this.addToListeNoeuds(depart)) {
                 depart = this.getNoeudsByNameAndType(depart);
             }
-
+            
+            // parcourir la partie de droite
             for (int z = 0; z < voisins.length; z++) {
                 try {
-
+                    // Ajouter le Lien
                     this.ajouterRoute(voisins[z], depart);
 
                 } catch (StringIndexOutOfBoundsException e) {
