@@ -8,6 +8,8 @@ package sae.map;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
@@ -111,16 +113,18 @@ public class MapVisual extends JPanel {
      */
     @Override
     public void paintComponent(Graphics g) {
-
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
         // Effacer le dernier paintComp
-        g.setColor(this.getBackground());
-        g.fillRect(0, 0, this.getWidth(), this.getHeight());
+        g2.setColor(this.getBackground());
+        g2.fillRect(0, 0, this.getWidth(), this.getHeight());
 
         // Dessiner les liens
-        paintLien(g);
+        paintLien(g2);
 
         // Desssiner les noeuds
-        paintNoeud(g);
+        paintNoeud(g2);
 
         // Dessiner les noms de neouds
         paintLabel();
@@ -130,9 +134,9 @@ public class MapVisual extends JPanel {
     /**
      * Dessiner les liens
      *
-     * @param g type Graphics
+     * @param g type Graphics2D
      */
-    public void paintLien(Graphics g) {
+    public void paintLien(Graphics2D g) {
         // Dessiner les liens
         for (int i = 0; i < toDrawLiens.size(); i++) {
             if (typeToDraw.contains(toDrawLiens.get(i).getNoeuds1().getType())
@@ -159,9 +163,9 @@ public class MapVisual extends JPanel {
     /**
      * Desssiner les noeuds
      *
-     * @param g type Graphics
+     * @param g type Graphics2D
      */
-    public void paintNoeud(Graphics g) {
+    public void paintNoeud(Graphics2D g) {
 
         // Dessiner les noeuds
         for (Noeud tmp : toDraw) {
