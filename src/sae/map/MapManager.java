@@ -204,6 +204,7 @@ public class MapManager {
 
             }
             fileReader.close();
+            System.out.println(res_file);
             this.stringMap(res_file);
             if (colorIndicator != null) {
                 colorIndicator.setBackground(Color.green);
@@ -235,6 +236,8 @@ public class MapManager {
         String[] villeListe;
 
         String[] voisins;
+        
+        
 
         // Diviser le string à tous les ;;
         villeListe = data.split(";;");
@@ -244,6 +247,9 @@ public class MapManager {
             
             //this.stringToListNoeuds(data); recupere to les noeuds de departs
             Noeud depart = this.stringToNoeud(villeListe[i].substring(0, villeListe[i].indexOf(":")));
+            if (depart == null){
+                continue;
+            }
             
             // Ajouter le noeud si il n'éxiste pas
             if (!this.addToListeNoeuds(depart)) {
@@ -393,6 +399,9 @@ public class MapManager {
 
         //Creation du lien
         Lien tmp_lien = this.stringToLiens(data, depart, tmp);
+        if( tmp_lien == null){
+            return false;
+        }
 
         //Ajout de la connection au deux extréminté
         if (depart.addConnection(tmp_lien) == true && tmp.addConnection(tmp_lien) == true) {
