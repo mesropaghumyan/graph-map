@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sae.map;
 
 import sae.exception.TypeNotSupportedException;
@@ -14,9 +9,11 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
- *
- * @author p2103642
+ * Cette classe représente l'ensembles des méthodes permettant de charger la carte.
+ * @author Loan & Mesrop
+ * @version 1.0
  */
+
 public class MapManager {
 
     // <editor-fold defaultstate="collapsed" desc="Déclaration">  

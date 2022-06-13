@@ -1,15 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package sae.myInterface;
 
 import sae.map.Noeud;
 
 /**
- *
- * @author Loan
+ * Cette classe représente l'écouteur de la classe {@link #MapVisual.java}
+ * @author Loan & Mesrop
+ * @version 1.0
  */
+
 public interface NoeudListener {
     
     public void noeudSelected(Noeud obj);

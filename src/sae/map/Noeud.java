@@ -1,20 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package sae.map;
 
-import sae.map.Lien;
 import sae.exception.TypeNotSupportedException;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
- *
- * @author Loan
+ * Cette classe représente les noeuds.
+ * @author Loan & Mesrop
+ * @version 1.0
  */
+
 public class Noeud {
 
     // <editor-fold defaultstate="collapsed" desc="Déclaration">  

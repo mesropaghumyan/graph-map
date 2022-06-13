@@ -1,6 +1,5 @@
 package test;
 
-import java.io.File;
 import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
 import sae.exception.TypeNotSupportedException;
@@ -8,17 +7,12 @@ import sae.map.Lien;
 import sae.map.MapManager;
 import sae.map.Noeud;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
-
-
-
 /**
- *
- * @author Loan
+ * Cette classe représente l'ensemble des tests unitaires effectués.
+ * @author Loan & Mesrop
+ * @version 1.0
  */
+
 public class MapManagerTest {
     
     

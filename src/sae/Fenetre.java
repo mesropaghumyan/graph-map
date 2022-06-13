@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package sae;
 
 import sae.map.MapManager;
@@ -9,22 +5,17 @@ import sae.map.Noeud;
 import sae.map.Lien;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.event.WindowAdapter;
 import java.io.File;
-import java.util.List;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileView;
-import javax.swing.plaf.FileChooserUI;
 import sae.myInterface.NoeudListener;
 
 /**
- *
- * @author Loan
+ * Cette classe représente l'interface graphique.
+ * @author Loan & Mesrop
+ * @version 1.0
  */
 public class Fenetre extends javax.swing.JFrame {
     

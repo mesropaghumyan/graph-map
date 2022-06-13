@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package sae.map;
 
 
@@ -21,9 +17,11 @@ import javax.swing.JPanel;
 import sae.myInterface.NoeudListener;
 
 /**
- *  Classe responsable de la représentation du graphe
- * @author Loan
+ * Cette classe représente l'ensemble de la représentation du graphe.
+ * @author Loan & Mesrop
+ * @version 1.0
  */
+
 public class MapVisual extends JPanel {
 
     // <editor-fold defaultstate="collapsed" desc="Déclaration">  
