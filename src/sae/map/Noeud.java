@@ -255,29 +255,13 @@ public class Noeud {
      * @param goal type int
      * @return type double
      */
-    protected double getPosDeltaX(Noeud tmpVoisin, int goal) {
+    protected double getPosDeltaX(Noeud tmpVoisin) {
         if (tmpVoisin.equals(this)) {
             return 0.0;
         }
         int dX = tmpVoisin.getPosX() - this.getPosX() + (tmpVoisin.width / 2) - (this.width / 2);
-        int dY = tmpVoisin.getPosY() - this.getPosY() + (tmpVoisin.width / 2) - (this.width / 2);
-        int move = 0;
-        int direction = 1;
-        if (dX != 0) {
-            direction = dX / Math.abs(dX) * (-1);
-        } else {
-            Random r = new Random();
-            return r.nextInt(goal * 2) - goal;
 
-        }
-
-        
-        if ((dX * dX) + (dY * dY) < 0.95 * goal*goal) {
-            move = 1;
-
-        }
-        int res = (int) (goal - Math.sqrt((dX * dX) + (dY * dY))) * move * direction;
-        return res;
+        return dX;
     }
     
     /**
@@ -287,31 +271,13 @@ public class Noeud {
      * @param goal type int
      * @return type double
      */
-    protected double getPosDeltaY(Noeud tmpVoisin, int goal) {
+    protected double getPosDeltaY(Noeud tmpVoisin) {
         if (tmpVoisin.equals(this)) {
             return 0.0;
         }
-        int dX = tmpVoisin.getPosX() - this.getPosX() + (tmpVoisin.width / 2) - (this.width / 2);
         int dY = tmpVoisin.getPosY() - this.getPosY() + (tmpVoisin.width / 2) - (this.width / 2);
-        int move = 0;
-        int direction = 1;
-
-        if (dY != 0) {
-            direction = dY / Math.abs(dY) * (-1);
-        } else {
-            Random r = new Random();
-            return r.nextInt(goal * 2) - goal;
-
-        }
-
-        if ((dX * dX) + (dY * dY) < 0.95 * goal*goal) {
-
-            move = 1;
-
-        }
-        //(dY-goal)*direction*0.05;
-        int res = (int) (goal - Math.sqrt((dX * dX) + (dY * dY))) * move * direction;
-        return res;
+  
+        return dY;
     }
 
     @Override

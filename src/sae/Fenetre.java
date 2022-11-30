@@ -78,7 +78,7 @@ public class Fenetre extends javax.swing.JFrame {
         //</editor-fold>
         initComponents();
         myinit();
-        setSize(900, 700);
+        setSize(1500, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setVisible(true);
